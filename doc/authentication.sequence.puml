@@ -1,0 +1,65 @@
+@startuml
+!theme crt-green
+
+actor User
+participant Server
+database DB
+
+group Authentifizierung
+  User -> Server: Authentifizierung
+  activate Server
+
+  Server -> DB: Benutzer abfragen
+  activate DB
+  return DB --> Server: Benutzerdaten
+
+  Server -> Server: Passwort validieren
+  alt Authentifizierung erfolgreich
+    Server -> Server: Fingerabdrücke erstellen
+    Server -> Server: Access Token + Refresh Token erstellen
+
+    Server --> User: Access + Refresh Token (JWT mit Fingerabdruck als hardend Cookie)
+  else Valideriung fehlgeschlagen
+    Server --> User: Fehlermeldung
+  end
+  deactivate Server
+
+  User -> User: Access + Refresh Token im SessionStorage speichern
+end
+
+group Nutzung
+  User -> Server: Abfrage mit Access Token
+  Server --> User: Antwort
+end
+
+== Access Token läuft ab ==
+
+group Nutzung
+  User -> Server: Abfrage mit Access Token
+  Server --> User: Access Token abgelaufen
+end
+
+group Refresh Token
+  User -> Server: Refresh Token mit Refresh Token
+  Server --> User: Antwort mit neuem Access Token
+end
+
+group Nutzung
+  User -> Server: Abfrage mit Access Token
+  Server --> User: Antwort
+end
+
+== Access Token und Refresh Token laufen ab ==
+
+group Nutzung
+  User -> Server: Abfrage mit Access Token
+  Server --> User: Access Token abgelaufen
+end
+
+group Refresh Token
+  User -> Server: Refresh Token mit Refresh Token
+  Server --> User: Refresh Token abgelaufen - Logout durchführen
+end
+
+
+@enduml

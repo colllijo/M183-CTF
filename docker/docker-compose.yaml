@@ -1,0 +1,15 @@
+version: "2.1"
+name: ctf
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ctf
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ctf
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:
