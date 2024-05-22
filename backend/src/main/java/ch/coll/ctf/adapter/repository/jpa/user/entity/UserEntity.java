@@ -27,7 +27,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "_User")
 public class UserEntity {
-
   @Id
   @GeneratedValue(strategy = IDENTITY)
   @Column(name = "id")
@@ -44,8 +43,8 @@ public class UserEntity {
   private String email;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "user_role")
-  private UserRole userRole;
+  @Column(name = "role", nullable = false)
+  private UserRole role;
 
   @ManyToMany(mappedBy = "solvers")
   private Set<CaptureTheFlagEntity> solvedChallenges;

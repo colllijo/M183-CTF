@@ -13,7 +13,7 @@ public class User {
   private String username;
   private String password;
   private String email;
-  private UserRole userRole;
+  private UserRole role;
   private boolean active;
   private Set<CaptureTheFlag> solvedChallenges;
 }

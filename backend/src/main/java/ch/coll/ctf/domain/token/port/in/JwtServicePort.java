@@ -5,7 +5,9 @@ import ch.coll.ctf.domain.user.model.User;
 public interface JwtServicePort {
   public String extractUsername(String token);
 
-  public String generateToken(User user);
+  public String generateToken(User user, String fingerprint);
 
   public boolean isTokenValid(String token, User user);
+
+  public Integer getExpirationTime();
 }

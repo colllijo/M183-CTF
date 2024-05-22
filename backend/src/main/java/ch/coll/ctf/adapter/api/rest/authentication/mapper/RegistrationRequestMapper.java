@@ -10,7 +10,7 @@ import ch.coll.ctf.domain.user.model.User;
 @Mapper(config = RestMapperConfig.class)
 public interface RegistrationRequestMapper {
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "userRole", ignore = true)
+  @Mapping(target = "role", expression = "java(UserRole.USER)")
   @Mapping(target = "active", ignore = true)
   @Mapping(target = "solvedChallenges", ignore = true)
   public User mapRequestToUser(RegistrationRequest request);
