@@ -2,14 +2,11 @@ package ch.coll.ctf.domain.user.service;
 
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
 import ch.coll.ctf.domain.user.model.User;
 import ch.coll.ctf.domain.user.port.in.UserServicePort;
 import ch.coll.ctf.domain.user.port.out.UserRepositoryPort;
 import lombok.RequiredArgsConstructor;
 
-@Service
 @RequiredArgsConstructor
 public class UserService implements UserServicePort {
 

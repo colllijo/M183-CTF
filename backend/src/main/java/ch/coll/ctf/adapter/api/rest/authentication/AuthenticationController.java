@@ -26,9 +26,18 @@ public class AuthenticationController {
   private final RegistrationRequestMapper registrationMapper;
 
   @PostMapping("/login")
-  public String login(@RequestBody AuthenticationRequest authenticationRequest) {
-    return authenticationService.login(authenticationRequest.getUsername(), authenticationRequest.getPassword())
-        .getToken();
+  public AuthenticatedResponse login(@RequestBody AuthenticationRequest authenticationRequest,
+      HttpServletResponse response) {
+    SecureToken token = authenticationService.login(authenticationRequest.getUsername(),
+        authenticationRequest.getPassword());
+    Cookie cookie = new Cookie("Access-Token", token.getFingerprint());
+    cookie.setPath("/");
+    cookie.setSecure(true);
+    cookie.setHttpOnly(true);
+    cookie.setMaxAge(authenticationService.getExpirationTime());
+
+    response.addCookie(cookie);
+    return new AuthenticatedResponse(token.getToken());
   }
 
   @PostMapping("/register")
@@ -38,7 +47,7 @@ public class AuthenticationController {
       throw new IllegalArgumentException("Passwords do not match");
 
     SecureToken token = authenticationService.register(registrationMapper.mapRequestToUser(user));
-    Cookie cookie = new Cookie("access_token", token.getFingerprint());
+    Cookie cookie = new Cookie("Access-Token", token.getFingerprint());
     cookie.setPath("/");
     cookie.setSecure(true);
     cookie.setHttpOnly(true);

@@ -2,7 +2,7 @@ package ch.coll.ctf.domain.user.model;
 
 import java.util.Set;
 
-import ch.coll.ctf.domain.ctf.model.CaptureTheFlag;
+import ch.coll.ctf.domain.ctf.model.Solve;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,5 +15,5 @@ public class User {
   private String email;
   private UserRole role;
   private boolean active;
-  private Set<CaptureTheFlag> solvedChallenges;
+  private Set<Solve> solves;
 }

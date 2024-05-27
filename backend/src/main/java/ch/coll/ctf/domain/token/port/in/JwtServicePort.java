@@ -7,7 +7,9 @@ public interface JwtServicePort {
 
   public String generateToken(User user, String fingerprint);
 
-  public boolean isTokenValid(String token, User user);
+  public boolean isTokenValid(String token, String fingerprint, User user);
+
+  public String hashFingerprint(String fingerprint);
 
   public Integer getExpirationTime();
 }

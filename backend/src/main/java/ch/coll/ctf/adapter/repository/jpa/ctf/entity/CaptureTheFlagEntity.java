@@ -1,6 +1,7 @@
 package ch.coll.ctf.adapter.repository.jpa.ctf.entity;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
+import static jakarta.persistence.FetchType.EAGER;
 
 import java.util.Set;
 
@@ -10,9 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,7 +47,6 @@ public class CaptureTheFlagEntity {
   @Column(name = "points")
   private Integer points;
 
-  @ManyToMany
-  @JoinTable(name = "_Solve", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "ctf_id"))
-  private Set<UserEntity> solvers;
+  @OneToMany(mappedBy = "ctf", fetch = EAGER)
+  private Set<SolveEntity> solves;
 }

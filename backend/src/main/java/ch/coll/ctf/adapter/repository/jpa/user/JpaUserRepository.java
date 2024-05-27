@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 public class JpaUserRepository implements UserRepositoryPort {
-
   private final JpaUserEntityRepository userRepository;
   private final UserEntityMapper userMapper;
 
