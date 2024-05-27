@@ -43,7 +43,7 @@ public class SecurityConfig {
 
   @Bean
   public AuthenticationProvider authenticationProvider() {
-    return new AuthenticationProviderService(userService);
+    return new AuthenticationProviderService(userService, passwordEncoder());
   }
 
   @Bean

@@ -30,7 +30,7 @@ public class AuthenticationController {
       HttpServletResponse response) {
     SecureToken token = authenticationService.login(authenticationRequest.getUsername(),
         authenticationRequest.getPassword());
-    Cookie cookie = new Cookie("Access-Token", token.getFingerprint());
+    Cookie cookie = new Cookie("Access-Token", token.getFingerprintBase64());
     cookie.setPath("/");
     cookie.setSecure(true);
     cookie.setHttpOnly(true);
@@ -47,7 +47,7 @@ public class AuthenticationController {
       throw new IllegalArgumentException("Passwords do not match");
 
     SecureToken token = authenticationService.register(registrationMapper.mapRequestToUser(user));
-    Cookie cookie = new Cookie("Access-Token", token.getFingerprint());
+    Cookie cookie = new Cookie("Access-Token", token.getFingerprintBase64());
     cookie.setPath("/");
     cookie.setSecure(true);
     cookie.setHttpOnly(true);

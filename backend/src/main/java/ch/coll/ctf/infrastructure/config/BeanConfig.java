@@ -3,6 +3,7 @@ package ch.coll.ctf.infrastructure.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ch.coll.ctf.domain.authentication.port.in.AuthenticationServicePort;
 import ch.coll.ctf.domain.authentication.service.AuthenticationService;
@@ -26,7 +27,7 @@ public class BeanConfig {
 
   @Bean
   public AuthenticationServicePort authenticationService(UserServicePort userService, JwtServicePort jwtService,
-      AuthenticationManager authenticationManager) {
-    return new AuthenticationService(userService, jwtService, authenticationManager);
+      AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder) {
+    return new AuthenticationService(userService, jwtService, authenticationManager, passwordEncoder);
   }
 }

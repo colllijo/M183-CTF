@@ -1,7 +1,6 @@
 package ch.coll.ctf.domain.authentication.service;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -9,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ch.coll.ctf.domain.user.model.User;
 import ch.coll.ctf.domain.user.port.in.UserServicePort;
@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationProviderService implements AuthenticationProvider {
   private final UserServicePort userService;
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -26,10 +27,10 @@ public class AuthenticationProviderService implements AuthenticationProvider {
     User user = userService.getUserByUsername(username)
         .orElseThrow(() -> new UsernameNotFoundException(username));
 
-    if (!Objects.equals(user.getPassword(), password))
-      throw new BadCredentialsException("Invalid credentials");
-    else
+    if (passwordEncoder.matches(password, user.getPassword()))
       return new UsernamePasswordAuthenticationToken(user, password, List.of());
+    else
+      throw new BadCredentialsException("Invalid credentials");
   }
 
   @Override

@@ -1,6 +1,7 @@
 package ch.coll.ctf.infrastructure.config;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -42,6 +43,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     final String fingerprint = Stream.of(request.getCookies())
         .filter(cookie -> cookie.getName().equals("Access-Token"))
         .map(Cookie::getValue)
+        .map(Base64.getDecoder()::decode)
+        .map(String::new)
         .findFirst()
         .orElse(null);
 
