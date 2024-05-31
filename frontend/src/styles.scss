@@ -1,6 +1,6 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 
 // Plus imports for other components in your app.
 
@@ -18,30 +18,30 @@ $warn: mat.define-palette(mat.$red-palette);
 
 // Define custom font
 @font-face {
-  font-family: "Hack";
+  font-family: 'Hack';
   src:
     local(Hack),
-    url(./assets/fonts/HackNerdFont-Regular.ttf) format("truetype");
+    url(./assets/fonts/HackNerdFont-Regular.ttf) format('truetype');
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
 }
 
 @font-face {
-  font-family: "Hack";
+  font-family: 'Hack';
   src:
     local(Hack-Bold),
-    url(./assets/fonts/HackNerdFont-Bold.ttf) format("truetype");
+    url(./assets/fonts/HackNerdFont-Bold.ttf) format('truetype');
   font-weight: 900;
   font-style: normal;
   font-stretch: normal;
 }
 
 @font-face {
-  font-family: "Hack";
+  font-family: 'Hack';
   src:
     local(Hack-Italic),
-    url(./assets/fonts/HackNerdFont-Italic.ttf) format("truetype");
+    url(./assets/fonts/HackNerdFont-Italic.ttf) format('truetype');
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
@@ -49,16 +49,16 @@ $warn: mat.define-palette(mat.$red-palette);
 
 // Define custom typography
 $font-families: (
-  "default": (
+  'default': (
     Hack,
     Arial,
     Helvetica,
-    sans-serif,
-  ),
+    sans-serif
+  )
 );
 
 $typography: mat.define-typography-config(
-  $font-family: map-get($font-families, "default"),
+  $font-family: map-get($font-families, 'default')
 );
 
 // Create the theme object. A theme consists of configurations for individual
@@ -68,10 +68,10 @@ $theme: mat.define-dark-theme(
     color: (
       primary: $primary,
       accent: $accent,
-      warn: $warn,
+      warn: $warn
     ),
     typography: $typography,
-    density: 0,
+    density: 0
   )
 );
 
@@ -89,5 +89,5 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }

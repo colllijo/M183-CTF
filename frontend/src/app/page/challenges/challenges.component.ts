@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
   templateUrl: './challenges.component.html',
   styleUrl: './challenges.component.scss'
 })
-export class ChallengesComponent {
-
-}
+export class ChallengesComponent {}

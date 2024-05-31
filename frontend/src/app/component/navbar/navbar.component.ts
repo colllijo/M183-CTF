@@ -17,10 +17,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     MatMenuModule,
     MatToolbarModule,
     RouterLink,
-    TranslateModule,
+    TranslateModule
   ],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss',
+  styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
   public languages: { [key: string]: string };
@@ -29,7 +29,7 @@ export class NavbarComponent {
   constructor(private translateService: TranslateService) {
     this.languages = {
       de: 'Deutsch',
-      en: 'English',
+      en: 'English'
     };
     this.currentLanguage = this.translateService.defaultLang;
   }

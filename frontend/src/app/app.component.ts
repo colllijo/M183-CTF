@@ -9,7 +9,7 @@ import { ApiConfiguration } from '@core/api/api-configuration';
   standalone: true,
   imports: [NavbarComponent, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   constructor(private apiConfig: ApiConfiguration) {

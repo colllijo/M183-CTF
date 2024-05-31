@@ -1,13 +1,13 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title
-      ><h1>{{ "PAGES.LOGIN.TITLE" | translate }}</h1></mat-card-title
+      ><h1>{{ 'PAGES.LOGIN.TITLE' | translate }}</h1></mat-card-title
     >
     <mat-card-subtitle>
       <span>
-        {{ "PAGES.LOGIN.REGISTRATION" | translate }}
+        {{ 'PAGES.LOGIN.REGISTRATION' | translate }}
         <a routerLink="/register">
-          <i>{{ "PAGES.LOGIN.REGISTRATION-LINK" | translate }}</i>
+          <i>{{ 'PAGES.LOGIN.REGISTRATION-LINK' | translate }}</i>
         </a>
       </span>
     </mat-card-subtitle>
@@ -15,32 +15,31 @@
   <mat-card-content>
     <form [formGroup]="loginForm" (submit)="login()">
       <mat-form-field>
-        <mat-label>{{ "PAGES.LOGIN.USERNAME" | translate }}</mat-label>
+        <mat-label>{{ 'PAGES.LOGIN.USERNAME' | translate }}</mat-label>
         <input matInput formControlName="username" />
-        @if (loginForm.controls["username"].hasError("required")) {
+        @if (loginForm.controls['username'].hasError('required')) {
           <mat-error>
-            {{ "PAGES.LOGIN.ERRORS.USERNAME-REQUIRED" | translate }}
+            {{ 'PAGES.LOGIN.ERRORS.USERNAME-REQUIRED' | translate }}
           </mat-error>
         }
       </mat-form-field>
       <mat-form-field>
-        <mat-label>{{ "PAGES.LOGIN.PASSWORD" | translate }}</mat-label>
+        <mat-label>{{ 'PAGES.LOGIN.PASSWORD' | translate }}</mat-label>
         <input
           matInput
           formControlName="password"
-          [type]="passwordVisible ? 'text' : 'password'"
-        />
+          [type]="passwordVisible ? 'text' : 'password'" />
         <mat-icon matSuffix (click)="passwordVisible = !passwordVisible">
-          {{ passwordVisible ? "visibility" : "visibility_off" }}
+          {{ passwordVisible ? 'visibility' : 'visibility_off' }}
         </mat-icon>
-        @if (loginForm.controls["password"].hasError("required")) {
+        @if (loginForm.controls['password'].hasError('required')) {
           <mat-error>
-            {{ "PAGES.LOGIN.ERRORS.PASSWORD-REQUIRED" | translate }}
+            {{ 'PAGES.LOGIN.ERRORS.PASSWORD-REQUIRED' | translate }}
           </mat-error>
         }
       </mat-form-field>
       <button mat-flat-button color="primary" [disabled]="!loginForm.valid">
-        {{ "PAGES.LOGIN.LOGIN" | translate }}
+        {{ 'PAGES.LOGIN.LOGIN' | translate }}
       </button>
     </form>
   </mat-card-content>

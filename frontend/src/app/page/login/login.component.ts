@@ -3,7 +3,7 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -24,10 +24,10 @@ import { TranslateModule } from '@ngx-translate/core';
     MatInputModule,
     ReactiveFormsModule,
     RouterLink,
-    TranslateModule,
+    TranslateModule
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   public loginForm: FormGroup;
@@ -36,7 +36,7 @@ export class LoginComponent {
   constructor() {
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     });
     this.passwordVisible = false;
   }

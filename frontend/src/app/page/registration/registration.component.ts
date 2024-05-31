@@ -6,7 +6,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
   ValidationErrors,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -29,10 +29,10 @@ import { TranslateModule } from '@ngx-translate/core';
     MatInputModule,
     ReactiveFormsModule,
     RouterLink,
-    TranslateModule,
+    TranslateModule
   ],
   templateUrl: './registration.component.html',
-  styleUrl: './registration.component.scss',
+  styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
   public registrationForm: FormGroup;
@@ -44,9 +44,9 @@ export class RegistrationComponent {
         username: new FormControl('', Validators.required),
         password: new FormControl('', Validators.required),
         passwordConfirmation: new FormControl('', Validators.required),
-        email: new FormControl('', [Validators.required, Validators.email]),
+        email: new FormControl('', [Validators.required, Validators.email])
       },
-      passwordConfirmationValidator,
+      passwordConfirmationValidator
     );
     this.passwordVisible = false;
   }
@@ -57,7 +57,7 @@ export class RegistrationComponent {
 }
 
 function passwordConfirmationValidator(
-  control: AbstractControl,
+  control: AbstractControl
 ): ValidationErrors | null {
   const password = control.get('password');
   const passwordConfirmation = control.get('passwordConfirmation');

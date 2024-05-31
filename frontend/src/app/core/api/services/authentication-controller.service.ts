@@ -30,7 +30,10 @@ export class AuthenticationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  login$Response(params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticatedResponse>> {
+  login$Response(
+    params: Login$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<AuthenticatedResponse>> {
     return login(this.http, this.rootUrl, params, context);
   }
 
@@ -40,9 +43,15 @@ export class AuthenticationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  login(params: Login$Params, context?: HttpContext): Observable<AuthenticatedResponse> {
+  login(
+    params: Login$Params,
+    context?: HttpContext
+  ): Observable<AuthenticatedResponse> {
     return this.login$Response(params, context).pipe(
-      map((r: StrictHttpResponse<AuthenticatedResponse>): AuthenticatedResponse => r.body)
+      map(
+        (r: StrictHttpResponse<AuthenticatedResponse>): AuthenticatedResponse =>
+          r.body
+      )
     );
   }
 
@@ -55,7 +64,10 @@ export class AuthenticationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  register$Response(params: Register$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticatedResponse>> {
+  register$Response(
+    params: Register$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<AuthenticatedResponse>> {
     return register(this.http, this.rootUrl, params, context);
   }
 
@@ -65,10 +77,15 @@ export class AuthenticationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  register(params: Register$Params, context?: HttpContext): Observable<AuthenticatedResponse> {
+  register(
+    params: Register$Params,
+    context?: HttpContext
+  ): Observable<AuthenticatedResponse> {
     return this.register$Response(params, context).pipe(
-      map((r: StrictHttpResponse<AuthenticatedResponse>): AuthenticatedResponse => r.body)
+      map(
+        (r: StrictHttpResponse<AuthenticatedResponse>): AuthenticatedResponse =>
+          r.body
+      )
     );
   }
-
 }
