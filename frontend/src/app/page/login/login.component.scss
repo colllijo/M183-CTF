@@ -1,0 +1,45 @@
+mat-card {
+  width: fit-content;
+  height: fit-content;
+
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+
+  margin: 0 auto;
+
+  mat-card-header {
+    margin: 0 0 1rem;
+
+    mat-card-title {
+      h1 {
+        margin: 0;
+      }
+    }
+
+    mat-card-subtitle {
+      a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  mat-card-content {
+    form {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(2, 1fr);
+
+      min-width: 480px;
+
+      mat-form-field {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h1>{{ "PAGES.REGISTRATION.TITLE" | translate }}</h1>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <span>
+        {{ "PAGES.REGISTRATION.LOGIN" | translate }}
+        <a routerLink="/login">
+          <i>{{ "PAGES.REGISTRATION.LOGIN-LINK" | translate }}</i>
+        </a>
+      </span>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="registrationForm" (submit)="register()">
+      <mat-form-field>
+        <mat-label>{{ "PAGES.REGISTRATION.USERNAME" | translate }}</mat-label>
+        <input matInput formControlName="username" />
+        @if (registrationForm.controls["username"].hasError("required")) {
+          <mat-error>
+            {{ "PAGES.REGISTRATION.ERRORS.USERNAME-REQUIRED" | translate }}
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ "PAGES.REGISTRATION.EMAIL" | translate }}</mat-label>
+        <input matInput formControlName="email" />
+        @if (registrationForm.controls["email"].hasError("required")) {
+          <mat-error>
+            {{ "PAGES.REGISTRATION.ERRORS.EMAIL-REQUIRED" | translate }}
+          </mat-error>
+        }
+        @if (registrationForm.controls["email"].hasError("email")) {
+          <mat-error>
+            {{ "PAGES.REGISTRATION.ERRORS.EMAIL-INVALID" | translate }}
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ "PAGES.REGISTRATION.PASSWORD" | translate }}</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          [type]="passwordVisible ? 'text' : 'password'"
+        />
+        <mat-icon matSuffix (click)="passwordVisible = !passwordVisible">
+          {{ passwordVisible ? "visibility" : "visibility_off" }}
+        </mat-icon>
+        @if (registrationForm.controls["password"].hasError("required")) {
+          <mat-error>
+            {{ "PAGES.REGISTRATION.ERRORS.PASSWORD-REQUIRED" | translate }}
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>
+          {{ "PAGES.REGISTRATION.PASSWORD-CONFIRMATION" | translate }}
+        </mat-label>
+        <input
+          matInput
+          formControlName="passwordConfirmation"
+          type="password"
+        />
+        @if (
+          registrationForm.controls["passwordConfirmation"].hasError("required")
+        ) {
+          <mat-error>
+            {{
+              "PAGES.REGISTRATION.ERRORS.PASSWORD-CONFIRMATION-REQUIRED"
+                | translate
+            }}
+          </mat-error>
+        }
+        <br />
+      </mat-form-field>
+      @if (registrationForm.hasError("passwordConfirmation")) {
+        <mat-error>
+          {{ "PAGES.REGISTRATION.ERRORS.PASSWORD-MISMATCH" | translate }}
+        </mat-error>
+      }
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="!registrationForm.valid"
+      >
+        {{ "PAGES.REGISTRATION.REGISTER" | translate }}
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

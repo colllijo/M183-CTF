@@ -1,0 +1,38 @@
+{
+  "NAVIGATION": {
+    "CHALLENGES": "Challenges",
+    "LEADERBOARD": "Leaderboard"
+  },
+  "PAGES": {
+    "LOGIN": {
+      "TITLE": "Login",
+      "REGISTRATION": "Don't have an account?",
+      "REGISTRATION-LINK": "Register here",
+      "USERNAME": "Username",
+      "PASSWORD": "Password",
+      "LOGIN": "Login",
+      "ERRORS": {
+        "USERNAME-REQUIRED": "Username is required",
+        "PASSWORD-REQUIRED": "Password is required"
+      }
+    },
+    "REGISTRATION": {
+      "TITLE": "Registration",
+      "LOGIN": "Already have an account?",
+      "LOGIN-LINK": "Login here",
+      "USERNAME": "Username",
+      "EMAIL": "Email",
+      "PASSWORD": "Password",
+      "PASSWORD-CONFIRMATION": "Confirm Password",
+      "REGISTER": "Register",
+      "ERRORS": {
+        "USERNAME-REQUIRED": "Username is required",
+        "EMAIL-REQUIRED": "Email is required",
+        "EMAIL-INVALID": "Email is invalid",
+        "PASSWORD-REQUIRED": "Password is required",
+        "PASSWORD-CONFIRMATION-REQUIRED": "Confirm Password is required",
+        "PASSWORD-MISMATCH": "Passwords do not match"
+      }
+    }
+  }
+}

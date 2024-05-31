@@ -1,4 +1,93 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$primary: mat.define-palette(mat.$lime-palette, 500, 100, 900);
+$accent: mat.define-palette(mat.$deep-purple-palette, A200, A100, A400);
+$warn: mat.define-palette(mat.$red-palette);
+
+// Define custom font
+@font-face {
+  font-family: "Hack";
+  src:
+    local(Hack),
+    url(./assets/fonts/HackNerdFont-Regular.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: "Hack";
+  src:
+    local(Hack-Bold),
+    url(./assets/fonts/HackNerdFont-Bold.ttf) format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: "Hack";
+  src:
+    local(Hack-Italic),
+    url(./assets/fonts/HackNerdFont-Italic.ttf) format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+// Define custom typography
+$font-families: (
+  "default": (
+    Hack,
+    Arial,
+    Helvetica,
+    sans-serif,
+  ),
+);
+
+$typography: mat.define-typography-config(
+  $font-family: map-get($font-families, "default"),
+);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+      warn: $warn,
+    ),
+    typography: $typography,
+    density: 0,
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($theme);
+@include mat.typography-hierarchy($typography);
+
+@include mat.core();
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
