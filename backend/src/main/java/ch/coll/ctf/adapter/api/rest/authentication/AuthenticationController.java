@@ -15,6 +15,7 @@ import ch.coll.ctf.domain.authentication.port.in.AuthenticationServicePort;
 import ch.coll.ctf.domain.token.model.SecureToken;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,34 +27,33 @@ public class AuthenticationController {
   private final RegistrationRequestMapper registrationMapper;
 
   @PostMapping("/login")
-  public AuthenticatedResponse login(@RequestBody AuthenticationRequest authenticationRequest,
+  public AuthenticatedResponse login(@Valid @RequestBody AuthenticationRequest authenticationRequest,
       HttpServletResponse response) {
     SecureToken token = authenticationService.login(authenticationRequest.getUsername(),
         authenticationRequest.getPassword());
-    Cookie cookie = new Cookie("Access-Token", token.getFingerprintBase64());
-    cookie.setPath("/");
-    cookie.setSecure(true);
-    cookie.setHttpOnly(true);
-    cookie.setMaxAge(authenticationService.getExpirationTime());
+    response.addCookie(
+        createFingerprintCookie("Access-Token", token.getFingerprint(), authenticationService.getExpirationTime()));
 
-    response.addCookie(cookie);
     return new AuthenticatedResponse(token.getToken());
   }
 
   @PostMapping("/register")
-  public AuthenticatedResponse register(@RequestBody RegistrationRequest user,
+  public AuthenticatedResponse register(@Valid @RequestBody RegistrationRequest user,
       HttpServletResponse response) {
-    if (!Objects.equals(user.getPassword(), user.getPasswordConfirmation()))
-      throw new IllegalArgumentException("Passwords do not match");
-
     SecureToken token = authenticationService.register(registrationMapper.mapRequestToUser(user));
-    Cookie cookie = new Cookie("Access-Token", token.getFingerprintBase64());
+    response.addCookie(
+        createFingerprintCookie("Access-Token", token.getFingerprint(), authenticationService.getExpirationTime()));
+
+    return new AuthenticatedResponse(token.getToken());
+  }
+
+  private Cookie createFingerprintCookie(String name, String fingerprint, int maxAge) {
+    Cookie cookie = new Cookie(name, fingerprint);
     cookie.setPath("/");
     cookie.setSecure(true);
     cookie.setHttpOnly(true);
-    cookie.setMaxAge(authenticationService.getExpirationTime());
+    cookie.setMaxAge(maxAge);
 
-    response.addCookie(cookie);
-    return new AuthenticatedResponse(token.getToken());
+    return cookie;
   }
 }
