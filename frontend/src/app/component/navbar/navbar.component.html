@@ -30,8 +30,17 @@
         }
       }
     </mat-menu>
-    <button mat-icon-button routerLink="/login">
-      <mat-icon>login</mat-icon>
-    </button>
+    @if (authenticated$ | async) {
+      @if (username$ | async; as username) {
+        <span>{{ username }}</span>
+      }
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    } @else {
+      <button mat-icon-button routerLink="/login">
+        <mat-icon>login</mat-icon>
+      </button>
+    }
   </div>
 </mat-toolbar>

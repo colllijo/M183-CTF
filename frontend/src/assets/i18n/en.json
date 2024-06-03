@@ -1,4 +1,19 @@
 {
+  "DIALOGS": {
+    "ERROR": {
+      "TITLE": "An error occurred",
+      "CLOSE": "Close"
+    }
+  },
+  "ERRORS": {
+    "USERNAME-REQUIRED": "Username is required",
+    "EMAIL-REQUIRED": "Email is required",
+    "EMAIL-INVALID": "Email is invalid",
+    "PASSWORD-REQUIRED": "Password is required",
+    "PASSWORD-MIN-LENGTH": "Password must be at least {{ length }} characters long",
+    "PASSWORD-CONFIRMATION-REQUIRED": "Confirm Password is required",
+    "PASSWORD-MISMATCH": "Passwords do not match"
+  },
   "NAVIGATION": {
     "CHALLENGES": "Challenges",
     "LEADERBOARD": "Leaderboard"
@@ -10,11 +25,7 @@
       "REGISTRATION-LINK": "Register here",
       "USERNAME": "Username",
       "PASSWORD": "Password",
-      "LOGIN": "Login",
-      "ERRORS": {
-        "USERNAME-REQUIRED": "Username is required",
-        "PASSWORD-REQUIRED": "Password is required"
-      }
+      "LOGIN": "Login"
     },
     "REGISTRATION": {
       "TITLE": "Registration",
@@ -24,15 +35,7 @@
       "EMAIL": "Email",
       "PASSWORD": "Password",
       "PASSWORD-CONFIRMATION": "Confirm Password",
-      "REGISTER": "Register",
-      "ERRORS": {
-        "USERNAME-REQUIRED": "Username is required",
-        "EMAIL-REQUIRED": "Email is required",
-        "EMAIL-INVALID": "Email is invalid",
-        "PASSWORD-REQUIRED": "Password is required",
-        "PASSWORD-CONFIRMATION-REQUIRED": "Confirm Password is required",
-        "PASSWORD-MISMATCH": "Passwords do not match"
-      }
+      "REGISTER": "Register"
     }
   }
 }

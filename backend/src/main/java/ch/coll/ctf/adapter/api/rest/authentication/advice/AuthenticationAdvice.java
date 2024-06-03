@@ -14,27 +14,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import ch.coll.ctf.adapter.api.rest.exception.assembler.RestExceptionAssembler;
 import ch.coll.ctf.adapter.api.rest.exception.dto.RestExceptionResponse;
-import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class AuthenticationAdvice {
   private final RestExceptionAssembler exceptionAssembler;
-
-  @ResponseBody
-  @ExceptionHandler(ConstraintViolationException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public RestExceptionResponse validationViolationExceptionHandler(ConstraintViolationException e) {
-    return exceptionAssembler.toModel(e).setStatus(400);
-  }
-
-  @ResponseBody
-  @ExceptionHandler(IllegalArgumentException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public RestExceptionResponse validationViolationExceptionHandler(IllegalArgumentException e) {
-    return exceptionAssembler.toModel(e).setStatus(400);
-  }
 
   @ResponseBody
   @ExceptionHandler(MethodArgumentNotValidException.class)

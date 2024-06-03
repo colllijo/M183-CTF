@@ -25,7 +25,8 @@
       "@app/*": ["src/app/*"],
       "@component/*": ["src/app/component/*"],
       "@core/*": ["src/app/core/*"],
-      "@page/*": ["src/app/page/*"]
+      "@page/*": ["src/app/page/*"],
+      "@+store/*": ["src/app/+store/*"]
     }
   },
   "angularCompilerOptions": {
