@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   AbstractControl,
@@ -14,14 +13,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { TranslateModule } from '@ngx-translate/core';
+
+import { AuthenticationActions } from '@+store/authentication/authentication.actions';
 
 @Component({
   selector: 'ctf-registration',
   standalone: true,
   imports: [
-    JsonPipe,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
@@ -38,11 +39,14 @@ export class RegistrationComponent {
   public registrationForm: FormGroup;
   public passwordVisible: boolean;
 
-  constructor() {
+  constructor(private store: Store) {
     this.registrationForm = new FormGroup(
       {
         username: new FormControl('', Validators.required),
-        password: new FormControl('', Validators.required),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(12)
+        ]),
         passwordConfirmation: new FormControl('', Validators.required),
         email: new FormControl('', [Validators.required, Validators.email])
       },
@@ -52,7 +56,9 @@ export class RegistrationComponent {
   }
 
   public register(): void {
-    console.log(this.registrationForm.value);
+    this.store.dispatch(
+      AuthenticationActions.register(this.registrationForm.value)
+    );
   }
 }
 

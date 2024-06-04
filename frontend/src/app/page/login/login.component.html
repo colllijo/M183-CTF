@@ -19,7 +19,7 @@
         <input matInput formControlName="username" />
         @if (loginForm.controls['username'].hasError('required')) {
           <mat-error>
-            {{ 'PAGES.LOGIN.ERRORS.USERNAME-REQUIRED' | translate }}
+            {{ 'ERRORS.USERNAME-REQUIRED' | translate }}
           </mat-error>
         }
       </mat-form-field>
@@ -34,7 +34,12 @@
         </mat-icon>
         @if (loginForm.controls['password'].hasError('required')) {
           <mat-error>
-            {{ 'PAGES.LOGIN.ERRORS.PASSWORD-REQUIRED' | translate }}
+            {{ 'ERRORS.PASSWORD-REQUIRED' | translate }}
+          </mat-error>
+        }
+        @if (loginForm.controls['password'].hasError('minlength')) {
+          <mat-error>
+            {{ 'ERRORS.PASSWORD-MIN-LENGTH' | translate: { length: 12 } }}
           </mat-error>
         }
       </mat-form-field>

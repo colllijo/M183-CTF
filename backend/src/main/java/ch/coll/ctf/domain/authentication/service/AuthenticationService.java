@@ -1,5 +1,7 @@
 package ch.coll.ctf.domain.authentication.service;
 
+import java.util.HexFormat;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,7 +27,7 @@ public class AuthenticationService implements AuthenticationServicePort {
     Authentication authentication = authenticationManager
         .authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
-    String fingerprint = new String(KeyGenerators.secureRandom(256).generateKey());
+    String fingerprint = HexFormat.of().formatHex(KeyGenerators.secureRandom(256).generateKey());
     return new SecureToken(
         jwtService.generateToken((User) authentication.getPrincipal(), jwtService.hashFingerprint(fingerprint)),
         fingerprint);
@@ -36,7 +38,7 @@ public class AuthenticationService implements AuthenticationServicePort {
     registrationUser.setPassword(passwordEncoder.encode(registrationUser.getPassword()));
     User user = userService.createUser(registrationUser);
 
-    String fingerprint = new String(KeyGenerators.secureRandom(256).generateKey());
+    String fingerprint = HexFormat.of().formatHex(KeyGenerators.secureRandom(256).generateKey());
     return new SecureToken(jwtService.generateToken(user, jwtService.hashFingerprint(fingerprint)), fingerprint);
   }
 

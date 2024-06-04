@@ -10,11 +10,7 @@
       "REGISTRATION-LINK": "Hier registrieren",
       "USERNAME": "Benutzernamen",
       "PASSWORD": "Passwort",
-      "LOGIN": "Anmelden",
-      "ERRORS": {
-        "USERNAME-REQUIRED": "Benutzername ist erforderlich",
-        "PASSWORD-REQUIRED": "Passwort ist erforderlich"
-      }
+      "LOGIN": "Anmelden"
     },
     "REGISTRATION": {
       "TITLE": "Registration",
@@ -24,15 +20,16 @@
       "EMAIL": "Email",
       "PASSWORD": "Passwort",
       "PASSWORD-CONFIRMATION": "Passwort bestätigen",
-      "REGISTER": "Registrieren",
-      "ERRORS": {
-        "USERNAME-REQUIRED": "Benutzername ist erforderlich",
-        "EMAIL-REQUIRED": "Email ist erforderlich",
-        "EMAIL-INVALID": "Email ist ungültig",
-        "PASSWORD-REQUIRED": "Passwort ist erforderlich",
-        "PASSWORD-CONFIRMATION-REQUIRED": "Passwort Bestätigung ist erforderlich",
-        "PASSWORD-MISMATCH": "Passwörter stimmen nicht überein"
-      }
+      "REGISTER": "Registrieren"
     }
+  },
+  "ERRORS": {
+    "USERNAME-REQUIRED": "Benutzername ist erforderlich",
+    "EMAIL-REQUIRED": "Email ist erforderlich",
+    "EMAIL-INVALID": "Email ist ungültig",
+    "PASSWORD-REQUIRED": "Passwort ist erforderlich",
+    "PASSWORD-CONFIRMATION-REQUIRED": "Passwort Bestätigung ist erforderlich",
+    "PASSWORD-MIN-LENGTH": "Passwort muss mindestens {{ length }} Zeichen lang sein",
+    "PASSWORD-MISMATCH": "Passwörter stimmen nicht überein"
   }
 }
