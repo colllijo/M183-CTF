@@ -4,39 +4,36 @@ import ch.coll.ctf.domain.ctf.model.CaptureTheFlag;
 import ch.coll.ctf.domain.ctf.port.in.CtfServicePort;
 import ch.coll.ctf.domain.ctf.port.out.CtfRepositoryPort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
 public class CtfService implements CtfServicePort {
+  private final CtfRepositoryPort ctfRepositoryPort;
 
-    private final CtfRepositoryPort ctfRepositoryPort;
+  @Override
+  public List<CaptureTheFlag> getAllChallenges() {
+    return ctfRepositoryPort.findAll();
+  }
 
-    @Override
-    public List<CaptureTheFlag> getAllChallenges() {
-        return ctfRepositoryPort.findAll();
-    }
+  @Override
+  public CaptureTheFlag getChallengeById(Long id) {
+    return ctfRepositoryPort.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Challenge with id " + id + " not found"));
+  }
 
-    @Override
-    public CaptureTheFlag getChallengeById(Long id) {
-        return ctfRepositoryPort.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Challenge with id " + id + " not found"));
-    }
+  @Override
+  public CaptureTheFlag createChallenge(CaptureTheFlag challenge) {
+    return ctfRepositoryPort.save(challenge);
+  }
 
-    @Override
-    public CaptureTheFlag createChallenge(CaptureTheFlag challenge) {
-        return ctfRepositoryPort.save(challenge);
-    }
+  @Override
+  public CaptureTheFlag updateChallenge(Long id, CaptureTheFlag ctf) {
+    return ctfRepositoryPort.save(ctf);
+  }
 
-    @Override
-    public CaptureTheFlag updateChallenge(Long id, CaptureTheFlag ctf) {
-        return ctfRepositoryPort.save(ctf);
-    }
-
-    @Override
-    public void deleteChallenge(Long id) {
-        ctfRepositoryPort.deleteById(id);
-    }
+  @Override
+  public void deleteChallenge(Long id) {
+    ctfRepositoryPort.deleteById(id);
+  }
 }
