@@ -20,9 +20,8 @@ public class CtfService implements CtfServicePort {
     }
 
     @Override
-    public Ctf getCtfById(Long id) {
-        return ctfRepositoryPort.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Ctf with id " + id + " not found"));
+    public Ctf getCtf(String name) {
+        return ctfRepositoryPort.findByName(name).orElseThrow(() -> new IllegalArgumentException("Ctf with name " + name + " not found"));
     }
 
     @Override
@@ -31,12 +30,15 @@ public class CtfService implements CtfServicePort {
     }
 
     @Override
-    public Ctf updateCtf(Long id, Ctf ctf) {
+    public Ctf updateCtf(String name, Ctf ctf) {
+        if (ctfRepositoryPort.findByName(name).isEmpty()) {
+            throw new IllegalArgumentException("Ctf with name " + name + " does not exist");
+        }
         return ctfRepositoryPort.save(ctf);
     }
 
     @Override
-    public void deleteCtf(Long id) {
-        ctfRepositoryPort.deleteById(id);
+    public void deleteCtf(String name) {
+        ctfRepositoryPort.deleteByName(name);
     }
 }

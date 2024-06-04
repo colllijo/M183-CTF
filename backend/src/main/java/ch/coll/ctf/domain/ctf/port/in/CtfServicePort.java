@@ -8,12 +8,12 @@ public interface CtfServicePort {
 
     public List<Ctf> getAllCtfs();
 
-    public Ctf getCtfById(Long id);
+    public Ctf getCtf(String name);
 
     public Ctf createCtf(Ctf ctf);
 
-    public Ctf updateCtf(Long id, Ctf ctf);
+    public Ctf updateCtf(String name, Ctf ctf);
 
-    public void deleteCtf(Long id);
+    public void deleteCtf(String name);
 
 }
