@@ -1,20 +1,28 @@
-spring:
-  application:
-    name: ctf
-  datasource:
-    url: jdbc:postgresql://localhost:5432/ctf
-    username: ctf
-    password: password
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    open-in-view: false
+info:
+  app:
+    name: CTF
+    description: COLL - Capture The Flag Hub
+    version: 1.0.0
 server:
   servlet:
     context-path: /api
-token:
-  signing:
-    key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
+security:
+  jwt:
+    secret: Rn4x02v8+G/CpX5IwNI4+Asc+UpBA8nmW0iB2hVCiJf+lPJZrkCVwaDcARssEl1mYkWb3xr77dSigp5LlM+VLg==
+    expiration: 86400000
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ctf
+    driver-class-name: org.postgresql.Driver
+    username: ctf
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+springdoc:
+  api-docs:
+    path: /docs
+  swagger-ui:
+    path: /docs/swagger-ui
+    disable-swagger-default-url: true

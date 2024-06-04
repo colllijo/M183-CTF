@@ -14,5 +14,5 @@ public class CaptureTheFlag {
   private User author;
   private String flag;
   private Integer points;
-  private Set<User> solvers;
+  private Set<Solve> solves;
 }
