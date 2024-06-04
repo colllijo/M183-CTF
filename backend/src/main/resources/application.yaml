@@ -9,7 +9,8 @@ server:
 security:
   jwt:
     secret: Rn4x02v8+G/CpX5IwNI4+Asc+UpBA8nmW0iB2hVCiJf+lPJZrkCVwaDcARssEl1mYkWb3xr77dSigp5LlM+VLg==
-    expiration: 86400000
+    accessExpiration: 900000
+    refreshExpiration: 86400000
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/ctf

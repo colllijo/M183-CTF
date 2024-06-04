@@ -26,8 +26,11 @@ public class JwtService implements JwtServicePort {
   @Value("${security.jwt.secret}")
   private String secretKey;
 
-  @Value("${security.jwt.expiration}")
-  private Integer expirationTime;
+  @Value("${security.jwt.accessExpiration}")
+  private Integer accessExpirationTime;
+
+  @Value("${security.jwt.refreshExpiration}")
+  private Integer refreshExpirationTime;
 
   @Override
   public String extractUsername(String token) {
@@ -53,15 +56,24 @@ public class JwtService implements JwtServicePort {
   }
 
   @Override
-  public String generateToken(User user, String fingerprint) {
+  public String generateAccessToken(User user, String fingerprint) {
     HashMap<String, Object> extraClaims = new HashMap<>();
     extraClaims.put("role", user.getRole());
-    extraClaims.put("fingerprint", fingerprint);
+    extraClaims.put("fingerprint", hashFingerprint(fingerprint));
 
-    return generateToken(extraClaims, user);
+    return generateToken(extraClaims, user, accessExpirationTime);
   }
 
-  private String generateToken(Map<String, Object> extraClaims, User user) {
+  @Override
+  public String generateRefreshToken(User user, String fingerprint) {
+    HashMap<String, Object> extraClaims = new HashMap<>();
+    extraClaims.put("role", user.getRole());
+    extraClaims.put("fingerprint", hashFingerprint(fingerprint));
+
+    return generateToken(extraClaims, user, refreshExpirationTime);
+  }
+
+  private String generateToken(Map<String, Object> extraClaims, User user, Integer expirationTime) {
     return Jwts.builder()
         .setClaims(extraClaims)
         .setSubject(user.getUsername())
@@ -94,8 +106,12 @@ public class JwtService implements JwtServicePort {
     return extractExpiration(token).before(new Date());
   }
 
-  public Integer getExpirationTime() {
-    return expirationTime;
+  public Integer getAccessExpirationTime() {
+    return accessExpirationTime;
+  }
+
+  public Integer getRefreshExpirationTime() {
+    return refreshExpirationTime;
   }
 
   private Key getSigningKey() {

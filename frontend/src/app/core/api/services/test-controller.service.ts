@@ -27,7 +27,10 @@ export class TestControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  test$Response(params?: Test$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  test$Response(
+    params?: Test$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<string>> {
     return test(this.http, this.rootUrl, params, context);
   }
 
@@ -42,5 +45,4 @@ export class TestControllerService extends BaseService {
       map((r: StrictHttpResponse<string>): string => r.body)
     );
   }
-
 }
