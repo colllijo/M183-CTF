@@ -1,6 +1,6 @@
 package ch.coll.ctf.domain.ctf.service;
 
-import ch.coll.ctf.domain.ctf.model.CaptureTheFlag;
+import ch.coll.ctf.domain.ctf.model.Ctf;
 import ch.coll.ctf.domain.ctf.port.in.CtfServicePort;
 import ch.coll.ctf.domain.ctf.port.out.CtfRepositoryPort;
 import lombok.RequiredArgsConstructor;
@@ -15,28 +15,28 @@ public class CtfService implements CtfServicePort {
     private final CtfRepositoryPort ctfRepositoryPort;
 
     @Override
-    public List<CaptureTheFlag> getAllChallenges() {
+    public List<Ctf> getAllCtfs() {
         return ctfRepositoryPort.findAll();
     }
 
     @Override
-    public CaptureTheFlag getChallengeById(Long id) {
+    public Ctf getCtfById(Long id) {
         return ctfRepositoryPort.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Challenge with id " + id + " not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Ctf with id " + id + " not found"));
     }
 
     @Override
-    public CaptureTheFlag createChallenge(CaptureTheFlag challenge) {
-        return ctfRepositoryPort.save(challenge);
-    }
-
-    @Override
-    public CaptureTheFlag updateChallenge(Long id, CaptureTheFlag ctf) {
+    public Ctf createCtf(Ctf ctf) {
         return ctfRepositoryPort.save(ctf);
     }
 
     @Override
-    public void deleteChallenge(Long id) {
+    public Ctf updateCtf(Long id, Ctf ctf) {
+        return ctfRepositoryPort.save(ctf);
+    }
+
+    @Override
+    public void deleteCtf(Long id) {
         ctfRepositoryPort.deleteById(id);
     }
 }

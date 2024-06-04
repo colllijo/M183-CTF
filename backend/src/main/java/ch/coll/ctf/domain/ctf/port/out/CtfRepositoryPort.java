@@ -1,13 +1,13 @@
 package ch.coll.ctf.domain.ctf.port.out;
 
-import ch.coll.ctf.domain.ctf.model.CaptureTheFlag;
+import ch.coll.ctf.domain.ctf.model.Ctf;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CtfRepositoryPort {
-    public List<CaptureTheFlag> findAll();
-    public Optional<CaptureTheFlag> findById(Long id);
-    public CaptureTheFlag save(CaptureTheFlag challenge);
+    public List<Ctf> findAll();
+    public Optional<Ctf> findById(Long id);
+    public Ctf save(Ctf challenge);
     public void deleteById(Long id);
 }

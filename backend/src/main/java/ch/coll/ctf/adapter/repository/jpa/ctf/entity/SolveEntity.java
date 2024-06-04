@@ -26,7 +26,7 @@ public class SolveEntity {
   @Id
   @ManyToOne
   @JoinColumn(name = "ctf_id", referencedColumnName = "id")
-  private CaptureTheFlagEntity ctf;
+  private CtfEntity ctf;
 
   @Id
   @ManyToOne

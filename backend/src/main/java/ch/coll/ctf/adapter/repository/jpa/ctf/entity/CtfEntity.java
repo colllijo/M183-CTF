@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "_CaptureTheFlag")
-public class CaptureTheFlagEntity {
+public class CtfEntity {
   @Id
   @GeneratedValue(strategy = IDENTITY)
   @Column(name = "id")
