@@ -1,0 +1,20 @@
+@startuml
+!theme crt-green
+
+' TODO: Incremental Timeout after 3 failed attempts.
+' TODO: Validierung spezifizieren.
+
+start
+repeat :Benutzer sendet Authentifizierungsanfrage an den Server;
+:Server validiert die Anfrage;
+backward :Server sendet eine Fehlermeldung zurück;
+repeat while (Anfrage ist valide?) is (nein)
+  :Server generiert einen Fingerabdruck für das Access Token;
+  :Server erstellt das Access Token;
+  :Server generiert einen Fingerabdruck für das Refresh Token;
+  :Server erstellt das Refresh Token;
+  :Server sendet die Token zurück;
+  :Server fügt die Fingerabdrücke als hardend Cookies seiner Antwort bei;
+  :Benutzer speichert die Token im Session Storage;
+stop
+@enduml

@@ -1,0 +1,41 @@
+{
+  "DIALOGS": {
+    "ERROR": {
+      "TITLE": "An error occurred",
+      "CLOSE": "Close"
+    }
+  },
+  "ERRORS": {
+    "USERNAME-REQUIRED": "Username is required",
+    "EMAIL-REQUIRED": "Email is required",
+    "EMAIL-INVALID": "Email is invalid",
+    "PASSWORD-REQUIRED": "Password is required",
+    "PASSWORD-MIN-LENGTH": "Password must be at least {{ length }} characters long",
+    "PASSWORD-CONFIRMATION-REQUIRED": "Confirm Password is required",
+    "PASSWORD-MISMATCH": "Passwords do not match"
+  },
+  "NAVIGATION": {
+    "CHALLENGES": "Challenges",
+    "LEADERBOARD": "Leaderboard"
+  },
+  "PAGES": {
+    "LOGIN": {
+      "TITLE": "Login",
+      "REGISTRATION": "Don't have an account?",
+      "REGISTRATION-LINK": "Register here",
+      "USERNAME": "Username",
+      "PASSWORD": "Password",
+      "LOGIN": "Login"
+    },
+    "REGISTRATION": {
+      "TITLE": "Registration",
+      "LOGIN": "Already have an account?",
+      "LOGIN-LINK": "Login here",
+      "USERNAME": "Username",
+      "EMAIL": "Email",
+      "PASSWORD": "Password",
+      "PASSWORD-CONFIRMATION": "Confirm Password",
+      "REGISTER": "Register"
+    }
+  }
+}

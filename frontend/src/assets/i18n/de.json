@@ -1,0 +1,35 @@
+{
+  "NAVIGATION": {
+    "CHALLENGES": "Herausforderungen",
+    "LEADERBOARD": "Rangliste"
+  },
+  "PAGES": {
+    "LOGIN": {
+      "TITLE": "Ameldung",
+      "REGISTRATION": "Noch kein Konto erstellt?",
+      "REGISTRATION-LINK": "Hier registrieren",
+      "USERNAME": "Benutzernamen",
+      "PASSWORD": "Passwort",
+      "LOGIN": "Anmelden"
+    },
+    "REGISTRATION": {
+      "TITLE": "Registration",
+      "LOGIN": "Bereits ein Konto erstellt?",
+      "LOGIN-LINK": "Hier anmelden",
+      "USERNAME": "Benutzernamen",
+      "EMAIL": "Email",
+      "PASSWORD": "Passwort",
+      "PASSWORD-CONFIRMATION": "Passwort bestätigen",
+      "REGISTER": "Registrieren"
+    }
+  },
+  "ERRORS": {
+    "USERNAME-REQUIRED": "Benutzername ist erforderlich",
+    "EMAIL-REQUIRED": "Email ist erforderlich",
+    "EMAIL-INVALID": "Email ist ungültig",
+    "PASSWORD-REQUIRED": "Passwort ist erforderlich",
+    "PASSWORD-CONFIRMATION-REQUIRED": "Passwort Bestätigung ist erforderlich",
+    "PASSWORD-MIN-LENGTH": "Passwort muss mindestens {{ length }} Zeichen lang sein",
+    "PASSWORD-MISMATCH": "Passwörter stimmen nicht überein"
+  }
+}

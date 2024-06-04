@@ -1,0 +1,46 @@
+<mat-toolbar color="primary">
+  <div class="title">
+    <span>COLL CaptureTheFlag</span>
+    <mat-icon>flag</mat-icon>
+  </div>
+  <div class="pages">
+    <button mat-button routerLink="/challenges">
+      <mat-icon>bug_report</mat-icon>
+      {{ 'NAVIGATION.CHALLENGES' | translate }}
+    </button>
+    <button mat-button routerLink="/leaderboard">
+      <mat-icon>leaderboard</mat-icon>
+      {{ 'NAVIGATION.LEADERBOARD' | translate }}
+    </button>
+  </div>
+  <div class="align-right">
+    <button mat-icon-button [matMenuTriggerFor]="languageMenu">
+      <mat-icon>language</mat-icon>
+    </button>
+    <mat-menu #languageMenu="matMenu" xPosition="before">
+      @for (language of languages | keyvalue; track language) {
+        @if (language.key !== currentLanguage) {
+          <button mat-menu-item (click)="switchLanguage(language.key)">
+            {{ language.value }}
+          </button>
+        } @else {
+          <button mat-menu-item disabled>
+            {{ language.value }}
+          </button>
+        }
+      }
+    </mat-menu>
+    @if (authenticated$ | async) {
+      @if (username$ | async; as username) {
+        <span>{{ username }}</span>
+      }
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    } @else {
+      <button mat-icon-button routerLink="/login">
+        <mat-icon>login</mat-icon>
+      </button>
+    }
+  </div>
+</mat-toolbar>
