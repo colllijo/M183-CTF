@@ -2,16 +2,16 @@
 
 ## Benuterauthentifizierung
 
-- Refresh-Token
-- Bestätigungs-Email
-- Bessere Token Lebenszeit
+- [x] Refresh-Token
+- [x] Bessere Token Lebenszeit
 - RBAC für Zugriffskontrolle
 - Endpoint um Authentificationsstatus abzufragen
 - Unauthenticated Antwort
+- Bestätigungs-Email
 - Fehlerdarstellung im Frontend
+- Logging
 - Rollenverwaltung durch Admin
 - Funktionen hinter Berechtigungen verstecken
-- Logging
 - Liquibase in der DB benutzten
 
 ## Monitoring

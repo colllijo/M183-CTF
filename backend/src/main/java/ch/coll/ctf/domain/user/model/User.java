@@ -32,10 +32,6 @@ public class User {
 
   @NotNull
   @Builder.Default
-  private UserRole role = UserRole.USER;
-
-  @NotNull
-  @Builder.Default
   private boolean active = false;
 
   @NotNull

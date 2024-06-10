@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+  <changeSet author="colllijo" id="2024-06-10-genisis">
+    <createTable tableName="USER_ACCOUNT">
+      <column name="ID" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="USERNAME" type="VARCHAR(255)">
+        <constraints unique="true" nullable="false"/>
+      </column>
+      <column name="PASSWORD" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="EMAIL" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="ACTIVE" type="BOOLEAN">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <createTable tableName="CTF">
+      <column name="ID" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="NAME" type="VARCHAR(255)">
+        <constraints unique="true" nullable="false"/>
+      </column>
+      <column name="DESCRIPTION" type="VARCHAR(512)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="FLAG" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="AUTHOR_ID" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+    <addForeignKeyConstraint
+      baseTableName="CTF"
+      baseColumnNames="AUTHOR_ID"
+      constraintName="FK_SOLVE_AUTHOR"
+      referencedTableName="USER_ACCOUNT"
+      referencedColumnNames="ID"
+    />
+
+    <createTable tableName="SOLVE">
+      <column name="USER_ACCOUNT_ID" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="CTF_ID" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="POINTS" type="INT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="RANK" type="INT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="TIMESTAMP" type="TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+    <addForeignKeyConstraint
+      baseTableName="SOLVE"
+      baseColumnNames="USER_ACCOUNT_ID"
+      constraintName="FK_SOLVE_USER_ACCOUNT"
+      referencedTableName="USER_ACCOUNT"
+      referencedColumnNames="ID"
+    />
+    <addForeignKeyConstraint
+      baseTableName="SOLVE"
+      baseColumnNames="CTF_ID"
+      constraintName="FK_SOLVE_CTF"
+      referencedTableName="CTF"
+      referencedColumnNames="ID"
+    />
+  </changeSet>
+</databaseChangeLog>

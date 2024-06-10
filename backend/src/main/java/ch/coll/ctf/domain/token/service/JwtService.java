@@ -58,7 +58,6 @@ public class JwtService implements JwtServicePort {
   @Override
   public String generateAccessToken(User user, String fingerprint) {
     HashMap<String, Object> extraClaims = new HashMap<>();
-    extraClaims.put("role", user.getRole());
     extraClaims.put("fingerprint", hashFingerprint(fingerprint));
 
     return generateToken(extraClaims, user, accessExpirationTime);
@@ -67,7 +66,6 @@ public class JwtService implements JwtServicePort {
   @Override
   public String generateRefreshToken(User user, String fingerprint) {
     HashMap<String, Object> extraClaims = new HashMap<>();
-    extraClaims.put("role", user.getRole());
     extraClaims.put("fingerprint", hashFingerprint(fingerprint));
 
     return generateToken(extraClaims, user, refreshExpirationTime);
