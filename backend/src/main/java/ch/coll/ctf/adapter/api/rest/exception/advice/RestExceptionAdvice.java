@@ -2,6 +2,7 @@ package ch.coll.ctf.adapter.api.rest.exception.advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,5 +30,13 @@ public class RestExceptionAdvice {
     log.error(exception.getMessage(), exception);
 
     return assembler.toModel(exception);
+  }
+
+  @ResponseBody
+  @ExceptionHandler(AccessDeniedException.class)
+  @ResponseStatus(HttpStatus.FORBIDDEN)
+  @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
+  public RestExceptionResponse handleAccessDeniedException(AccessDeniedException exception) {
+    return assembler.toModel(exception).setStatus(403);
   }
 }

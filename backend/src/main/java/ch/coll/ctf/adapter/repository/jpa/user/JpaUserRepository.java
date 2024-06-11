@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import ch.coll.ctf.adapter.repository.jpa.user.entity.UserEntity;
 import ch.coll.ctf.adapter.repository.jpa.user.mapper.UserEntityMapper;
 import ch.coll.ctf.adapter.repository.jpa.user.service.JpaUserEntityRepository;
 import ch.coll.ctf.domain.user.model.User;
@@ -33,6 +34,11 @@ public class JpaUserRepository implements UserRepositoryPort {
   public User createUser(User user) {
     log.info("Creating user - User={}", user);
 
-    return userMapper.mapEntityToModel(userRepository.save(userMapper.mapModelToEntity(user)));
+    UserEntity userEntity = userMapper.mapModelToEntity(user);
+    userEntity.getRoles().forEach(role -> role.getUsers().add(userEntity));
+
+    log.info("UserEntity={}", userEntity);
+
+    return userMapper.mapEntityToModel(userRepository.save(userEntity));
   }
 }

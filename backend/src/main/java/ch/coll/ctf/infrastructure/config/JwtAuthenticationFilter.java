@@ -6,6 +6,8 @@ import java.util.stream.Stream;
 
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+import ch.coll.ctf.domain.authorisation.model.Permission;
+import ch.coll.ctf.domain.authorisation.model.Role;
 import ch.coll.ctf.domain.token.port.in.JwtServicePort;
 import ch.coll.ctf.domain.user.model.User;
 import ch.coll.ctf.domain.user.port.in.UserServicePort;
@@ -34,13 +38,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   @Override
   public void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
       @NonNull FilterChain filterChain) throws ServletException, IOException {
-    // Check if the request needs to be authenticated
-    if (new AntPathRequestMatcher("/auth/**").matches(request)
-        || new AntPathRequestMatcher("/docs/**").matches(request)) {
-      filterChain.doFilter(request, response);
-      return;
-    }
-
     final String authorizationHeader = request.getHeader("Authorization");
 
     if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
@@ -61,10 +58,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final User user = userService.getUserByUsername(username)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
-        System.out.println(user);
         if (jwtService.isTokenValid(token, fingerprint, user)) {
           UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null,
-              List.of());
+              getGrantedAuthorities(user));
           authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
           SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
@@ -74,5 +70,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     } catch (Exception e) {
       handlerExceptionResolver.resolveException(request, response, null, e);
     }
+  }
+
+  @Override
+  public boolean shouldNotFilter(HttpServletRequest request) {
+    if (new AntPathRequestMatcher("/docs/**").matches(request)) return true;
+    if (new AntPathRequestMatcher("/auth/**").matches(request) && !request.getRequestURI().equals("/api/auth/")) return true;
+
+    return false;
+  }
+
+  private List<? extends GrantedAuthority> getGrantedAuthorities(User user) {
+    List<? extends GrantedAuthority> roles = user.getRoles().stream()
+        .map(Role::getName)
+        .map(role -> "ROLE_" + role)
+        .map(SimpleGrantedAuthority::new)
+        .toList();
+    List<? extends GrantedAuthority> permissions = user.getPermissions().stream()
+        .map(Permission::getName)
+        .map(SimpleGrantedAuthority::new)
+        .toList();
+
+    return Stream.concat(roles.stream(), permissions.stream()).toList();
   }
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+  <changeSet author="colllijo" id="2024-06-10-genisis">
+    <createTable tableName="ROLE">
+      <column name="ID" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="NAME" type="VARCHAR(255)">
+        <constraints unique="true" nullable="false"/>
+      </column>
+      <column name="DESCRIPTION" type="VARCHAR(512)" />
+    </createTable>
+
+    <createTable tableName="USER_ACCOUNT_ROLE">
+      <column name="USER_ACCOUNT_ID" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="ROLE_ID" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+    </createTable>
+    <addForeignKeyConstraint
+      baseTableName="USER_ACCOUNT_ROLE"
+      baseColumnNames="USER_ACCOUNT_ID"
+      constraintName="FK_USER_ACCOUNT_ROLE_USER_ACCOUNT"
+      referencedTableName="USER_ACCOUNT"
+      referencedColumnNames="ID"
+    />
+    <addForeignKeyConstraint
+      baseTableName="USER_ACCOUNT_ROLE"
+      baseColumnNames="ROLE_ID"
+      constraintName="FK_USER_ACCOUNT_ROLE_ROLE"
+      referencedTableName="ROLE"
+      referencedColumnNames="ID"
+    />
+
+    <createTable tableName="PERMISSION">
+      <column name="ID" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="NAME" type="VARCHAR(255)">
+        <constraints unique="true" nullable="false"/>
+      </column>
+      <column name="DESCRIPTION" type="VARCHAR(512)" />
+    </createTable>
+
+    <createTable tableName="ROLE_PERMISSION">
+      <column name="ROLE_ID" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="PERMISSION_ID" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+    </createTable>
+    <addForeignKeyConstraint
+      baseTableName="ROLE_PERMISSION"
+      baseColumnNames="ROLE_ID"
+      constraintName="FK_ROLE_PERMISSION_ROLE"
+      referencedTableName="ROLE"
+      referencedColumnNames="ID"
+    />
+    <addForeignKeyConstraint
+      baseTableName="ROLE_PERMISSION"
+      baseColumnNames="PERMISSION_ID"
+      constraintName="FK_ROLE_PERMISSION_PERMISSION"
+      referencedTableName="PERMISSION"
+      referencedColumnNames="ID"
+    />
+  </changeSet>
+</databaseChangeLog>
