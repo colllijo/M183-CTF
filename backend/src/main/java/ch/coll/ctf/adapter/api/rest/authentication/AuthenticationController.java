@@ -41,7 +41,7 @@ public class AuthenticationController {
   @ApiResponse(responseCode = "200", description = "User is authenticated")
   @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public AuthenticatedResponse isAuthenticated() {
-    Object principal = SecurityContextHolder.getContext().getAuthentication();
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     if (principal instanceof User) {
       return new AuthenticatedResponse(((User) principal).getUsername(), null);
