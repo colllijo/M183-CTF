@@ -41,14 +41,18 @@ public class AuthenticationController {
   @ApiResponse(responseCode = "200", description = "User is authenticated")
   @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public AuthenticatedResponse isAuthenticated() {
-    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    return new AuthenticatedResponse(user.getUsername(), null);
+    Object principal = SecurityContextHolder.getContext().getAuthentication();
+
+    if (principal instanceof User) {
+      return new AuthenticatedResponse(((User) principal).getUsername(), null);
+    }
+    throw new RuntimeException("User not authenticated");
   }
 
   @ApiResponse(responseCode = "200", description = "User authenticated successfully")
   @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
   @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-  public AuthenticatedResponse login(@Valid @RequestBody AuthenticationRequest authenticationRequest,
+  public AuthenticatedResponse login(@RequestBody AuthenticationRequest authenticationRequest,
       HttpServletResponse response) {
     Map<String, SecureToken> tokens = authenticationService.login(authenticationRequest.getUsername(),
         authenticationRequest.getPassword());
@@ -103,13 +107,12 @@ public class AuthenticationController {
         authenticationService.getRefreshExpirationTime()));
 
     return AuthenticatedResponse.builder()
-      .tokens(
-        AuthenticatedResponse.Tokens.builder()
-          .accessToken(tokens.get("Access-Token").getToken())
-          .refreshToken(tokens.get("Refresh-Token").getToken())
-          .build()
-        )
-      .build();
+        .tokens(
+            AuthenticatedResponse.Tokens.builder()
+                .accessToken(tokens.get("Access-Token").getToken())
+                .refreshToken(tokens.get("Refresh-Token").getToken())
+                .build())
+        .build();
   }
 
   private Cookie createFingerprintCookie(String name, String fingerprint, int maxAge) {

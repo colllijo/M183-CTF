@@ -4,8 +4,8 @@
 
 - [x] Refresh-Token
 - [x] Bessere Token Lebenszeit
+- [x] Endpoint um Authentificationsstatus abzufragen
 - RBAC für Zugriffskontrolle
-- Endpoint um Authentificationsstatus abzufragen
 - Unauthenticated Antwort
 - Bestätigungs-Email
 - Fehlerdarstellung im Frontend

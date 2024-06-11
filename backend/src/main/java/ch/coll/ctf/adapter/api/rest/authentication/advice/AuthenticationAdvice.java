@@ -36,14 +36,6 @@ public class AuthenticationAdvice {
   }
 
   @ResponseBody
-  @ExceptionHandler(BadCredentialsException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
-  public RestExceptionResponse handleRuntimeException(BadCredentialsException exception) {
-    return exceptionAssembler.toModel(exception).setStatus(400);
-  }
-
-  @ResponseBody
   @ExceptionHandler(ExpiredJwtException.class)
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
   @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
@@ -52,11 +44,12 @@ public class AuthenticationAdvice {
   }
 
   @ResponseBody
-  @ExceptionHandler(UsernameNotFoundException.class)
+  @ExceptionHandler({ UsernameNotFoundException.class, BadCredentialsException.class })
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
-  public RestExceptionResponse handleUsernameNotFoundException(UsernameNotFoundException exception) {
-    return exceptionAssembler.toModel(exception).setError("Bad credentials").setMessage("Username and/or password are incorrect").setStatus(400);
+  public RestExceptionResponse handleBadCredentials(UsernameNotFoundException exception) {
+    return exceptionAssembler.toModel(exception).setError("Bad credentials")
+        .setMessage("Username and/or password are incorrect").setStatus(400);
   }
 
   /**

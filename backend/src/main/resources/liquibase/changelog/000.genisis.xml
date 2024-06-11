@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
   <changeSet author="colllijo" id="2024-06-10-genisis">
     <createTable tableName="USER_ACCOUNT">
-      <column name="ID" type="BIGINT">
+      <column name="ID" type="BIGINT" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>
       </column>
       <column name="USERNAME" type="VARCHAR(255)">

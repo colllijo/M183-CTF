@@ -34,13 +34,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   @Override
   public void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
       @NonNull FilterChain filterChain) throws ServletException, IOException {
-    // Check if the request needs to be authenticated
-    if (new AntPathRequestMatcher("/auth/**").matches(request)
-        || new AntPathRequestMatcher("/docs/**").matches(request)) {
-      filterChain.doFilter(request, response);
-      return;
-    }
-
     final String authorizationHeader = request.getHeader("Authorization");
 
     if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
@@ -61,6 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final User user = userService.getUserByUsername(username)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
+        System.out.println(user);
         if (jwtService.isTokenValid(token, fingerprint, user)) {
           UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null,
               List.of());
@@ -71,6 +65,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
       filterChain.doFilter(request, response);
     } catch (Exception e) {
+      // Check if the exception is relevant for the requested path
+      if (new AntPathRequestMatcher("/auth/**").matches(request)
+          || new AntPathRequestMatcher("/docs/**").matches(request)) {
+        filterChain.doFilter(request, response);
+        return;
+      }
       handlerExceptionResolver.resolveException(request, response, null, e);
     }
   }
