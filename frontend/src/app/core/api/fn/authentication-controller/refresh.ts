@@ -7,19 +7,19 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { AuthenticatedResponse } from '../../models/authenticated-response';
-import { RegistrationRequest } from '../../models/registration-request';
+import { RefreshRequest } from '../../models/refresh-request';
 
-export interface Register$Params {
-  body: RegistrationRequest;
+export interface Refresh$Params {
+  body: RefreshRequest;
 }
 
-export function register(
+export function refresh(
   http: HttpClient,
   rootUrl: string,
-  params: Register$Params,
+  params: Refresh$Params,
   context?: HttpContext
 ): Observable<StrictHttpResponse<AuthenticatedResponse>> {
-  const rb = new RequestBuilder(rootUrl, register.PATH, 'post');
+  const rb = new RequestBuilder(rootUrl, refresh.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
   }
@@ -36,4 +36,4 @@ export function register(
     );
 }
 
-register.PATH = '/auth/register';
+refresh.PATH = '/auth/refresh';

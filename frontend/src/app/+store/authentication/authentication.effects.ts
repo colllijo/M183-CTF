@@ -20,6 +20,7 @@ export class AuthenticationEffects {
         this.authenticationService.login({ body: action }).pipe(
           map((response: AuthenticatedResponse) => {
             sessionStorage.setItem('accessToken', response.accessToken || '');
+            sessionStorage.setItem('refreshToken', response.refreshToken || '');
             this.router.navigate(['/']);
             return AuthenticationActions.loginSuccess();
           }),
@@ -42,6 +43,7 @@ export class AuthenticationEffects {
         this.authenticationService.logout().pipe(
           map(() => {
             sessionStorage.removeItem('accessToken');
+            sessionStorage.removeItem('refreshToken');
             this.router.navigate(['/']);
             return AuthenticationActions.logoutSuccess();
           }),

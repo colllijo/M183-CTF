@@ -14,6 +14,8 @@ import { login } from '../fn/authentication-controller/login';
 import { Login$Params } from '../fn/authentication-controller/login';
 import { logout } from '../fn/authentication-controller/logout';
 import { Logout$Params } from '../fn/authentication-controller/logout';
+import { refresh } from '../fn/authentication-controller/refresh';
+import { Refresh$Params } from '../fn/authentication-controller/refresh';
 import { register } from '../fn/authentication-controller/register';
 import { Register$Params } from '../fn/authentication-controller/register';
 
@@ -32,7 +34,10 @@ export class AuthenticationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  login$Response(params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticatedResponse>> {
+  login$Response(
+    params: Login$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<AuthenticatedResponse>> {
     return login(this.http, this.rootUrl, params, context);
   }
 
@@ -42,9 +47,15 @@ export class AuthenticationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  login(params: Login$Params, context?: HttpContext): Observable<AuthenticatedResponse> {
+  login(
+    params: Login$Params,
+    context?: HttpContext
+  ): Observable<AuthenticatedResponse> {
     return this.login$Response(params, context).pipe(
-      map((r: StrictHttpResponse<AuthenticatedResponse>): AuthenticatedResponse => r.body)
+      map(
+        (r: StrictHttpResponse<AuthenticatedResponse>): AuthenticatedResponse =>
+          r.body
+      )
     );
   }
 
@@ -57,7 +68,10 @@ export class AuthenticationControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  logout$Response(params?: Logout$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  logout$Response(
+    params?: Logout$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<void>> {
     return logout(this.http, this.rootUrl, params, context);
   }
 
@@ -73,6 +87,40 @@ export class AuthenticationControllerService extends BaseService {
     );
   }
 
+  /** Path part for operation `refresh()` */
+  static readonly RefreshPath = '/auth/refresh';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `refresh()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  refresh$Response(
+    params: Refresh$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<AuthenticatedResponse>> {
+    return refresh(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `refresh$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  refresh(
+    params: Refresh$Params,
+    context?: HttpContext
+  ): Observable<AuthenticatedResponse> {
+    return this.refresh$Response(params, context).pipe(
+      map(
+        (r: StrictHttpResponse<AuthenticatedResponse>): AuthenticatedResponse =>
+          r.body
+      )
+    );
+  }
+
   /** Path part for operation `register()` */
   static readonly RegisterPath = '/auth/register';
 
@@ -82,7 +130,10 @@ export class AuthenticationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  register$Response(params: Register$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticatedResponse>> {
+  register$Response(
+    params: Register$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<AuthenticatedResponse>> {
     return register(this.http, this.rootUrl, params, context);
   }
 
@@ -92,10 +143,15 @@ export class AuthenticationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  register(params: Register$Params, context?: HttpContext): Observable<AuthenticatedResponse> {
+  register(
+    params: Register$Params,
+    context?: HttpContext
+  ): Observable<AuthenticatedResponse> {
     return this.register$Response(params, context).pipe(
-      map((r: StrictHttpResponse<AuthenticatedResponse>): AuthenticatedResponse => r.body)
+      map(
+        (r: StrictHttpResponse<AuthenticatedResponse>): AuthenticatedResponse =>
+          r.body
+      )
     );
   }
-
 }

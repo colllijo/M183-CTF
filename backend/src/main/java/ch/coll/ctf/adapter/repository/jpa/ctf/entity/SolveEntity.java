@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "_Solve")
+@Table(name = "SOLVE")
 @IdClass(SolveEntityId.class)
 public class SolveEntity {
   @Id
@@ -30,7 +30,7 @@ public class SolveEntity {
 
   @Id
   @ManyToOne
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @JoinColumn(name = "user_account_id", referencedColumnName = "id")
   private UserEntity solver;
 
   @Column(name = "points")

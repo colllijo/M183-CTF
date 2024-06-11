@@ -1,10 +1,8 @@
 package ch.coll.ctf.domain.ctf.port.in;
 
-import ch.coll.ctf.domain.ctf.model.CaptureTheFlag;
-import ch.coll.ctf.domain.user.model.User;
-
 import java.util.List;
-import java.util.Optional;
+
+import ch.coll.ctf.domain.ctf.model.CaptureTheFlag;
 
 public interface CtfServicePort {
 

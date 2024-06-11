@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "_CaptureTheFlag")
+@Table(name = "CTF")
 public class CaptureTheFlagEntity {
   @Id
   @GeneratedValue(strategy = IDENTITY)
@@ -43,9 +43,6 @@ public class CaptureTheFlagEntity {
 
   @Column(name = "flag")
   private String flag;
-
-  @Column(name = "points")
-  private Integer points;
 
   @OneToMany(mappedBy = "ctf", fetch = EAGER)
   private Set<SolveEntity> solves;
