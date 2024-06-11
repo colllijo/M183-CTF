@@ -7,16 +7,13 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { AuthenticatedResponse } from '../../models/authenticated-response';
-import { AuthenticationRequest } from '../../models/authentication-request';
 
-export interface Login$Params {
-      body: AuthenticationRequest
+export interface IsAuthenticated$Params {
 }
 
-export function login(http: HttpClient, rootUrl: string, params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticatedResponse>> {
-  const rb = new RequestBuilder(rootUrl, login.PATH, 'post');
+export function isAuthenticated(http: HttpClient, rootUrl: string, params?: IsAuthenticated$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticatedResponse>> {
+  const rb = new RequestBuilder(rootUrl, isAuthenticated.PATH, 'get');
   if (params) {
-    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -29,4 +26,4 @@ export function login(http: HttpClient, rootUrl: string, params: Login$Params, c
   );
 }
 
-login.PATH = '/auth/login';
+isAuthenticated.PATH = '/auth/';

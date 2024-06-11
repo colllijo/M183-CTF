@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,18 +8,23 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
 import { AuthenticationActions } from '@app/+store/authentication/authentication.actions';
+import { authenticationFeature } from '@app/+store/authentication/authentication.reducers';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import { Observable, Subscription } from 'rxjs';
+import { ErrorDialogComponent } from './component/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'ctf-login',
   standalone: true,
   imports: [
+    AsyncPipe,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
@@ -31,11 +37,17 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
   public passwordVisible: boolean;
 
-  constructor(private store: Store) {
+  private error$: Observable<string | null>;
+  private subscription: Subscription;
+
+  constructor(
+    private dialog: MatDialog,
+    private store: Store
+  ) {
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
       password: new FormControl('', [
@@ -44,6 +56,25 @@ export class LoginComponent {
       ])
     });
     this.passwordVisible = false;
+
+    this.error$ = this.store.select(authenticationFeature.selectError);
+    this.subscription = new Subscription();
+  }
+
+  public ngOnInit(): void {
+    this.subscription.add(
+      this.error$.subscribe((error) => {
+        if (error) {
+          this.dialog.open(ErrorDialogComponent, {
+            data: { error }
+          });
+        }
+      })
+    );
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public login(): void {

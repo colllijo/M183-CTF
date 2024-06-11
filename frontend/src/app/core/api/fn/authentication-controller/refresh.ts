@@ -10,30 +10,23 @@ import { AuthenticatedResponse } from '../../models/authenticated-response';
 import { RefreshRequest } from '../../models/refresh-request';
 
 export interface Refresh$Params {
-  body: RefreshRequest;
+      body: RefreshRequest
 }
 
-export function refresh(
-  http: HttpClient,
-  rootUrl: string,
-  params: Refresh$Params,
-  context?: HttpContext
-): Observable<StrictHttpResponse<AuthenticatedResponse>> {
+export function refresh(http: HttpClient, rootUrl: string, params: Refresh$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticatedResponse>> {
   const rb = new RequestBuilder(rootUrl, refresh.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
   }
 
-  return http
-    .request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    )
-    .pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<AuthenticatedResponse>;
-      })
-    );
+  return http.request(
+    rb.build({ responseType: 'json', accept: 'application/json', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return r as StrictHttpResponse<AuthenticatedResponse>;
+    })
+  );
 }
 
 refresh.PATH = '/auth/refresh';

@@ -10,7 +10,7 @@ export const AuthenticationActions = createActionGroup({
     login: props<{ username: string; password: string }>(),
     loginSuccess: emptyProps(),
     loginFailure: props<{
-      errors: Error;
+      error: string;
     }>(),
     // Logout
     logout: emptyProps(),

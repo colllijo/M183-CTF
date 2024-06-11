@@ -10,7 +10,12 @@
       "REGISTRATION-LINK": "Hier registrieren",
       "USERNAME": "Benutzernamen",
       "PASSWORD": "Passwort",
-      "LOGIN": "Anmelden"
+      "LOGIN": "Anmelden",
+      "ERROR": {
+        "TITLE": "Login Fehler",
+        "CLOSE": "Schliessen",
+        "BAD-CREDENTIALS": "Ungültige Anmeldeinformationen"
+      }
     },
     "REGISTRATION": {
       "TITLE": "Registration",
@@ -20,7 +25,15 @@
       "EMAIL": "Email",
       "PASSWORD": "Passwort",
       "PASSWORD-CONFIRMATION": "Passwort bestätigen",
-      "REGISTER": "Registrieren"
+      "REGISTER": "Registrieren",
+      "ERROR": {
+        "TITLE": "Registrierungsfehler",
+        "CLOSE": "Scliessen",
+        "USERNAME": "Benutzername ist ungültig",
+        "EMAIL": "Email ist ungültig",
+        "PASSWORD": "Passwort ist ungültig",
+        "PASSWORDCONFIRMATION": "Passwort Bestätigung ist ungültig"
+      }
     }
   },
   "ERRORS": {
