@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -48,6 +49,14 @@ public class AuthenticationAdvice {
   @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
   public RestExceptionResponse handleRuntimeException(ExpiredJwtException exception) {
     return exceptionAssembler.toModel(exception).setStatus(401).setMessage("Token expired");
+  }
+
+  @ResponseBody
+  @ExceptionHandler(UsernameNotFoundException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
+  public RestExceptionResponse handleUsernameNotFoundException(UsernameNotFoundException exception) {
+    return exceptionAssembler.toModel(exception).setError("Bad credentials").setMessage("Username and/or password are incorrect").setStatus(400);
   }
 
   /**

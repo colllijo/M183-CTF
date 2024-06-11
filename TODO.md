@@ -12,7 +12,7 @@
 - Logging
 - Rollenverwaltung durch Admin
 - Funktionen hinter Berechtigungen verstecken
-- Liquibase in der DB benutzten
+- [x] Liquibase in der DB benutzten
 
 ## Monitoring
 

@@ -19,6 +19,17 @@ import lombok.NoArgsConstructor;
 @JsonInclude(NON_NULL)
 @EqualsAndHashCode(callSuper = false)
 public class AuthenticatedResponse extends RepresentationModel<AuthenticatedResponse> {
-  private String accessToken;
-  private String refreshToken;
+  private String username;
+  private Tokens tokens;
+
+  @Data
+  @Builder
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @JsonInclude(NON_NULL)
+  @EqualsAndHashCode
+  public static class Tokens {
+    private String accessToken;
+    private String refreshToken;
+  }
 }

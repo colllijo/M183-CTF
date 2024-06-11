@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import ch.coll.ctf.adapter.api.rest.authentication.mapper.RegistrationRequestMap
 import ch.coll.ctf.adapter.api.rest.exception.dto.RestExceptionResponse;
 import ch.coll.ctf.domain.authentication.port.in.AuthenticationServicePort;
 import ch.coll.ctf.domain.token.model.SecureToken;
+import ch.coll.ctf.domain.user.model.User;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -34,6 +37,13 @@ public class AuthenticationController {
   private final AuthenticationServicePort authenticationService;
 
   private final RegistrationRequestMapper registrationMapper;
+
+  @ApiResponse(responseCode = "200", description = "User is authenticated")
+  @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+  public AuthenticatedResponse isAuthenticated() {
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return new AuthenticatedResponse(user.getUsername(), null);
+  }
 
   @ApiResponse(responseCode = "200", description = "User authenticated successfully")
   @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
@@ -92,7 +102,14 @@ public class AuthenticationController {
     response.addCookie(createFingerprintCookie("Refresh-Token", tokens.get("Refresh-Token").getFingerprint(),
         authenticationService.getRefreshExpirationTime()));
 
-    return new AuthenticatedResponse(tokens.get("Access-Token").getToken(), tokens.get("Refresh-Token").getToken());
+    return AuthenticatedResponse.builder()
+      .tokens(
+        AuthenticatedResponse.Tokens.builder()
+          .accessToken(tokens.get("Access-Token").getToken())
+          .refreshToken(tokens.get("Refresh-Token").getToken())
+          .build()
+        )
+      .build();
   }
 
   private Cookie createFingerprintCookie(String name, String fingerprint, int maxAge) {
