@@ -1,0 +1,9 @@
+POST {{URL}}/auth/register
+CONTENT-TYPE: application/json
+
+{
+  "username": "lijo",
+  "password": "GuudPassword",
+  "passwordConfiramtion": "GuudPassword",
+  "email": "lijo@gmail.com"
+}
