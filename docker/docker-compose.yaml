@@ -10,5 +10,17 @@ services:
       - 5432:5432
     volumes:
       - db-data:/var/lib/postgresql/data
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    ports:
+      - 9090:9090
+    volumes:
+      - ./config/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+  grafana:
+    image: grafana/grafana:10.4.4
+    ports:
+      - 3000:3000
 volumes:
   db-data:
+  prometheus-data:
