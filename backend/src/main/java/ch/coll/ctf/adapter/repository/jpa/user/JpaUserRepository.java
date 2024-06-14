@@ -37,8 +37,6 @@ public class JpaUserRepository implements UserRepositoryPort {
     UserEntity userEntity = userMapper.mapModelToEntity(user);
     userEntity.getRoles().forEach(role -> role.getUsers().add(userEntity));
 
-    log.info("UserEntity={}", userEntity);
-
     return userMapper.mapEntityToModel(userRepository.save(userEntity));
   }
 }

@@ -1,6 +1,7 @@
 package ch.coll.ctf.domain.user.model;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class User {
 
   @NotNull
   @Builder.Default
-  private Set<Role> roles = Set.of(DefaultRoles.USER.getRole());
+  private Set<Role> roles = new HashSet<>(Set.of(DefaultRoles.USER.getRole()));
 
   public Set<Permission> getPermissions() {
     return roles.stream()
