@@ -1,6 +1,8 @@
 package ch.coll.ctf.adapter.repository.jpa.user;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 public class JpaUserRepository implements UserRepositoryPort {
   private final JpaUserEntityRepository userRepository;
   private final UserEntityMapper userMapper;
+
+  public List<User> getUsers() {
+    log.info("Getting users");
+
+    return userRepository.findAll().stream().map(userMapper::mapEntityToModel).collect(Collectors.toList());
+  }
 
   public Optional<User> getUserById(Long id) {
     log.info("Getting user by id - id={}", id);

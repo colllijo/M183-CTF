@@ -29,6 +29,25 @@
         "required" : [ "password", "username" ],
         "type" : "object"
       },
+      "CollectionModelUserResponse" : {
+        "properties" : {
+          "_embedded" : {
+            "properties" : {
+              "userResponseList" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/UserResponse"
+                },
+                "type" : "array"
+              }
+            },
+            "type" : "object"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
+        "type" : "object"
+      },
       "Link" : {
         "properties" : {
           "deprecation" : {
@@ -101,6 +120,21 @@
             "type" : "string"
           },
           "refreshToken" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "UserResponse" : {
+        "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "points" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "username" : {
             "type" : "string"
           }
         },
@@ -179,6 +213,16 @@
             },
             "description" : "Unauthorized"
           },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
           "500" : {
             "content" : {
               "application/json" : {
@@ -237,6 +281,16 @@
             },
             "description" : "Unauthorized"
           },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
           "500" : {
             "content" : {
               "application/json" : {
@@ -277,6 +331,16 @@
               }
             },
             "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
           },
           "500" : {
             "content" : {
@@ -336,6 +400,16 @@
             },
             "description" : "Unauthorized"
           },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
           "500" : {
             "content" : {
               "application/json" : {
@@ -394,6 +468,16 @@
             },
             "description" : "Unauthorized"
           },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
           "500" : {
             "content" : {
               "application/json" : {
@@ -442,6 +526,16 @@
             },
             "description" : "Unauthorized"
           },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
           "500" : {
             "content" : {
               "application/json" : {
@@ -454,6 +548,64 @@
           }
         },
         "tags" : [ "test-controller" ]
+      }
+    },
+    "/users/" : {
+      "get" : {
+        "operationId" : "getUsers",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelUserResponse"
+                }
+              }
+            },
+            "description" : "User is authenticated"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "user-controller" ]
       }
     }
   },
