@@ -1,7 +1,13 @@
 package ch.coll.ctf.domain.user.model;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import ch.coll.ctf.domain.authorisation.model.DefaultRoles;
+import ch.coll.ctf.domain.authorisation.model.Permission;
+import ch.coll.ctf.domain.authorisation.model.Role;
 import ch.coll.ctf.domain.ctf.model.Solve;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -36,4 +42,15 @@ public class User {
 
   @NotNull
   private Set<@Valid Solve> solves;
+
+  @NotNull
+  @Builder.Default
+  private Set<Role> roles = new HashSet<>(Set.of(DefaultRoles.USER.getRole()));
+
+  public Set<Permission> getPermissions() {
+    return roles.stream()
+        .map(Role::getPermissions)
+        .flatMap(Collection::stream)
+        .collect(Collectors.toSet());
+  }
 }

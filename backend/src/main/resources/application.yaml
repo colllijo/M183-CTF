@@ -3,6 +3,11 @@ info:
     name: CTF
     description: COLL - Capture The Flag Hub
     version: 1.0.0
+ctf:
+  config:
+    default-admin:
+      username: admin
+      password: admin
 server:
   servlet:
     context-path: /api
@@ -29,3 +34,11 @@ springdoc:
   swagger-ui:
     path: /docs/swagger-ui
     disable-swagger-default-url: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics, health, prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}

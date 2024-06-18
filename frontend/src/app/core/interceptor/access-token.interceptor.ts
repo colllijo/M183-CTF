@@ -27,8 +27,11 @@ export const accessTokenInterceptor: HttpInterceptorFn = (req, next) => {
           })
           .pipe(
             switchMap((response: AuthenticatedResponse) => {
-              if (response.accessToken) {
-                sessionStorage.setItem('accessToken', response.accessToken);
+              if (response.tokens?.accessToken) {
+                sessionStorage.setItem(
+                  'accessToken',
+                  response.tokens.accessToken
+                );
                 sessionStorage.setItem('refreshToken', refreshToken);
               }
 

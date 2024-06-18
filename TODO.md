@@ -5,7 +5,10 @@
 - [x] Refresh-Token
 - [x] Bessere Token Lebenszeit
 - [x] Endpoint um Authentificationsstatus abzufragen
-- RBAC für Zugriffskontrolle
+- [x] RBAC für Zugriffskontrolle
+- Rollen und Berechtigungsverwaltung
+- Benutzerverwaltung
+- Profile für Benutzer
 - Unauthenticated Antwort
 - Bestätigungs-Email
 - Fehlerdarstellung im Frontend

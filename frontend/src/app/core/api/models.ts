@@ -7,3 +7,4 @@ export { Link } from './models/link';
 export { Links } from './models/links';
 export { RefreshRequest } from './models/refresh-request';
 export { RegistrationRequest } from './models/registration-request';
+export { Tokens } from './models/tokens';

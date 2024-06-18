@@ -19,15 +19,23 @@ export class AuthenticationEffects {
       exhaustMap((action) =>
         this.authenticationService.login({ body: action }).pipe(
           map((response: AuthenticatedResponse) => {
-            sessionStorage.setItem('accessToken', response.accessToken || '');
-            sessionStorage.setItem('refreshToken', response.refreshToken || '');
+            sessionStorage.setItem(
+              'accessToken',
+              response.tokens?.accessToken || ''
+            );
+            sessionStorage.setItem(
+              'refreshToken',
+              response.tokens?.refreshToken || ''
+            );
             this.router.navigate(['/']);
             return AuthenticationActions.loginSuccess();
           }),
           catchError((response: HttpErrorResponse) => {
             return of(
               AuthenticationActions.loginFailure({
-                errors: this.getDetailedErrors(response)
+                error: this.toErrorPropertyName(
+                  (response.error as RestError).error || 'Login failed'
+                )
               })
             );
           })
@@ -62,7 +70,10 @@ export class AuthenticationEffects {
       exhaustMap((action) =>
         this.authenticationService.register({ body: action }).pipe(
           map((response: AuthenticatedResponse) => {
-            sessionStorage.setItem('accessToken', response.accessToken || '');
+            sessionStorage.setItem(
+              'accessToken',
+              response.tokens?.accessToken || ''
+            );
             this.router.navigate(['/']);
             return AuthenticationActions.registrationSuccess();
           }),
@@ -91,5 +102,9 @@ export class AuthenticationEffects {
     }
 
     return errors;
+  }
+
+  private toErrorPropertyName(error: string): string {
+    return error.replace(' ', '-').toUpperCase();
   }
 }

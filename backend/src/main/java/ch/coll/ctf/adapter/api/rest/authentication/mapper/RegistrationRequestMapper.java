@@ -12,5 +12,6 @@ public interface RegistrationRequestMapper {
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "active", ignore = true)
   @Mapping(target = "solves", ignore = true)
+  @Mapping(target = "roles", ignore = true)
   public User mapRequestToUser(RegistrationRequest request);
 }

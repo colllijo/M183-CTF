@@ -10,30 +10,23 @@ import { AuthenticatedResponse } from '../../models/authenticated-response';
 import { AuthenticationRequest } from '../../models/authentication-request';
 
 export interface Login$Params {
-  body: AuthenticationRequest;
+      body: AuthenticationRequest
 }
 
-export function login(
-  http: HttpClient,
-  rootUrl: string,
-  params: Login$Params,
-  context?: HttpContext
-): Observable<StrictHttpResponse<AuthenticatedResponse>> {
+export function login(http: HttpClient, rootUrl: string, params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticatedResponse>> {
   const rb = new RequestBuilder(rootUrl, login.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
   }
 
-  return http
-    .request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    )
-    .pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<AuthenticatedResponse>;
-      })
-    );
+  return http.request(
+    rb.build({ responseType: 'json', accept: 'application/json', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return r as StrictHttpResponse<AuthenticatedResponse>;
+    })
+  );
 }
 
 login.PATH = '/auth/login';

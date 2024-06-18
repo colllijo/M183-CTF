@@ -25,7 +25,12 @@
       "REGISTRATION-LINK": "Register here",
       "USERNAME": "Username",
       "PASSWORD": "Password",
-      "LOGIN": "Login"
+      "LOGIN": "Login",
+      "ERROR": {
+        "TITLE": "Login failed",
+        "CLOSE": "Close",
+        "BAD-CREDENTIALS": "Invalid credentials"
+      }
     },
     "REGISTRATION": {
       "TITLE": "Registration",
@@ -35,7 +40,15 @@
       "EMAIL": "Email",
       "PASSWORD": "Password",
       "PASSWORD-CONFIRMATION": "Confirm Password",
-      "REGISTER": "Register"
+      "REGISTER": "Register",
+      "ERROR": {
+        "TITLE": "Registration failed",
+        "CLOSE": "Close",
+        "USERNAME": "Username is invalid",
+        "EMAIL": "Email is invalid",
+        "PASSWORD": "Password is invalid",
+        "PASSWORDCONFIRMATION": "Passwords do not match"
+      }
     }
   }
 }
