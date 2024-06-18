@@ -3,6 +3,7 @@ package ch.coll.ctf.adapter.api.rest.user.dto;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(NON_NULL)
 @JsonRootName(value = "user")
 @EqualsAndHashCode(callSuper = false)
+@Relation(collectionRelation = "users")
 public class UserResponse extends RepresentationModel<UserResponse> {
   private String username;
 
