@@ -21,26 +21,12 @@ public class SolveService implements SolveServicePort {
     }
 
     @Override
-    public Optional<Solve> getSolveByCtfName(String ctfName) {
-        return solveRepositoryPort.findByCtfName(ctfName);
+    public List<Solve> getSolveByUsername(String username) {
+        return solveRepositoryPort.findByUsername(username);
     }
 
     @Override
     public List<Solve> getAllSolves() {
         return solveRepositoryPort.findAll();
-    }
-
-    @Override
-    public Solve updateSolve(String ctfName, Solve solve) {
-        Solve existingSolve = solveRepositoryPort.findByCtfName(ctfName)
-                .orElseThrow(() -> new IllegalArgumentException("Solve with CTF name " + ctfName + " does not exist"));
-        // Update the fields of existingSolve with the fields of solve
-        // This depends on what fields you want to allow to be updated
-        return solveRepositoryPort.save(existingSolve);
-    }
-
-    @Override
-    public void deleteSolve(String ctfName) {
-        solveRepositoryPort.deleteByCtfName(ctfName);
     }
 }

@@ -20,7 +20,7 @@ public class CtfService implements CtfServicePort {
     }
 
     @Override
-    public Ctf getCtf(String name) {
+    public Ctf getCtfByName(String name) {
         return ctfRepositoryPort.findByName(name).orElseThrow(() -> new IllegalArgumentException("Ctf with name " + name + " not found"));
     }
 

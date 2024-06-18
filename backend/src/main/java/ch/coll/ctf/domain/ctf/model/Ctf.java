@@ -21,7 +21,6 @@ public class Ctf {
     @NotBlank
     @Pattern(regexp = "^cctf\\{.*}$", message = "Flag must be in the format cctf{xxx}")
     private String flag;
-    private Integer points;
     @NotEmpty
     private Set<Solve> solves;
 }

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CtfRepositoryPort {
     public List<Ctf> findAll();
-    public Optional<Ctf> findByName(String id);
+    public Optional<Ctf> findByName(String name);
     public Ctf save(Ctf challenge);
     public void deleteByName(String name);
 }

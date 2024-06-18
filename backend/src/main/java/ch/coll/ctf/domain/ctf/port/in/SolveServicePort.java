@@ -9,11 +9,7 @@ public interface SolveServicePort {
 
     Solve createSolve(Solve solve);
 
-    Optional<Solve> getSolveByCtfName(String ctfName);
+    List<Solve> getSolveByUsername(String username);
 
     List<Solve> getAllSolves();
-
-    Solve updateSolve(String ctfName, Solve solve);
-
-    void deleteSolve(String ctfName);
 }

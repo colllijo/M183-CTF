@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface CtfServicePort {
 
-    public List<Ctf> getAllCtfs();
+     List<Ctf> getAllCtfs();
 
-    public Ctf getCtf(String name);
+     Ctf getCtfByName(String name);
 
-    public Ctf createCtf(Ctf ctf);
+     Ctf createCtf(Ctf ctf);
 
-    public Ctf updateCtf(String name, Ctf ctf);
+     Ctf updateCtf(String name, Ctf ctf);
 
-    public void deleteCtf(String name);
+     void deleteCtf(String name);
 
 }

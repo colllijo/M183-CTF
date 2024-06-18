@@ -9,9 +9,7 @@ public interface SolveRepositoryPort {
 
     Solve save(Solve solve);
 
-    Optional<Solve> findByCtfName(String ctfName);
+    Optional<Solve> findByUsername(String username);
 
     List<Solve> findAll();
-
-    void deleteByCtfName(String ctfName);
 }
