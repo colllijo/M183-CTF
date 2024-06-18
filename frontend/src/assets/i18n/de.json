@@ -67,9 +67,27 @@
         "PASSWORD": "Passwort ist ungültig",
         "PASSWORDCONFIRMATION": "Passwort Bestätigung ist ungültig"
       }
+    },
+    "CTFCREATION": {
+      "TITLE": "Erstelle eine Herausforderung",
+      "NAME": "Name",
+      "DESCRIPTION": "Beschreibung",
+      "FLAG": "Flagge",
+      "FILE": "Datei",
+      "CREATE": "Erstellen"
+    }
+  },
+  "COMPONENTS": {
+    "FILEINPUT": {
+      "SELECT": "Datei auswählen",
+      "NOTSELECTED": "Keine Datei ausgewählt"
     }
   },
   "ERRORS": {
+    "NAME-REQUIRED": "Name ist erforderlich",
+    "DESCRIPTION-REQUIRED": "Beschreibung ist erforderlich",
+    "FLAG-REQUIRED": "Flagge ist erforderlich",
+    "FLAG-PATTERN": "Flagge erfüllt das Muster /CCTF\\{[a-zA-Z0-9]+\\}/ nicht",
     "USERNAME-REQUIRED": "Benutzername ist erforderlich",
     "EMAIL-REQUIRED": "Email ist erforderlich",
     "EMAIL-INVALID": "Email ist ungültig",

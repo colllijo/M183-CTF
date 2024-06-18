@@ -1,0 +1,11 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+
+  mat-form-field, button, ctf-file-input {
+    width: 80%;
+  }
+}

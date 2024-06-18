@@ -8,10 +8,12 @@ import { ChallengesComponent } from '@page/challenges/challenges.component';
 import { LeaderboardComponent } from '@page/leaderboard/leaderboard.component';
 import { LoginComponent } from '@page/login/login.component';
 import { RegistrationComponent } from '@page/registration/registration.component';
+import { ChallengeCreationComponent } from "@page/challenge-creation/challenge-creation.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: '/challenges', pathMatch: 'full' },
   { path: 'challenges', component: ChallengesComponent },
+  { path: 'create-challenge', component: ChallengeCreationComponent },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
