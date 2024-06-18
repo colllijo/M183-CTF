@@ -5,6 +5,7 @@ import { AuthenticationActions } from './authentication.actions';
 const initialState: AuthenticationState = {
   authenticated: false,
   username: null,
+  error: null,
   errors: null,
   loading: false
 };
@@ -20,6 +21,7 @@ export const authenticationFeature = createFeature({
       (state, { username }): AuthenticationState => ({
         ...state,
         username,
+        error: null,
         errors: null,
         loading: true
       })
@@ -29,15 +31,16 @@ export const authenticationFeature = createFeature({
       (state): AuthenticationState => ({
         ...state,
         authenticated: true,
+        error: null,
         errors: null,
         loading: false
       })
     ),
     on(
       AuthenticationActions.loginFailure,
-      (state, { errors }): AuthenticationState => ({
+      (state, { error }): AuthenticationState => ({
         ...state,
-        errors,
+        error,
         loading: false
       })
     ),
@@ -64,6 +67,7 @@ export const authenticationFeature = createFeature({
       (state, { username }): AuthenticationState => ({
         ...state,
         username,
+        error: null,
         errors: null,
         loading: true
       })
@@ -73,6 +77,7 @@ export const authenticationFeature = createFeature({
       (state): AuthenticationState => ({
         ...state,
         authenticated: true,
+        error: null,
         errors: null,
         loading: false
       })

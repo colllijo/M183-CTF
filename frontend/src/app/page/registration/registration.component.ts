@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -18,6 +18,11 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthenticationActions } from '@+store/authentication/authentication.actions';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable, Subscription } from 'rxjs';
+import { Error } from '@app/core/model/error';
+import { authenticationFeature } from '@app/+store/authentication/authentication.reducers';
+import { ErrorDialogComponent } from './component/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'ctf-registration',
@@ -35,11 +40,17 @@ import { AuthenticationActions } from '@+store/authentication/authentication.act
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss'
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit, OnDestroy {
   public registrationForm: FormGroup;
   public passwordVisible: boolean;
 
-  constructor(private store: Store) {
+  private errors$: Observable<Error | null>;
+  private subscription: Subscription;
+
+  constructor(
+    private dialog: MatDialog,
+    private store: Store
+  ) {
     this.registrationForm = new FormGroup(
       {
         username: new FormControl('', Validators.required),
@@ -53,6 +64,25 @@ export class RegistrationComponent {
       passwordConfirmationValidator
     );
     this.passwordVisible = false;
+
+    this.errors$ = this.store.select(authenticationFeature.selectErrors);
+    this.subscription = new Subscription();
+  }
+
+  public ngOnInit(): void {
+    this.subscription.add(
+      this.errors$.subscribe((errors) => {
+        if (errors) {
+          this.dialog.open(ErrorDialogComponent, {
+            data: { errors: Object.keys(errors) }
+          });
+        }
+      })
+    );
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public register(): void {

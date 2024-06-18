@@ -4,12 +4,9 @@ import ch.coll.ctf.domain.ctf.model.Solve;
 import ch.coll.ctf.domain.ctf.port.in.SolveServicePort;
 import ch.coll.ctf.domain.ctf.port.out.SolveRepositoryPort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
 @RequiredArgsConstructor
 public class SolveService implements SolveServicePort {
 
@@ -22,7 +19,8 @@ public class SolveService implements SolveServicePort {
 
     @Override
     public List<Solve> getSolveByUsername(String username) {
-        return solveRepositoryPort.findByUsername(username);
+        return null;
+        //return solveRepositoryPort.findByUsername(username);
     }
 
     @Override

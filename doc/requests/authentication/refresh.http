@@ -1,0 +1,6 @@
+POST {{URL}}/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}

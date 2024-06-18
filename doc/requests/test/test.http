@@ -1,0 +1,2 @@
+GET {{URL}}/test
+Authorization: Bearer {{accessToken}}

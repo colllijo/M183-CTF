@@ -1,6 +1,8 @@
 package ch.coll.ctf.domain.authentication.service;
 
+import java.util.HashMap;
 import java.util.HexFormat;
+import java.util.Map;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import ch.coll.ctf.domain.authentication.exception.InvalidRefreshTokenException;
 import ch.coll.ctf.domain.authentication.port.in.AuthenticationServicePort;
 import ch.coll.ctf.domain.token.model.SecureToken;
 import ch.coll.ctf.domain.token.port.in.JwtServicePort;
@@ -23,27 +26,59 @@ public class AuthenticationService implements AuthenticationServicePort {
   private final PasswordEncoder passwordEncoder;
 
   @Override
-  public SecureToken login(String username, String password) {
+  public Map<String, SecureToken> login(String username, String password) {
     Authentication authentication = authenticationManager
         .authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
-    String fingerprint = HexFormat.of().formatHex(KeyGenerators.secureRandom(256).generateKey());
-    return new SecureToken(
-        jwtService.generateToken((User) authentication.getPrincipal(), jwtService.hashFingerprint(fingerprint)),
-        fingerprint);
+    return generateTokens((User) authentication.getPrincipal());
   }
 
   @Override
-  public SecureToken register(User registrationUser) {
+  public Map<String, SecureToken> register(User registrationUser) {
     registrationUser.setPassword(passwordEncoder.encode(registrationUser.getPassword()));
     User user = userService.createUser(registrationUser);
 
-    String fingerprint = HexFormat.of().formatHex(KeyGenerators.secureRandom(256).generateKey());
-    return new SecureToken(jwtService.generateToken(user, jwtService.hashFingerprint(fingerprint)), fingerprint);
+    return generateTokens(user);
   }
 
   @Override
-  public Integer getExpirationTime() {
-    return jwtService.getExpirationTime();
+  public SecureToken refresh(String refreshToken, String refreshFingerprint) {
+    User user = userService.getUserByUsername(jwtService.extractUsername(refreshToken))
+        .orElse(null);
+
+    if (!jwtService.isTokenValid(refreshToken, refreshFingerprint, user)) {
+      throw new InvalidRefreshTokenException();
+    }
+
+    String accessFingerprint = generateFingerprint();
+    return new SecureToken(jwtService.generateAccessToken(user, accessFingerprint), accessFingerprint);
+  }
+
+  @Override
+  public Integer getAccessExpirationTime() {
+    return jwtService.getAccessExpirationTime();
+  }
+
+  @Override
+  public Integer getRefreshExpirationTime() {
+    return jwtService.getRefreshExpirationTime();
+  }
+
+  private Map<String, SecureToken> generateTokens(User user) {
+    Map<String, SecureToken> tokens = new HashMap<>();
+
+    String accessFingerprint = generateFingerprint();
+    String refreshFingerprint = generateFingerprint();
+
+    tokens.put("Access-Token",
+        new SecureToken(jwtService.generateAccessToken(user, accessFingerprint), accessFingerprint));
+    tokens.put("Refresh-Token",
+        new SecureToken(jwtService.generateRefreshToken(user, refreshFingerprint), refreshFingerprint));
+
+    return tokens;
+  }
+
+  private String generateFingerprint() {
+    return HexFormat.of().formatHex(KeyGenerators.secureRandom(256).generateKey());
   }
 }

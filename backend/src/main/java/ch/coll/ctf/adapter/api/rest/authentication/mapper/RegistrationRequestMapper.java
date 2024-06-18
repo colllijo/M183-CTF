@@ -10,8 +10,8 @@ import ch.coll.ctf.domain.user.model.User;
 @Mapper(config = RestMapperConfig.class)
 public interface RegistrationRequestMapper {
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "role", ignore = true)
   @Mapping(target = "active", ignore = true)
   @Mapping(target = "solves", ignore = true)
+  @Mapping(target = "roles", ignore = true)
   public User mapRequestToUser(RegistrationRequest request);
 }

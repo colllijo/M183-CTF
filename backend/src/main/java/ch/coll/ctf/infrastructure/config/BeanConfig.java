@@ -1,5 +1,8 @@
 package ch.coll.ctf.infrastructure.config;
 
+import ch.coll.ctf.domain.ctf.port.in.SolveServicePort;
+import ch.coll.ctf.domain.ctf.port.out.SolveRepositoryPort;
+import ch.coll.ctf.domain.ctf.service.SolveService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,6 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ch.coll.ctf.domain.authentication.port.in.AuthenticationServicePort;
 import ch.coll.ctf.domain.authentication.service.AuthenticationService;
+import ch.coll.ctf.domain.ctf.port.in.CtfServicePort;
+import ch.coll.ctf.domain.ctf.port.out.CtfRepositoryPort;
+import ch.coll.ctf.domain.ctf.service.CtfService;
 import ch.coll.ctf.domain.token.port.in.JwtServicePort;
 import ch.coll.ctf.domain.token.service.JwtService;
 import ch.coll.ctf.domain.user.port.in.UserServicePort;
@@ -18,6 +24,16 @@ public class BeanConfig {
   @Bean
   public UserServicePort userService(UserRepositoryPort userRepository) {
     return new UserService(userRepository);
+  }
+
+  @Bean
+  public CtfServicePort ctfService(CtfRepositoryPort ctfRepository) {
+    return new CtfService(ctfRepository);
+  }
+
+  @Bean
+  public SolveServicePort solveService(SolveRepositoryPort solveRepository) {
+    return new SolveService(solveRepository);
   }
 
   @Bean

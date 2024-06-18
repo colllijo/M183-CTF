@@ -8,9 +8,9 @@ import org.mapstruct.Mapping;
 
 @Mapper(config = RestMapperConfig.class)
 public interface CtfRequestMapper {
-  @Mapping(target = "id", ignore = true)
+ /* @Mapping(target = "id", ignore = true)
   @Mapping(target = "role", ignore = true)
   @Mapping(target = "active", ignore = true)
   @Mapping(target = "solves", ignore = true)
   public User mapRequestToUser(RegistrationRequest request);
-}
+*/}

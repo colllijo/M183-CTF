@@ -9,7 +9,5 @@ public interface SolveRepositoryPort {
 
     Solve save(Solve solve);
 
-    Optional<Solve> findByUsername(String username);
-
     List<Solve> findAll();
 }

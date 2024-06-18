@@ -79,8 +79,10 @@
           {{ 'ERRORS.PASSWORD-MISMATCH' | translate }}
         </mat-error>
       }
-      <button mat-flat-button color="primary">
-        <!-- [disabled]="!registrationForm.valid" -->
+      <button
+        mat-flat-button
+        [disabled]="!registrationForm.valid"
+        color="primary">
         {{ 'PAGES.REGISTRATION.REGISTER' | translate }}
       </button>
     </form>

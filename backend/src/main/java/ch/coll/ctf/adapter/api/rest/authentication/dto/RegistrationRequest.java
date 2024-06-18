@@ -2,6 +2,7 @@
 package ch.coll.ctf.adapter.api.rest.authentication.dto;
 
 import ch.coll.ctf.domain.validation.annotation.ValidPasswordConfirmation;
+import ch.coll.ctf.domain.validation.annotation.ValidUsername;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 @ValidPasswordConfirmation
 public class RegistrationRequest {
   @NotBlank
+  @ValidUsername
   private String username;
 
   @Size(min = 12)

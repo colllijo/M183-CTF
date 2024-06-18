@@ -6,7 +6,10 @@
           "_links" : {
             "$ref" : "#/components/schemas/Links"
           },
-          "accessToken" : {
+          "tokens" : {
+            "$ref" : "#/components/schemas/Tokens"
+          },
+          "username" : {
             "type" : "string"
           }
         },
@@ -61,6 +64,15 @@
         },
         "type" : "object"
       },
+      "RefreshRequest" : {
+        "properties" : {
+          "refreshToken" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "refreshToken" ],
+        "type" : "object"
+      },
       "RegistrationRequest" : {
         "properties" : {
           "email" : {
@@ -81,6 +93,17 @@
           }
         },
         "required" : [ "email", "password", "passwordConfirmation", "username" ],
+        "type" : "object"
+      },
+      "Tokens" : {
+        "properties" : {
+          "accessToken" : {
+            "type" : "string"
+          },
+          "refreshToken" : {
+            "type" : "string"
+          }
+        },
         "type" : "object"
       },
       "error" : {
@@ -122,6 +145,54 @@
   },
   "openapi" : "3.0.1",
   "paths" : {
+    "/auth/" : {
+      "get" : {
+        "operationId" : "isAuthenticated",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthenticatedResponse"
+                }
+              }
+            },
+            "description" : "User is authenticated"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "authentication-controller" ]
+      }
+    },
     "/auth/login" : {
       "post" : {
         "operationId" : "login",
@@ -156,6 +227,16 @@
             },
             "description" : "Bad request"
           },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
           "500" : {
             "content" : {
               "application/json" : {
@@ -176,6 +257,84 @@
         "responses" : {
           "200" : {
             "description" : "User authenticated successfully"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "authentication-controller" ]
+      }
+    },
+    "/auth/refresh" : {
+      "post" : {
+        "operationId" : "refresh",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RefreshRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthenticatedResponse"
+                }
+              }
+            },
+            "description" : "Access token refreshed successfully"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
           },
           "500" : {
             "content" : {
@@ -225,6 +384,16 @@
             },
             "description" : "Bad request"
           },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
           "500" : {
             "content" : {
               "application/json" : {
@@ -245,17 +414,37 @@
         "responses" : {
           "200" : {
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "type" : "string"
                 }
               }
             },
-            "description" : "OK"
+            "description" : "User authenticated successfully"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
           },
           "500" : {
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/error"
                 }

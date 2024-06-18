@@ -25,11 +25,6 @@ public class JpaSolveRepository implements SolveRepositoryPort {
         return solveRepository.findAll().stream().map(solveMapper::mapEntityToModel).toList();
     }
 
-    public Optional<Solve> findByUsername(String name) {
-        log.info("Getting Solve by id - id={}", name);
-return null;
-     //   return solveRepository.findByUser(new UserEntity(), new Ct).map(solveMapper::mapEntityToModel);
-    }
 
     public Solve save(Solve solve) {
         log.info("Creating Solve - Solve={}", solve);

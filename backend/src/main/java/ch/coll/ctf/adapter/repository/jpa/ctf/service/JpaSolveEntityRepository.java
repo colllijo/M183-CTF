@@ -11,6 +11,5 @@ import java.util.Optional;
 
 public interface JpaSolveEntityRepository extends JpaRepository<SolveEntity, Long> {
     List<SolveEntity> findAll();
-    Optional<SolveEntity> findByUserAndCtf(UserEntity user, CtfEntity ctf);
     SolveEntity save(SolveEntity SolveEntity);
 }

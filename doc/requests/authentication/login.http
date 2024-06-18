@@ -1,0 +1,16 @@
+POST {{URL}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "lijo",
+    "password": "GuudPassword"
+}
+
+--{%
+
+local body = context.json_decode(context.result.body)
+
+context.set_env("access_token", body.tokens.access_token)
+context.set_env("refresh_token", body.tokens.refresh_token)
+
+--%}

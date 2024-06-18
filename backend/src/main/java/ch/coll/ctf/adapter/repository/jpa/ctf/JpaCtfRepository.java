@@ -26,7 +26,7 @@ public class JpaCtfRepository implements CtfRepositoryPort{
         return ctfRepository.findAll().stream().map(ctfMapper::mapEntityToModel).collect(Collectors.toList());
     }
 
-    public Optional<Ctf> findbyCtfOptional(String name) {
+    public Optional<Ctf> findByName(String name) {
         log.info("Getting Ctf by id - id={}", name);
 
         return ctfRepository.findByName(name).map(ctfMapper::mapEntityToModel);
