@@ -1,5 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
-import { TestControllerService } from '@app/core/api/services';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ctf-challenges',
@@ -8,13 +7,6 @@ import { TestControllerService } from '@app/core/api/services';
   templateUrl: './challenges.component.html',
   styleUrl: './challenges.component.scss'
 })
-export class ChallengesComponent implements AfterViewInit {
-  constructor(private testService: TestControllerService) {}
-
-  public ngAfterViewInit(): void {
-    console.log('ChallengesComponent initialized');
-    this.testService.test().subscribe((data) => {
-      console.log(data);
-    });
-  }
+export class ChallengesComponent {
+  constructor() {}
 }

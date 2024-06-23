@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { AuthenticationActions } from '@app/+store/authentication/authentication.actions';
 import { authenticationFeature } from '@app/+store/authentication/authentication.reducers';
+import { AuthenticationService } from '@app/core/service/authentication.service';
 import { Store } from '@ngrx/store';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -35,6 +36,7 @@ export class NavbarComponent {
   public username$: Observable<string | null>;
 
   constructor(
+    private authenticationService: AuthenticationService,
     private store: Store,
     private translateService: TranslateService
   ) {
@@ -48,11 +50,17 @@ export class NavbarComponent {
       authenticationFeature.selectAuthenticated
     );
     this.username$ = this.store.select(authenticationFeature.selectUsername);
+
+    this.authenticationService.getRoles();
   }
 
   public switchLanguage(lang: string): void {
     this.currentLanguage = lang;
     this.translateService.use(lang);
+  }
+
+  public isAdministrator(): boolean {
+    return this.authenticationService.getRoles().includes('ADMIN');
   }
 
   public logout(): void {

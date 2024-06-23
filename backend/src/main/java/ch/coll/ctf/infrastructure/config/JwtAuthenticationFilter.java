@@ -75,7 +75,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   @Override
   public boolean shouldNotFilter(HttpServletRequest request) {
     if (new AntPathRequestMatcher("/docs/**").matches(request)) return true;
-    if (new AntPathRequestMatcher("/auth/**").matches(request) && !request.getRequestURI().equals("/api/auth/")) return true;
+    if (
+        new AntPathRequestMatcher("/auth/**").matches(request)
+        && !new AntPathRequestMatcher("/auth/check/**").matches(request)
+        && !request.getRequestURI().equals("/api/auth/")
+    ) return true;
 
     return false;
   }

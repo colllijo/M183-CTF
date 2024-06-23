@@ -10,6 +10,8 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { AuthenticatedResponse } from '../models/authenticated-response';
+import { checkFeatureAccess } from '../fn/authentication-controller/check-feature-access';
+import { CheckFeatureAccess$Params } from '../fn/authentication-controller/check-feature-access';
 import { isAuthenticated } from '../fn/authentication-controller/is-authenticated';
 import { IsAuthenticated$Params } from '../fn/authentication-controller/is-authenticated';
 import { login } from '../fn/authentication-controller/login';
@@ -49,6 +51,31 @@ export class AuthenticationControllerService extends BaseService {
   isAuthenticated(params?: IsAuthenticated$Params, context?: HttpContext): Observable<AuthenticatedResponse> {
     return this.isAuthenticated$Response(params, context).pipe(
       map((r: StrictHttpResponse<AuthenticatedResponse>): AuthenticatedResponse => r.body)
+    );
+  }
+
+  /** Path part for operation `checkFeatureAccess()` */
+  static readonly CheckFeatureAccessPath = '/auth/check/{feature}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `checkFeatureAccess()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  checkFeatureAccess$Response(params: CheckFeatureAccess$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return checkFeatureAccess(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `checkFeatureAccess$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  checkFeatureAccess(params: CheckFeatureAccess$Params, context?: HttpContext): Observable<void> {
+    return this.checkFeatureAccess$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import ch.coll.ctf.adapter.api.rest.exception.assembler.RestExceptionAssembler;
 import ch.coll.ctf.adapter.api.rest.exception.dto.RestExceptionResponse;
+import ch.coll.ctf.domain.authentication.exception.UnauthorizedException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -52,6 +53,14 @@ public class AuthenticationAdvice {
         .setError("Bad credentials")
         .setMessage("Username and/or password are incorrect")
         .setStatus(400);
+  }
+
+  @ResponseBody
+  @ExceptionHandler(UnauthorizedException.class)
+  @ResponseStatus(HttpStatus.FORBIDDEN)
+  @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
+  public RestExceptionResponse handleUnauthorizedException(UnauthorizedException exception) {
+    return exceptionAssembler.toModel(exception).setStatus(403);
   }
 
   /**

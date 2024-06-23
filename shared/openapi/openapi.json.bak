@@ -33,9 +33,9 @@
         "properties" : {
           "_embedded" : {
             "properties" : {
-              "userResponseList" : {
+              "users" : {
                 "items" : {
-                  "$ref" : "#/components/schemas/UserResponse"
+                  "$ref" : "#/components/schemas/user"
                 },
                 "type" : "array"
               }
@@ -125,21 +125,6 @@
         },
         "type" : "object"
       },
-      "UserResponse" : {
-        "properties" : {
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "points" : {
-            "format" : "int32",
-            "type" : "integer"
-          },
-          "username" : {
-            "type" : "string"
-          }
-        },
-        "type" : "object"
-      },
       "error" : {
         "properties" : {
           "_links" : {
@@ -166,6 +151,21 @@
           },
           "timestamp" : {
             "format" : "date-time",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "user" : {
+        "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "points" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "username" : {
             "type" : "string"
           }
         },

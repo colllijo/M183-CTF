@@ -16,11 +16,18 @@
   },
   "NAVIGATION": {
     "CHALLENGES": "Challenges",
-    "LEADERBOARD": "Leaderboard"
+    "LEADERBOARD": "Leaderboard",
+    "PROFILE": "Profile",
+    "LOGOUT": "Logout",
+    "ADMIN": "Administration"
   },
   "PAGES": {
     "LEADERBOARD": {
       "TITLE": "Leaderboard"
+    "ADMINISTRATION": {
+      "USERS": "Users",
+      "ROLES": "Roles",
+      "PERMISSIONS": "Permissions"
     },
     "LOGIN": {
       "TITLE": "Login",

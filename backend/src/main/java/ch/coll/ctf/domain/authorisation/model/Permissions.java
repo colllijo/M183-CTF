@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 public enum Permissions {
-  GOD("god", "God mode");
+  READ_USERS("READ_USERS", "Permission to read inforamtion about all users.");
 
   private final Permission permission;
 
