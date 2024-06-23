@@ -19,6 +19,9 @@
     "LEADERBOARD": "Leaderboard"
   },
   "PAGES": {
+    "LEADERBOARD": {
+      "TITLE": "Leaderboard"
+    },
     "LOGIN": {
       "TITLE": "Login",
       "REGISTRATION": "Don't have an account?",

@@ -6,6 +6,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AuthenticationControllerService } from './services/authentication-controller.service';
 import { TestControllerService } from './services/test-controller.service';
+import { UserControllerService } from './services/user-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -17,6 +18,7 @@ import { TestControllerService } from './services/test-controller.service';
   providers: [
     AuthenticationControllerService,
     TestControllerService,
+    UserControllerService,
     ApiConfiguration
   ],
 })

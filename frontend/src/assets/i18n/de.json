@@ -4,6 +4,9 @@
     "LEADERBOARD": "Rangliste"
   },
   "PAGES": {
+    "LEADERBOARD": {
+      "TITLE": "Rangliste"
+    },
     "LOGIN": {
       "TITLE": "Ameldung",
       "REGISTRATION": "Noch kein Konto erstellt?",
