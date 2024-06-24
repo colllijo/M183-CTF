@@ -31,7 +31,7 @@
       }
     </mat-menu>
     @if ((authenticated$ | async) && (username$ | async); as username) {
-      <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu" #usernameTooltip="matTooltip" [matTooltip]="activeUser" matTooltipPosition="below" matTooltipHideDelay="200">
         <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed={{ username }}" alt="{{ username }}" />
       </button>
       <mat-menu #profileMenu="matMenu" xPosition="before">

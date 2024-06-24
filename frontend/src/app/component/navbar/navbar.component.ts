@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { AuthenticationActions } from '@app/+store/authentication/authentication.actions';
 import { authenticationFeature } from '@app/+store/authentication/authentication.reducers';
@@ -22,6 +23,7 @@ import { Observable } from 'rxjs';
     MatIconModule,
     MatMenuModule,
     MatToolbarModule,
+    MatTooltipModule,
     RouterLink,
     TranslateModule
   ],
@@ -34,6 +36,8 @@ export class NavbarComponent {
 
   public authenticated$: Observable<boolean>;
   public username$: Observable<string | null>;
+
+  public activeUser: string;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -52,6 +56,8 @@ export class NavbarComponent {
     this.username$ = this.store.select(authenticationFeature.selectUsername);
 
     this.authenticationService.getRoles();
+
+    this.activeUser = this.authenticationService.getUsername();
   }
 
   public switchLanguage(lang: string): void {

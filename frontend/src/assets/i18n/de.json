@@ -1,11 +1,41 @@
 {
+  "DIALOGS": {
+    "ERROR": {
+      "TITLE": "Ein Fehler ist aufgetreten",
+      "CLOSE": "Schliessen"
+    }
+  },
   "NAVIGATION": {
     "CHALLENGES": "Herausforderungen",
-    "LEADERBOARD": "Rangliste"
+    "LEADERBOARD": "Rangliste",
+    "PROFILE": "Profil",
+    "LOGOUT": "Abmelden",
+    "ADMIN": "Administration"
   },
   "PAGES": {
     "LEADERBOARD": {
       "TITLE": "Rangliste"
+    },
+    "ADMINISTRATION": {
+      "USERS": "Benutzer",
+      "ROLES": "Rollen",
+      "PERMISSIONS": "Berechtigungen",
+      "USERS-TABLE": {
+        "USERNAME": "Benutzername",
+        "EMAIL": "Email",
+        "ROLE": "Rolle",
+        "ADD-ROLE-TITLE": "Rolle hinzufügen",
+        "CLOSE-DIALOG": "Schliessen",
+        "CONFIRM-DIALOG": "Bestätigen"
+      },
+      "ROLES-TABLE": {
+        "NAME": "Name",
+        "DESCRIPTION": "Beschreibung"
+      },
+      "PERMISSIONS-TABLE": {
+        "NAME": "Name",
+        "DESCRIPTION": "Beschreibung"
+      }
     },
     "LOGIN": {
       "TITLE": "Ameldung",
