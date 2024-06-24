@@ -1,5 +1,8 @@
 package ch.coll.ctf.infrastructure.config;
 
+import ch.coll.ctf.domain.ctf.port.in.SolveServicePort;
+import ch.coll.ctf.domain.ctf.port.out.SolveRepositoryPort;
+import ch.coll.ctf.domain.ctf.service.SolveService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +32,11 @@ public class BeanConfig {
   @Bean
   public CtfServicePort ctfService(CtfRepositoryPort ctfRepository) {
     return new CtfService(ctfRepository);
+  }
+
+  @Bean
+  public SolveServicePort solveService(SolveRepositoryPort solveRepository) {
+    return new SolveService(solveRepository);
   }
 
   @Bean

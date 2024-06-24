@@ -1,19 +1,19 @@
 package ch.coll.ctf.domain.ctf.port.in;
 
-import java.util.List;
+import ch.coll.ctf.domain.ctf.model.Ctf;
 
-import ch.coll.ctf.domain.ctf.model.CaptureTheFlag;
+import java.util.List;
 
 public interface CtfServicePort {
 
+     List<Ctf> getAllCtfs();
 
-    public List<CaptureTheFlag> getAllChallenges();
-    public CaptureTheFlag getChallengeById(Long id);
-    public CaptureTheFlag createChallenge(CaptureTheFlag challenge);
-    //public CaptureTheFlag updateChallenge(Long id, CaptureTheFlag challenge);
+     Ctf getCtfByName(String name);
 
-    public CaptureTheFlag updateChallenge(Long id, CaptureTheFlag ctf);
+     Ctf createCtf(Ctf ctf);
 
-    public void deleteChallenge(Long id);
+     Ctf updateCtf(String name, Ctf ctf);
+
+     void deleteCtf(String name);
 
 }
