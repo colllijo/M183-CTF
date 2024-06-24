@@ -26,8 +26,6 @@ import { userFeature } from '@+store/user/user.reducers';
 import { UserEffects } from '@+store/user/user.effects';
 import { administrationFeature } from './+store/administration/administration.reducers';
 import { AdministrationEffects } from './+store/administration/administration.effects';
-import { challengeFeature } from './+store/challenge/challenge.reducers';
-import { ChallengeEffects } from './+store/challenge/challenge.effects';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -57,10 +55,8 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideState(authenticationFeature),
     provideState(userFeature),
-    provideState(challengeFeature),
     provideState(administrationFeature),
     provideEffects(UserEffects),
-    provideEffects(ChallengeEffects),
     provideEffects(AdministrationEffects),
     provideEffects(AuthenticationEffects)
   ]
