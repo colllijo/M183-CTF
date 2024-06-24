@@ -35,6 +35,7 @@ public class CtfService implements CtfServicePort {
 
         ctf.setAuthor(author);
         // Save the file
+        //todo: Virusscanner
         if (file != null) {
             String directoryPath = "uploads";
             File directory = new File(directoryPath);

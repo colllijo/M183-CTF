@@ -40,18 +40,6 @@ public class JpaCtfRepository implements CtfRepositoryPort{
         System.out.println("created ctf backend");
         return ctfMapper.mapEntityToModel(ctfRepository.save(ctfEntity));
     }
-/*
-    public void updateCtf(Ctf ctf) {
-        log.info("Updating Ctf - Ctf={}", ctf);
-
-        if( ctfRepository.findByName(ctf.getName()).isEmpty()){
-            throw new IllegalArgumentException("Ctf does not exist");
-        }else{
-            ctfRepository.save(ctfMapper.mapModelToEntity(ctf));
-        }
-    }
-    */
-
 
     public void deleteByName(String name) {
         log.info("Deleting Ctf by name - name={}", name);
