@@ -24,7 +24,7 @@
 
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let user" [attr.colspan]="displayedColumns.length">
-          <div [@detailExpand]="user === expandedElement ? 'expanded' : 'collapsed'">
+          <div [@detailExpand]="user === expandedElement ? 'expanded' : 'collapsed'" class="role-details">
             <table mat-table [dataSource]="user.roles" class="role-table">
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>{{ 'PAGES.ADMINISTRATION.ROLES-TABLE.NAME' | translate }}</th>
@@ -46,6 +46,11 @@
               <tr mat-header-row *matHeaderRowDef="['name', 'description', 'remove']"></tr>
               <tr mat-row *matRowDef="let row; columns: ['name', 'description', 'remove'];"></tr>
             </table>
+            @if (roles$ | async; as roles) {
+              <button mat-icon-button (click)="addRole(user, roles)" class="add-role">
+                <mat-icon>add</mat-icon>
+              </button>
+            }
           </div>
         </td>
       </ng-container>

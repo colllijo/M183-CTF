@@ -24,4 +24,8 @@ public class UserService implements UserServicePort {
   public User createUser(User user) {
     return userRepository.createUser(user);
   }
+
+  public User updateUser(User user ) {
+    return userRepository.updateUser(user);
+  }
 }

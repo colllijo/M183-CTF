@@ -13,6 +13,8 @@ public interface AuthorisationRepositoryPort {
 
   Role createRole(Role role);
 
+  Role updateRole(Role role);
+
   void delteRoleByName(String name);
 
   void delteRole(Role role);

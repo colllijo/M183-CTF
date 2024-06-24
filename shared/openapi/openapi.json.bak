@@ -29,37 +29,51 @@
         "required" : [ "password", "username" ],
         "type" : "object"
       },
-      "CaptureTheFlag" : {
+      "CollectionModelPermissionResponse" : {
         "properties" : {
-          "author" : {
-            "$ref" : "#/components/schemas/User"
-          },
-          "description" : {
-            "type" : "string"
-          },
-          "flag" : {
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "solves" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Solve"
+          "_embedded" : {
+            "properties" : {
+              "permissionResponseList" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/PermissionResponse"
+                },
+                "type" : "array"
+              }
             },
-            "type" : "array",
-            "uniqueItems" : true
+            "type" : "object"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
           }
         },
         "type" : "object"
       },
-      "CollectionModelEntityModelUser" : {
+      "CollectionModelRoleResponse" : {
         "properties" : {
           "_embedded" : {
             "properties" : {
-              "userList" : {
+              "roleResponseList" : {
                 "items" : {
-                  "$ref" : "#/components/schemas/EntityModelUser"
+                  "$ref" : "#/components/schemas/RoleResponse"
+                },
+                "type" : "array"
+              }
+            },
+            "type" : "object"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
+        "type" : "object"
+      },
+      "CollectionModelUserInfoResponse" : {
+        "properties" : {
+          "_embedded" : {
+            "properties" : {
+              "userInfos" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/userInfo"
                 },
                 "type" : "array"
               }
@@ -89,54 +103,6 @@
             "$ref" : "#/components/schemas/Links"
           }
         },
-        "type" : "object"
-      },
-      "EntityModelUser" : {
-        "properties" : {
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "active" : {
-            "type" : "boolean"
-          },
-          "email" : {
-            "type" : "string"
-          },
-          "id" : {
-            "format" : "int64",
-            "type" : "integer"
-          },
-          "password" : {
-            "maxLength" : 2147483647,
-            "minLength" : 12,
-            "type" : "string"
-          },
-          "permissions" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Permission"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          },
-          "roles" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Role"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          },
-          "solves" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Solve"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          },
-          "username" : {
-            "type" : "string"
-          }
-        },
-        "required" : [ "active", "email", "password", "roles", "solves", "username" ],
         "type" : "object"
       },
       "Link" : {
@@ -174,20 +140,16 @@
         },
         "type" : "object"
       },
-      "Permission" : {
+      "PermissionResponse" : {
         "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
           "description" : {
             "type" : "string"
           },
           "name" : {
             "type" : "string"
-          },
-          "roles" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Role"
-            },
-            "type" : "array",
-            "uniqueItems" : true
           }
         },
         "type" : "object"
@@ -223,8 +185,11 @@
         "required" : [ "email", "password", "passwordConfirmation", "username" ],
         "type" : "object"
       },
-      "Role" : {
+      "RoleResponse" : {
         "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
           "description" : {
             "type" : "string"
           },
@@ -233,40 +198,10 @@
           },
           "permissions" : {
             "items" : {
-              "$ref" : "#/components/schemas/Permission"
+              "$ref" : "#/components/schemas/PermissionResponse"
             },
             "type" : "array",
             "uniqueItems" : true
-          },
-          "users" : {
-            "items" : {
-              "$ref" : "#/components/schemas/User"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          }
-        },
-        "type" : "object"
-      },
-      "Solve" : {
-        "properties" : {
-          "ctf" : {
-            "$ref" : "#/components/schemas/CaptureTheFlag"
-          },
-          "points" : {
-            "format" : "int32",
-            "type" : "integer"
-          },
-          "rank" : {
-            "format" : "int32",
-            "type" : "integer"
-          },
-          "solver" : {
-            "$ref" : "#/components/schemas/User"
-          },
-          "timestamp" : {
-            "format" : "date-time",
-            "type" : "string"
           }
         },
         "type" : "object"
@@ -280,51 +215,6 @@
             "type" : "string"
           }
         },
-        "type" : "object"
-      },
-      "User" : {
-        "properties" : {
-          "active" : {
-            "type" : "boolean"
-          },
-          "email" : {
-            "type" : "string"
-          },
-          "id" : {
-            "format" : "int64",
-            "type" : "integer"
-          },
-          "password" : {
-            "maxLength" : 2147483647,
-            "minLength" : 12,
-            "type" : "string"
-          },
-          "permissions" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Permission"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          },
-          "roles" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Role"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          },
-          "solves" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Solve"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          },
-          "username" : {
-            "type" : "string"
-          }
-        },
-        "required" : [ "active", "email", "password", "roles", "solves", "username" ],
         "type" : "object"
       },
       "error" : {
@@ -366,6 +256,27 @@
           "points" : {
             "format" : "int32",
             "type" : "integer"
+          },
+          "username" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "userInfo" : {
+        "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "roles" : {
+            "items" : {
+              "$ref" : "#/components/schemas/RoleResponse"
+            },
+            "type" : "array",
+            "uniqueItems" : true
           },
           "username" : {
             "type" : "string"
@@ -753,6 +664,122 @@
         "tags" : [ "authentication-controller" ]
       }
     },
+    "/authorisation/permissions" : {
+      "get" : {
+        "operationId" : "getPermissions",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelPermissionResponse"
+                }
+              }
+            },
+            "description" : "List of all permissions"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "authorisation-controller" ]
+      }
+    },
+    "/authorisation/roles" : {
+      "get" : {
+        "operationId" : "getRoles",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelRoleResponse"
+                }
+              }
+            },
+            "description" : "List of all roles"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "authorisation-controller" ]
+      }
+    },
     "/test" : {
       "get" : {
         "operationId" : "test",
@@ -877,7 +904,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/CollectionModelEntityModelUser"
+                  "$ref" : "#/components/schemas/CollectionModelUserInfoResponse"
                 }
               }
             },

@@ -13,4 +13,6 @@ public interface UserRepositoryPort {
   Optional<User> getUserByUsername(String username);
 
   User createUser(User user);
+
+  User updateUser(User user);
 }

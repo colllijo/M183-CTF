@@ -2,7 +2,6 @@ package ch.coll.ctf.adapter.api.rest.user;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,8 +33,6 @@ public class UserController {
   @ApiResponse(responseCode = "200", description = "User is authenticated")
   @GetMapping(path = "/info", produces = MediaType.APPLICATION_JSON_VALUE)
   public CollectionModel<UserInfoResponse> getUsersInfo() {
-    SecurityContextHolder.getContext().getAuthentication().getAuthorities().forEach(a -> System.out.println(a));
-
     return userInfoResponseAssembler.toCollectionModel(userService.getUsers());
   }
 }

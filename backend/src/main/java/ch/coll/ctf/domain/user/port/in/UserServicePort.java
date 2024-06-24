@@ -11,4 +11,6 @@ public interface UserServicePort {
   public Optional<User> getUserByUsername(String username);
 
   public User createUser(User user);
+
+  public User updateUser(User user);
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ch.coll.ctf.adapter.repository.jpa.user.entity.UserEntity;
 import ch.coll.ctf.adapter.repository.jpa.user.mapper.UserEntityMapper;
 import ch.coll.ctf.adapter.repository.jpa.user.service.JpaUserEntityRepository;
+import ch.coll.ctf.domain.user.exception.UserNotFoundException;
 import ch.coll.ctf.domain.user.model.User;
 import ch.coll.ctf.domain.user.port.out.UserRepositoryPort;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +47,18 @@ public class JpaUserRepository implements UserRepositoryPort {
     userEntity.getRoles().forEach(role -> role.getUsers().add(userEntity));
 
     return userMapper.mapEntityToModel(userRepository.save(userEntity));
+  }
+
+  public User updateUser(User user) {
+    log.info("Updating user - User={}", user);
+
+    UserEntity userEntity = userMapper.mapModelToEntity(user);
+    userEntity.getRoles().forEach(role -> role.getUsers().add(userEntity));
+
+    UserEntity updateUser = userRepository.findByUsername(user.getUsername()).orElseThrow(() -> new UserNotFoundException(user.getUsername()));
+    updateUser.setEmail(userEntity.getEmail());
+    updateUser.setRoles(userEntity.getRoles());
+
+    return userMapper.mapEntityToModel(userRepository.save(updateUser));
   }
 }

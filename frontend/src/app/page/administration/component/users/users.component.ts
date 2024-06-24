@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, model, signal } from '@angular/core';
 import {
   animate,
   state,
@@ -9,15 +9,18 @@ import {
 } from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { AdministrationActions } from '@app/+store/administration/administration.actions';
 import { administrationFeature } from '@app/+store/administration/administration.reducers';
-import { Role, UserInfo } from '@app/core/api/models';
+import { RoleResponse, UserInfo } from '@app/core/api/models';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
+import { AddRoleDialogComponent } from '../add-role-dialog/add-role-dialog.component';
 
 @Component({
   selector: 'ctf-users',
@@ -33,8 +36,11 @@ import { Observable } from 'rxjs';
   ],
   animations: [
     trigger('detailExpand', [
-      state('collapsed,void', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
+      state(
+        'collapsed,void',
+        style({ height: '0px', padding: '0', minHeight: '0' })
+      ),
+      state('expanded', style({ height: '*', padding: '8px' })),
       transition(
         'expanded <=> collapsed',
         animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
@@ -49,14 +55,38 @@ export class UsersComponent implements OnInit {
   public expandedElement: UserInfo | null = null;
 
   public userInfos$: Observable<UserInfo[]>;
+  public roles$: Observable<RoleResponse[]>;
 
-  constructor(private store: Store) {
+  constructor(
+    private dialog: MatDialog,
+    private store: Store
+  ) {
     this.userInfos$ = this.store.select(administrationFeature.selectUsers);
+    this.roles$ = this.store.select(administrationFeature.selectRoles);
   }
 
   public ngOnInit(): void {
     this.store.dispatch(AdministrationActions.getUserInfos());
+    this.store.dispatch(AdministrationActions.getRoles());
   }
 
-  public removeRole(user: UserInfo, role: Role): void {}
+  public addRole(user: UserInfo, roles: RoleResponse[]): void {
+    const dialogRef = this.dialog.open(AddRoleDialogComponent, {
+      data: {
+        roles: roles
+          .filter((r) => !user.roles || !user.roles.map((ur) => ur.name).includes(r.name))
+          .map((r) => r.name),
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((role: string) => {
+      if (role) {
+        this.store.dispatch(AdministrationActions.addRole({ user, role }));
+      }
+    });
+  }
+
+  public removeRole(user: UserInfo, role: RoleResponse): void {
+    this.store.dispatch(AdministrationActions.removeRole({ user, role }));
+  }
 }

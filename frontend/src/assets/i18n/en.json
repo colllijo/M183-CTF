@@ -31,7 +31,11 @@
       "PERMISSIONS": "Permissions",
       "USERS-TABLE": {
         "USERNAME": "Username",
-        "EMAIL": "Email"
+        "EMAIL": "Email",
+        "ROLE": "Role",
+        "ADD-ROLE-TITLE": "Add role",
+        "CLOSE-DIALOG": "Close",
+        "CONFIRM-DIALOG": "Confirm"
       },
       "ROLES-TABLE": {
         "NAME": "Name",

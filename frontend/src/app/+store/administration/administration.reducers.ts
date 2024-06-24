@@ -4,6 +4,8 @@ import { AdministrationActions } from './administration.actions';
 
 const initialState: AdministrationState = {
   users: [],
+  roles: [],
+  permissions: [],
   error: null,
   loading: false
 };
@@ -12,11 +14,12 @@ export const administrationFeature = createFeature({
   name: 'Administration',
   reducer: createReducer(
     initialState,
-    // get UserInfos
+    // User Administration
     on(
       AdministrationActions.getUserInfos,
       (state): AdministrationState => ({
         ...state,
+        users: [],
         error: null,
         loading: true
       })
@@ -25,13 +28,40 @@ export const administrationFeature = createFeature({
       AdministrationActions.getUserInfosSuccess,
       (state, { users }): AdministrationState => ({
         ...state,
-        users: users,
+        users,
         error: null,
         loading: false
       })
     ),
     on(
       AdministrationActions.getUserInfosFailure,
+      (state, { error }): AdministrationState => ({
+        ...state,
+        error,
+        loading: false
+      })
+    ),
+    // Role Administration
+    on(
+      AdministrationActions.getRoles,
+      (state): AdministrationState => ({
+        ...state,
+        roles: [],
+        error: null,
+        loading: true
+      })
+    ),
+    on(
+      AdministrationActions.getRolesSuccess,
+      (state, { roles }): AdministrationState => ({
+        ...state,
+        roles,
+        error: null,
+        loading: false
+      })
+    ),
+    on(
+      AdministrationActions.getRolesFailure,
       (state, { error }): AdministrationState => ({
         ...state,
         error,
