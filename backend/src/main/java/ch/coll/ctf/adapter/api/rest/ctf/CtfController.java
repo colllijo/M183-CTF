@@ -5,14 +5,7 @@ import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import ch.coll.ctf.adapter.api.rest.exception.dto.RestExceptionResponse;
 import ch.coll.ctf.domain.ctf.model.Ctf;
@@ -22,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/ctf")
@@ -33,8 +27,8 @@ public class CtfController {
     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
     @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
     @PostMapping
-    public ResponseEntity<Ctf> createCtf(@RequestBody Ctf ctf) {
-        Ctf createdCtf = ctfServicePort.createCtf(ctf);
+    public ResponseEntity<Ctf> createCtf(@RequestPart("ctf") Ctf ctf, @RequestPart("file") MultipartFile file) {
+        Ctf createdCtf = ctfServicePort.createCtf(ctf, file);
 
         return ResponseEntity.ok(createdCtf);
     }
@@ -44,6 +38,7 @@ public class CtfController {
     @GetMapping
     public ResponseEntity<List<Ctf>> getAllCtfs() {
         List<Ctf> ctfs = ctfServicePort.getAllCtfs();
+        System.out.println("ctfs: " + ctfs.size());
         return ResponseEntity.ok(ctfs);
     }
     @ApiResponse(responseCode = "200", description = "Ctf gotten successfully")

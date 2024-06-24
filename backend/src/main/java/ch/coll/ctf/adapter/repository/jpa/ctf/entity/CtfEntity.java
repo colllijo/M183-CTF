@@ -46,4 +46,8 @@ public class CtfEntity {
 
   @OneToMany(mappedBy = "ctf", fetch = EAGER)
   private Set<SolveEntity> solves;
+
+  @Column(name = "FILE_PATH")
+  private String filePath;
+
 }
