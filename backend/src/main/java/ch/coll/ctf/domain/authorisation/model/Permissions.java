@@ -6,7 +6,10 @@ import lombok.Getter;
 
 @Getter
 public enum Permissions {
-  READ_USERS("READ_USERS", "Permission to read inforamtion about all users.");
+  READ_USERS("READ_USERS", "Permission to read inforamtion about all users."),
+  READ_ROLES("READ_ROLES", "Permission to read all roles."),
+  READ_PERMISSIONS("READ_PERMISSIONS", "Permission to read all permissions."),
+  MODIFY_USER_ROLES("MODIFY_USER_ROLES", "Permission to modify user roles.");
 
   private final Permission permission;
 

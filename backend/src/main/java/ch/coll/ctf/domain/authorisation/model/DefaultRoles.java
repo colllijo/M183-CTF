@@ -8,7 +8,13 @@ import lombok.Getter;
 @Getter
 public enum DefaultRoles {
   USER("USER", "User role"),
-  ADMIN("ADMIN", "Admin role", Permissions.READ_USERS.getPermission());
+  AUTHOR("AUTHOR", "Author role"),
+  ADMIN("ADMIN", "Admin role",
+    Permissions.READ_USERS.getPermission(),
+    Permissions.READ_ROLES.getPermission(),
+    Permissions.READ_PERMISSIONS.getPermission(),
+    Permissions.MODIFY_USER_ROLES.getPermission()
+  );
 
   private final Role role;
 

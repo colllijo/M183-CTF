@@ -2,6 +2,7 @@ package ch.coll.ctf.adapter.api.rest.authorisation;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,24 +33,28 @@ public class AuthorisationController {
   private final RoleResponseAssembler roleResponseAssembler;
   private final PermissionResponseAssembler permissionResponseAssembler;
 
+  @PreAuthorize("hasAuthority('READ_ROLES')")
   @ApiResponse(responseCode = "200", description = "List of all roles")
   @GetMapping(path = "/roles", produces = MediaType.APPLICATION_JSON_VALUE)
   public CollectionModel<RoleResponse> getRoles() {
     return roleResponseAssembler.toCollectionModel(authorisationService.getRoles());
   }
 
+  @PreAuthorize("hasAuthority('MODIFY_USER_ROLES')")
   @ApiResponse(responseCode = "200", description = "Add role to user")
   @PutMapping(path = "/roles/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
   public UserInfoResponse addRoleToUser(@PathVariable String username, @Valid @RequestBody RoleRequest role) {
     return userInfoAssembler.toModel(authorisationService.addRoleToUser(username, role.getName()));
   }
 
+  @PreAuthorize("hasAuthority('MODIFY_USER_ROLES')")
   @ApiResponse(responseCode = "200", description = "Add role to user")
   @DeleteMapping(path = "/roles/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
   public UserInfoResponse removeRoleFromUser(@PathVariable String username, @Valid @RequestBody RoleRequest role) {
     return userInfoAssembler.toModel(authorisationService.removeRoleFromUser(username, role.getName()));
   }
 
+  @PreAuthorize("hasAuthority('READ_PERMISSIONS')")
   @ApiResponse(responseCode = "200", description = "List of all permissions")
   @GetMapping(path = "/permissions", produces = MediaType.APPLICATION_JSON_VALUE)
   public CollectionModel<PermissionResponse> getPermissions() {

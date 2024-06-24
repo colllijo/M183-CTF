@@ -2,6 +2,7 @@ package ch.coll.ctf.adapter.api.rest.user;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class UserController {
     return userResponseAssembler.toCollectionModel(userService.getUsers());
   }
 
-  // @PreAuthorize("hasAuthority('READ_USERS')")
+  @PreAuthorize("hasAuthority('READ_USERS')")
   @ApiResponse(responseCode = "200", description = "User is authenticated")
   @GetMapping(path = "/info", produces = MediaType.APPLICATION_JSON_VALUE)
   public CollectionModel<UserInfoResponse> getUsersInfo() {
