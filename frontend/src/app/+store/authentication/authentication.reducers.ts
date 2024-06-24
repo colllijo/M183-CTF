@@ -5,6 +5,7 @@ import { AuthenticationActions } from './authentication.actions';
 const initialState: AuthenticationState = {
   authenticated: false,
   username: null,
+  roles: [],
   error: null,
   errors: null,
   loading: false
@@ -15,12 +16,20 @@ export const authenticationFeature = createFeature({
   reducer: createReducer(
     initialState,
     // Check authentication
+    on(
+      AuthenticationActions.setAuthentication,
+      (state, { username, roles }): AuthenticationState => ({
+        ...state,
+        authenticated: true,
+        username,
+        roles
+      })
+    ),
     // Login
     on(
       AuthenticationActions.login,
-      (state, { username }): AuthenticationState => ({
+      (state): AuthenticationState => ({
         ...state,
-        username,
         error: null,
         errors: null,
         loading: true
@@ -28,9 +37,11 @@ export const authenticationFeature = createFeature({
     ),
     on(
       AuthenticationActions.loginSuccess,
-      (state): AuthenticationState => ({
+      (state, { username, roles }): AuthenticationState => ({
         ...state,
         authenticated: true,
+        username,
+        roles,
         error: null,
         errors: null,
         loading: false

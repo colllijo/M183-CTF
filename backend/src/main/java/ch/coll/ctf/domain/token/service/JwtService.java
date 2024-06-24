@@ -12,9 +12,11 @@ import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import ch.coll.ctf.domain.authorisation.model.Role;
 import ch.coll.ctf.domain.token.port.in.JwtServicePort;
 import ch.coll.ctf.domain.user.model.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -59,6 +61,7 @@ public class JwtService implements JwtServicePort {
   public String generateAccessToken(User user, String fingerprint) {
     HashMap<String, Object> extraClaims = new HashMap<>();
     extraClaims.put("fingerprint", hashFingerprint(fingerprint));
+    extraClaims.put("roles", user.getRoles().stream().map(Role::getName).toList());
 
     return generateToken(extraClaims, user, accessExpirationTime);
   }
@@ -83,9 +86,13 @@ public class JwtService implements JwtServicePort {
 
   @Override
   public boolean isTokenValid(String token, String fingerprint, User user) {
-    return Objects.equals(user.getUsername(), extractUsername(token))
-        && Objects.equals(hashFingerprint(fingerprint), extractFingerprint(token)) &&
-        !isTokenExpired(token);
+    try {
+      return Objects.equals(user.getUsername(), extractUsername(token))
+          && Objects.equals(hashFingerprint(fingerprint), extractFingerprint(token)) &&
+          !isTokenExpired(token);
+    } catch (ExpiredJwtException e) {
+      return false;
+    }
   }
 
   @Override

@@ -2,16 +2,21 @@ package ch.coll.ctf.domain.authentication.service;
 
 import java.util.HashMap;
 import java.util.HexFormat;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ch.coll.ctf.domain.authentication.exception.InvalidRefreshTokenException;
+import ch.coll.ctf.domain.authentication.exception.UnauthorizedException;
 import ch.coll.ctf.domain.authentication.port.in.AuthenticationServicePort;
+import ch.coll.ctf.domain.authorisation.model.DefaultRoles;
 import ch.coll.ctf.domain.token.model.SecureToken;
 import ch.coll.ctf.domain.token.port.in.JwtServicePort;
 import ch.coll.ctf.domain.user.model.User;
@@ -52,6 +57,17 @@ public class AuthenticationService implements AuthenticationServicePort {
 
     String accessFingerprint = generateFingerprint();
     return new SecureToken(jwtService.generateAccessToken(user, accessFingerprint), accessFingerprint);
+  }
+
+  @Override
+  public void checkFeatureAccess(String feature) throws UnauthorizedException {
+    HashMap<String, List<String>> featurePermissions = new HashMap<>();
+    featurePermissions.put("administration", List.of(
+      DefaultRoles.ADMIN.getAuthorityName()
+    ));
+
+    List<String> authorites = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+    if (!authorites.containsAll(featurePermissions.get(feature))) throw new UnauthorizedException(feature);
   }
 
   @Override

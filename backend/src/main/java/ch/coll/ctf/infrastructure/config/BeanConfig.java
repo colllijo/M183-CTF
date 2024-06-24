@@ -10,6 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ch.coll.ctf.domain.authentication.port.in.AuthenticationServicePort;
 import ch.coll.ctf.domain.authentication.service.AuthenticationService;
+import ch.coll.ctf.domain.authorisation.port.in.AuthorisationServicePort;
+import ch.coll.ctf.domain.authorisation.port.out.AuthorisationRepositoryPort;
+import ch.coll.ctf.domain.authorisation.service.AuthorisationService;
 import ch.coll.ctf.domain.ctf.port.in.CtfServicePort;
 import ch.coll.ctf.domain.ctf.port.out.CtfRepositoryPort;
 import ch.coll.ctf.domain.ctf.service.CtfService;
@@ -32,8 +35,8 @@ public class BeanConfig {
   }
 
   @Bean
-  public SolveServicePort solveService(SolveRepositoryPort solveRepository) {
-    return new SolveService(solveRepository);
+  public AuthorisationServicePort authorisationService(AuthorisationRepositoryPort authorisationRepository, UserServicePort userService) {
+    return new AuthorisationService(authorisationRepository, userService);
   }
 
   @Bean

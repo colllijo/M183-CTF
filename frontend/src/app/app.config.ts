@@ -16,12 +16,16 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
 import { provideState, provideStore } from '@ngrx/store';
-import { authenticationFeature } from './+store/authentication/authentication.reducers';
-import { AuthenticationEffects } from './+store/authentication/authentication.effects';
+import { authenticationFeature } from '@+store/authentication/authentication.reducers';
+import { AuthenticationEffects } from '@+store/authentication/authentication.effects';
 import { provideEffects } from '@ngrx/effects';
-import { DefaultTranslationHandler } from './core/translate/default-translation.handler';
-import { authInterceptor } from './core/interceptor/auth.interceptor';
-import { accessTokenInterceptor } from './core/interceptor/access-token.interceptor';
+import { DefaultTranslationHandler } from '@core/translate/default-translation.handler';
+import { authInterceptor } from '@core/interceptor/auth.interceptor';
+import { accessTokenInterceptor } from '@core/interceptor/access-token.interceptor';
+import { userFeature } from '@+store/user/user.reducers';
+import { UserEffects } from '@+store/user/user.effects';
+import { administrationFeature } from './+store/administration/administration.reducers';
+import { AdministrationEffects } from './+store/administration/administration.effects';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -50,6 +54,10 @@ export const appConfig: ApplicationConfig = {
     ),
     provideStore(),
     provideState(authenticationFeature),
+    provideState(userFeature),
+    provideState(administrationFeature),
+    provideEffects(UserEffects),
+    provideEffects(AdministrationEffects),
     provideEffects(AuthenticationEffects)
   ]
 };
