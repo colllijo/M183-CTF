@@ -29,6 +29,49 @@
         "required" : [ "password", "username" ],
         "type" : "object"
       },
+      "CaptureTheFlag" : {
+        "properties" : {
+          "author" : {
+            "$ref" : "#/components/schemas/User"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "flag" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "solves" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Solve"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          }
+        },
+        "type" : "object"
+      },
+      "CollectionModelUserInfoResponse" : {
+        "properties" : {
+          "_embedded" : {
+            "properties" : {
+              "userInfos" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/userInfo"
+                },
+                "type" : "array"
+              }
+            },
+            "type" : "object"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
+        "type" : "object"
+      },
       "CollectionModelUserResponse" : {
         "properties" : {
           "_embedded" : {
@@ -83,6 +126,24 @@
         },
         "type" : "object"
       },
+      "Permission" : {
+        "properties" : {
+          "description" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "roles" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Role"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          }
+        },
+        "type" : "object"
+      },
       "RefreshRequest" : {
         "properties" : {
           "refreshToken" : {
@@ -114,6 +175,54 @@
         "required" : [ "email", "password", "passwordConfirmation", "username" ],
         "type" : "object"
       },
+      "Role" : {
+        "properties" : {
+          "description" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "permissions" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Permission"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          },
+          "users" : {
+            "items" : {
+              "$ref" : "#/components/schemas/User"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          }
+        },
+        "type" : "object"
+      },
+      "Solve" : {
+        "properties" : {
+          "ctf" : {
+            "$ref" : "#/components/schemas/CaptureTheFlag"
+          },
+          "points" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "rank" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "solver" : {
+            "$ref" : "#/components/schemas/User"
+          },
+          "timestamp" : {
+            "format" : "date-time",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
       "Tokens" : {
         "properties" : {
           "accessToken" : {
@@ -123,6 +232,51 @@
             "type" : "string"
           }
         },
+        "type" : "object"
+      },
+      "User" : {
+        "properties" : {
+          "active" : {
+            "type" : "boolean"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "id" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "password" : {
+            "maxLength" : 2147483647,
+            "minLength" : 12,
+            "type" : "string"
+          },
+          "permissions" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Permission"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          },
+          "roles" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Role"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          },
+          "solves" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Solve"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          },
+          "username" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "active", "email", "password", "roles", "solves", "username" ],
         "type" : "object"
       },
       "error" : {
@@ -169,6 +323,54 @@
             "type" : "string"
           }
         },
+        "type" : "object"
+      },
+      "userInfo" : {
+        "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "active" : {
+            "type" : "boolean"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "id" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "password" : {
+            "maxLength" : 2147483647,
+            "minLength" : 12,
+            "type" : "string"
+          },
+          "permissions" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Permission"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          },
+          "roles" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Role"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          },
+          "solves" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Solve"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          },
+          "username" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "active", "email", "password", "roles", "solves", "username" ],
         "type" : "object"
       }
     }
@@ -618,6 +820,64 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/CollectionModelUserResponse"
+                }
+              }
+            },
+            "description" : "User is authenticated"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "user-controller" ]
+      }
+    },
+    "/users/info" : {
+      "get" : {
+        "operationId" : "getUsersInfo",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelUserInfoResponse"
                 }
               }
             },

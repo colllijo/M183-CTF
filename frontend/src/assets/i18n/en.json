@@ -24,10 +24,23 @@
   "PAGES": {
     "LEADERBOARD": {
       "TITLE": "Leaderboard"
+    },
     "ADMINISTRATION": {
       "USERS": "Users",
       "ROLES": "Roles",
-      "PERMISSIONS": "Permissions"
+      "PERMISSIONS": "Permissions",
+      "USERS-TABLE": {
+        "USERNAME": "Username",
+        "EMAIL": "Email"
+      },
+      "ROLES-TABLE": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description"
+      },
+      "PERMISSIONS-TABLE": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description"
+      }
     },
     "LOGIN": {
       "TITLE": "Login",
