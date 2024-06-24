@@ -1,89 +1,94 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { AuthenticationState } from './authentication.models';
-import { AuthenticationActions } from './authentication.actions';
+import { ChallengeState } from './challenge.models';
+import { ChallengeActions } from './challenge.actions';
 
-const initialState: AuthenticationState = {
-  authenticated: false,
-  username: null,
-  errors: null,
-  loading: false
+const initialState: ChallengeState = {
+  file: null,
+  loading: false,
+  errors: null
 };
 
-export const authenticationFeature = createFeature({
-  name: 'authentication',
+export const challengeFeature = createFeature({
+  name: 'challenge',
   reducer: createReducer(
     initialState,
-    // Check authentication
-    // Login
     on(
-      AuthenticationActions.login,
-      (state, { username }): AuthenticationState => ({
+      ChallengeActions.downloadFile,
+      (state): ChallengeState => ({
         ...state,
-        username,
+        file: null,
+        errors: null,
+        fileLoading: true
+      })
+    ),
+    on(
+      ChallengeActions.downloadFileSuccess,
+      (state, { file}): ChallengeState => ({
+        ...state,
+        file: file ?? null,
+        errors: null,
+        fileLoading: false
+      })
+    ),
+    on(
+      ChallengeActions.downloadFileFailure,
+      (state, { errors }): ChallengeState => ({
+        ...state,
+        errors,
+        fileLoading: false
+      })
+    ),
+    on(
+      ChallengeActions.getChallenge,
+      (state): ChallengeState => ({
+        ...state,
+        challenge: null,
         errors: null,
         loading: true
       })
     ),
     on(
-      AuthenticationActions.loginSuccess,
-      (state): AuthenticationState => ({
+      ChallengeActions.getChallengeSuccess,
+      (state, { challenge }): ChallengeState => ({
         ...state,
-        authenticated: true,
+        challenge: challenge ?? null,
         errors: null,
         loading: false
       })
     ),
     on(
-      AuthenticationActions.loginFailure,
-      (state, { errors }): AuthenticationState => ({
+      ChallengeActions.getChallengeFailure,
+      (state, { errors }): ChallengeState => ({
         ...state,
         errors,
         loading: false
       })
     ),
-    // Logout
     on(
-      AuthenticationActions.logout,
-      (state): AuthenticationState => ({
+      ChallengeActions.getAllChallenges,
+      (state): ChallengeState => ({
         ...state,
-        username: null,
-        loading: true
-      })
-    ),
-    on(
-      AuthenticationActions.logoutSuccess,
-      (state): AuthenticationState => ({
-        ...state,
-        authenticated: false,
-        loading: false
-      })
-    ),
-    // Register
-    on(
-      AuthenticationActions.register,
-      (state, { username }): AuthenticationState => ({
-        ...state,
-        username,
+        challenges: [],
         errors: null,
         loading: true
       })
     ),
     on(
-      AuthenticationActions.registrationSuccess,
-      (state): AuthenticationState => ({
+      ChallengeActions.getAllChallengesSuccess,
+      (state, { challenges }): ChallengeState => ({
         ...state,
-        authenticated: true,
+        file: challenges ?? [],
         errors: null,
         loading: false
       })
     ),
     on(
-      AuthenticationActions.registrationFailure,
-      (state, { errors }): AuthenticationState => ({
+      ChallengeActions.getAllChallengesFailure,
+      (state, { errors }): ChallengeState => ({
         ...state,
         errors,
         loading: false
       })
-    )
+    ),
   )
 });

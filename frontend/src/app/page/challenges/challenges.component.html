@@ -1,7 +1,9 @@
-<mat-card *ngFor="let challenge of challenges">
-  <mat-card-header>
-    <mat-card-title>{{challenge.name}}</mat-card-title>
-    <mat-card-subtitle>by {{challenge.author.username}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>{{challenge.description}}</mat-card-content>
-</mat-card>
+<div class="challenge-container">
+  <mat-card *ngFor="let challenge of challenges">
+    <mat-card-header>
+      <mat-card-title>{{challenge.name}}</mat-card-title><button routerLink="/challenge?name={{challenge.name}}" mat-flat-button>Open</button>
+      <mat-card-subtitle>by {{challenge.author.username}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>{{challenge.description}}</mat-card-content>
+  </mat-card>
+</div>
