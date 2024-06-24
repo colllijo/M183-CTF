@@ -38,3 +38,10 @@ https://docs.spring.io/spring-framework/docs/3.0.x/reference/jdbc.html
 
 - Benutzerdaten werden nie direkt in HTML eingebunden, sondern über Angular Interpolation eingebunden. [Interpolation](https://docs.angular.lat/guide/interpolation)
 
+## Input Validation
+
+### Frontend
+
+- [Angular Custom Form Controls: Complete Guide](https://blog.angular-university.io/angular-custom-form-controls/)
+- Für Formulare werden Formulargruppen erstellt
+- Für jedes Feld wird eine Kontrolle erstellt, welche die Validation für das Feld macht
