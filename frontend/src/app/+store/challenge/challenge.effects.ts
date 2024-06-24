@@ -16,8 +16,9 @@ export class ChallengeEffects {
   public create$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ChallengeActions.create),
-      exhaustMap((action) =>
-        this.ctfService.createCtf({ body: action as unknown as Ctf }).pipe(
+      exhaustMap((action) => {
+        const ctf = { name: action.name, description: action.description, flag: action.flag } as Ctf;
+        return this.ctfService.createCtf({ body: { ctf, file: new Blob() } }).pipe(
           map(() => {
             this.router.navigate(['/challenges']);
             return ChallengeActions.createSuccess();
@@ -30,7 +31,7 @@ export class ChallengeEffects {
             );
           })
         )
-      )
+      })
     );
   });
 
@@ -60,7 +61,6 @@ export class ChallengeEffects {
       exhaustMap(() =>
         this.ctfService.getAllCtfs().pipe(
           map((response: CollectionModelCtfResponse) => {
-            console.log(response);
             return ChallengeActions.getAllChallengesSuccess({ challenges: response._embedded?.ctfResponseList ?? [] })
           }),
           catchError((response: HttpErrorResponse) => {

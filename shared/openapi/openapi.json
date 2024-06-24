@@ -132,6 +132,9 @@
           "description" : {
             "type" : "string"
           },
+          "filePath" : {
+            "type" : "string"
+          },
           "flag" : {
             "pattern" : "^cctf\\{.*}$",
             "type" : "string"
@@ -1179,11 +1182,20 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Ctf"
+                "properties" : {
+                  "ctf" : {
+                    "$ref" : "#/components/schemas/Ctf"
+                  },
+                  "file" : {
+                    "format" : "binary",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "ctf", "file" ],
+                "type" : "object"
               }
             }
-          },
-          "required" : true
+          }
         },
         "responses" : {
           "200" : {

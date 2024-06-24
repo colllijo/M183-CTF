@@ -58,7 +58,7 @@ export class CtfControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  createCtf$Response(params: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<CtfResponse>> {
+  createCtf$Response(params?: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<CtfResponse>> {
     return createCtf(this.http, this.rootUrl, params, context);
   }
 
@@ -68,7 +68,7 @@ export class CtfControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  createCtf(params: CreateCtf$Params, context?: HttpContext): Observable<CtfResponse> {
+  createCtf(params?: CreateCtf$Params, context?: HttpContext): Observable<CtfResponse> {
     return this.createCtf$Response(params, context).pipe(
       map((r: StrictHttpResponse<CtfResponse>): CtfResponse => r.body)
     );

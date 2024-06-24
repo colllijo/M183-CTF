@@ -10,10 +10,13 @@ import { Ctf } from '../../models/ctf';
 import { CtfResponse } from '../../models/ctf-response';
 
 export interface CreateCtf$Params {
-      body: Ctf
+      body?: {
+'ctf': Ctf;
+'file': Blob;
+}
 }
 
-export function createCtf(http: HttpClient, rootUrl: string, params: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<CtfResponse>> {
+export function createCtf(http: HttpClient, rootUrl: string, params?: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<CtfResponse>> {
   const rb = new RequestBuilder(rootUrl, createCtf.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');

@@ -5,6 +5,7 @@ import { User } from '../models/user';
 export interface Ctf {
   author?: User;
   description?: string;
+  filePath?: string;
   flag: string;
   name: string;
   solves: Array<Solve>;
