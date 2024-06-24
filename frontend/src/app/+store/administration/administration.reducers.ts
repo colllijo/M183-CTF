@@ -41,6 +41,40 @@ export const administrationFeature = createFeature({
         loading: false
       })
     ),
+    on(
+      AdministrationActions.addRole,
+      (state): AdministrationState => ({
+        ...state,
+        error: null,
+        loading: true
+      })
+    ),
+    on(
+      AdministrationActions.addRoleSuccess,
+      (state, { user }): AdministrationState => ({
+        ...state,
+        users: state.users.map((u) => (u.username === user.username ? user : u)),
+        error: null,
+        loading: false
+      })
+    ),
+    on(
+      AdministrationActions.removeRole,
+      (state): AdministrationState => ({
+        ...state,
+        error: null,
+        loading: true
+      })
+    ),
+    on(
+      AdministrationActions.removeRoleSuccess,
+      (state, { user }): AdministrationState => ({
+        ...state,
+        users: state.users.map((u) => (u.username === user.username ? user : u)),
+        error: null,
+        loading: false
+      })
+    ),
     // Role Administration
     on(
       AdministrationActions.getRoles,

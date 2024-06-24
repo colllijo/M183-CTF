@@ -60,7 +60,7 @@ export class AdministrationEffects {
           username: action.user.username!,
           body: { name: action.role }
         }).pipe(
-          map(() => AdministrationActions.addRoleSuccess()),
+          map((user) => AdministrationActions.addRoleSuccess({user})),
           catchError((response: HttpErrorResponse) => {
             return of(
               AdministrationActions.addRoleFailure({
@@ -81,7 +81,7 @@ export class AdministrationEffects {
           username: action.user.username!,
           body: action.role as RoleRequest
         }).pipe(
-          map(() => AdministrationActions.removeRoleSuccess()),
+          map((user) => AdministrationActions.removeRoleSuccess({user})),
           catchError((response: HttpErrorResponse) => {
             return of(
               AdministrationActions.removeRoleFailure({

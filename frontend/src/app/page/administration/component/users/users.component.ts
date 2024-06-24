@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, model, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   animate,
   state,
@@ -21,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AddRoleDialogComponent } from '../add-role-dialog/add-role-dialog.component';
+import { AuthenticationService } from '@app/core/service/authentication.service';
 
 @Component({
   selector: 'ctf-users',
@@ -57,12 +58,17 @@ export class UsersComponent implements OnInit {
   public userInfos$: Observable<UserInfo[]>;
   public roles$: Observable<RoleResponse[]>;
 
+  public activeUser: string;
+
   constructor(
+    private authenticationService: AuthenticationService,
     private dialog: MatDialog,
     private store: Store
   ) {
     this.userInfos$ = this.store.select(administrationFeature.selectUsers);
     this.roles$ = this.store.select(administrationFeature.selectRoles);
+
+    this.activeUser = this.authenticationService.getUsername();
   }
 
   public ngOnInit(): void {

@@ -9,10 +9,10 @@ export const AdministrationActions = createActionGroup({
     getUserInfosSuccess: props<{ users: UserInfo[] }>(),
     getUserInfosFailure: props<{ error: string }>(),
     addRole: props<{ user: UserInfo; role: string }>(),
-    addRoleSuccess: emptyProps(),
+    addRoleSuccess: props<{ user: UserInfo; }>(),
     addRoleFailure: props<{ error: string }>(),
     removeRole: props<{ user: UserInfo; role: RoleResponse }>(),
-    removeRoleSuccess: emptyProps(),
+    removeRoleSuccess: props<{ user: UserInfo }>(),
     removeRoleFailure: props<{ error: string }>(),
     // Role Administration
     getRoles: emptyProps(),

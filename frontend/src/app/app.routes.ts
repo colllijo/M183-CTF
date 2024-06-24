@@ -1,14 +1,13 @@
 import { Routes } from '@angular/router';
 
+import { featureGuard } from '@core/guard/feature.guard';
 import { AdministrationComponent } from '@page/administration/administration.component';
+import { RolesComponent } from '@page/administration/component/roles/roles.component';
+import { UsersComponent } from '@page/administration/component/users/users.component';
 import { ChallengesComponent } from '@page/challenges/challenges.component';
 import { LeaderboardComponent } from '@page/leaderboard/leaderboard.component';
 import { LoginComponent } from '@page/login/login.component';
 import { RegistrationComponent } from '@page/registration/registration.component';
-import { featureGuard } from '@core/guard/feature.guard';
-import { UsersComponent } from './page/administration/component/users/users.component';
-import { RolesComponent } from './page/administration/component/roles/roles.component';
-import { PermissionsComponent } from './page/administration/component/permissions/permissions.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/challenges', pathMatch: 'full' },
@@ -24,8 +23,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },
-      { path: 'roles', component: RolesComponent },
-      { path: 'permissions', component: PermissionsComponent },
+      { path: 'roles', component: RolesComponent }
     ]
   }
 ];

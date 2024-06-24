@@ -1,0 +1,13 @@
+mat-card {
+  margin: 16px;
+
+  table {
+    .permissions-row {
+      height: 0;
+    }
+
+    .permissions-table {
+      margin-left: 32px;
+    }
+  }
+}
