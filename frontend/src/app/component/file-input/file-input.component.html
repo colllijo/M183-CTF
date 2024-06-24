@@ -1,0 +1,8 @@
+<div>
+  <span>{{ this.file ? this.file.name : 'COMPONENTS.FILEINPUT.NOTSELECTED' | translate }}</span>
+  @if (this.file) {
+    <button mat-icon-button (click)="unselectFile()"><mat-icon>close</mat-icon></button>
+  }
+  <button type="button" mat-flat-button (click)="fileInput.click()">{{ 'COMPONENTS.FILEINPUT.SELECT' | translate }}</button>
+</div>
+<input type="file" #fileInput (change)="selectFile($event)">

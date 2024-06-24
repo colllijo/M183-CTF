@@ -6,6 +6,10 @@
     }
   },
   "ERRORS": {
+    "NAME-REQUIRED": "Name is required",
+    "DESCRIPTION-REQUIRED": "Description is required",
+    "FLAG-REQUIRED": "Flag is required",
+    "FLAG-PATTERN": "Flag does not match the pattern CCTF{<FLAG>}",
     "USERNAME-REQUIRED": "Username is required",
     "EMAIL-REQUIRED": "Email is required",
     "EMAIL-INVALID": "Email is invalid",
@@ -13,6 +17,12 @@
     "PASSWORD-MIN-LENGTH": "Password must be at least {{ length }} characters long",
     "PASSWORD-CONFIRMATION-REQUIRED": "Confirm Password is required",
     "PASSWORD-MISMATCH": "Passwords do not match"
+  },
+  "COMPONENTS": {
+    "FILEINPUT": {
+      "SELECT": "Select file",
+      "NOTSELECTED": "No file selected"
+    }
   },
   "NAVIGATION": {
     "CHALLENGES": "Challenges",
@@ -76,6 +86,14 @@
         "PASSWORD": "Password is invalid",
         "PASSWORDCONFIRMATION": "Passwords do not match"
       }
+    },
+    "CTFCREATION": {
+      "TITLE": "Create a challenge",
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "FLAG": "Flag",
+      "FILE": "File",
+      "CREATE": "Create"
     }
   }
 }

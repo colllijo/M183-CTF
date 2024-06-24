@@ -1,0 +1,11 @@
+.challenge-container {
+  margin: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+mat-card-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
