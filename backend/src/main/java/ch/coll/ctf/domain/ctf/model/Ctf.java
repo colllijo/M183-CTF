@@ -23,4 +23,6 @@ public class Ctf {
     private String flag;
     @NotEmpty
     private Set<Solve> solves;
+    private String filePath;
+
 }
