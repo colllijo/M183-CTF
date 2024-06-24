@@ -4,6 +4,9 @@ import {MatCardModule} from "@angular/material/card";
 import {NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {MatButton} from "@angular/material/button";
+import {userFeature} from "@+store/user/user.reducers";
+import {Observable} from "rxjs";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'ctf-challenges',
@@ -18,7 +21,10 @@ import {MatButton} from "@angular/material/button";
   styleUrl: './challenges.component.scss'
 })
 export class ChallengesComponent {
-  constructor() {}
-  public challenges: { name: string, description: string, author: { username: string } }[] = [{ name: "The funny challenge", description: "A really funny challenge that will make you laugh", author: { username: "lefunnyman"}}];
-  // todo
+
+  public challenges$: Observable<Challenge[]>;
+  constructor(private store: Store) {
+    this.challenges$ = this.store.select(userFeature.selectUsers);
+  }
+
 }

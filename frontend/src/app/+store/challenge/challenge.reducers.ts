@@ -4,7 +4,11 @@ import { ChallengeActions } from './challenge.actions';
 
 const initialState: ChallengeState = {
   file: null,
+  challenge: null,
+  challenges: [],
+  challengeLoading: false,
   loading: false,
+  fileLoading: false,
   errors: null
 };
 
@@ -77,7 +81,7 @@ export const challengeFeature = createFeature({
       ChallengeActions.getAllChallengesSuccess,
       (state, { challenges }): ChallengeState => ({
         ...state,
-        file: challenges ?? [],
+        challenges: challenges ?? [],
         errors: null,
         loading: false
       })
