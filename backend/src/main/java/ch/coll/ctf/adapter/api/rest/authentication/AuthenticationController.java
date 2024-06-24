@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -54,6 +57,8 @@ public class AuthenticationController {
   @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
   public AuthenticatedResponse login(@RequestBody AuthenticationRequest authenticationRequest,
       HttpServletResponse response) {
+    log.info("Login request - username={}", authenticationRequest.getUsername());
+
     Map<String, SecureToken> tokens = authenticationService.login(authenticationRequest.getUsername(),
         authenticationRequest.getPassword());
 
@@ -65,6 +70,8 @@ public class AuthenticationController {
   @PostMapping(path = "/register", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
   public AuthenticatedResponse register(@Valid @RequestBody RegistrationRequest user,
       HttpServletResponse response) {
+    log.info("Register request - username={}", user.getUsername());
+
     Map<String, SecureToken> tokens = authenticationService.register(registrationMapper.mapRequestToUser(user));
 
     return createTokenResponse(tokens, response);
@@ -75,6 +82,8 @@ public class AuthenticationController {
   @PostMapping(path = "/refresh", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
   public AuthenticatedResponse refresh(@Valid @RequestBody RefreshRequest refreshRequest, HttpServletRequest request,
       HttpServletResponse response) {
+    log.info("Refresh request");
+
     String refreshFingerprint = null;
     Cookie[] cookies = request.getCookies();
 
@@ -98,6 +107,12 @@ public class AuthenticationController {
   public void logout(HttpServletResponse response) {
     response.addCookie(createFingerprintCookie("Access-Token", "", 0));
     response.addCookie(createFingerprintCookie("Refresh-Token", "", 0));
+  }
+  
+  @ApiResponse(responseCode = "200", description = "User is authorised")
+  @PostMapping(path = "/check/{feature}")
+  public void checkFeatureAccess(@PathVariable String feature) {
+    authenticationService.checkFeatureAccess(feature);
   }
 
   private AuthenticatedResponse createTokenResponse(Map<String, SecureToken> tokens, HttpServletResponse response) {

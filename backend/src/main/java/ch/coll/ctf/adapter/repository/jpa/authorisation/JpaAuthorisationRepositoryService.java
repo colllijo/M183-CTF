@@ -5,10 +5,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import ch.coll.ctf.adapter.repository.jpa.authorisation.entity.RoleEntity;
 import ch.coll.ctf.adapter.repository.jpa.authorisation.mapper.PermissionEntityMapper;
 import ch.coll.ctf.adapter.repository.jpa.authorisation.mapper.RoleEntityMapper;
 import ch.coll.ctf.adapter.repository.jpa.authorisation.service.JpaPermissionEntityRepository;
 import ch.coll.ctf.adapter.repository.jpa.authorisation.service.JpaRoleEntityRepository;
+import ch.coll.ctf.domain.authorisation.exception.RoleNotFoundException;
 import ch.coll.ctf.domain.authorisation.model.Permission;
 import ch.coll.ctf.domain.authorisation.model.Role;
 import ch.coll.ctf.domain.authorisation.port.out.AuthorisationRepositoryPort;
@@ -41,6 +43,18 @@ public class JpaAuthorisationRepositoryService implements AuthorisationRepositor
     log.info("Creating role - Role={}", role);
 
     return roleMapper.mapEntityToModel(roleRepository.save(roleMapper.mapModelToEntity(role)));
+  }
+
+  public Role updateRole(Role role) {
+    log.info("Updating role - Role={}", role);
+
+    RoleEntity roleEntity = roleMapper.mapModelToEntity(role);
+    roleEntity.getPermissions().forEach(permission -> permission.getRoles().add(roleEntity));
+
+    RoleEntity updateRole = roleRepository.findByName(role.getName()).orElseThrow(() -> new RoleNotFoundException(role.getName()));
+    updateRole.setPermissions(roleEntity.getPermissions());
+
+    return roleMapper.mapEntityToModel(roleRepository.save(updateRole));
   }
 
   public void delteRoleByName(String name) {

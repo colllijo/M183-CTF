@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import ch.coll.ctf.domain.authorisation.model.DefaultRoles;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class DatabaseLoader implements ApplicationRunner {
   private final UserRepositoryPort userRepository;
   private final AuthorisationRepositoryPort authorisationRepository;
+  private final PasswordEncoder passwordEncoder;
 
   @Value("${ctf.config.default-admin.username:admin}")
   private String defaultAdminUsername;
@@ -49,7 +51,9 @@ public class DatabaseLoader implements ApplicationRunner {
   private void loadDefaultAdminUser() {
     if (!userRepository.getUserByUsername(defaultAdminUsername).isEmpty()) return;
 
-    User admin = User.builder().username(defaultAdminUsername).password(defaultAdminPassword).email("info@ctf.com").build();
+    User admin = User.builder()
+        .username(defaultAdminUsername)
+        .password(passwordEncoder.encode(defaultAdminPassword)).email("info@ctf.com").build();
     admin.getRoles().add(DefaultRoles.ADMIN.getRole());
 
     userRepository.createUser(admin);

@@ -6,10 +6,10 @@
           "_links" : {
             "$ref" : "#/components/schemas/Links"
           },
-          "accessToken" : {
-            "type" : "string"
+          "tokens" : {
+            "$ref" : "#/components/schemas/Tokens"
           },
-          "refreshToken" : {
+          "username" : {
             "type" : "string"
           }
         },
@@ -27,6 +27,82 @@
           }
         },
         "required" : [ "password", "username" ],
+        "type" : "object"
+      },
+      "CollectionModelPermissionResponse" : {
+        "properties" : {
+          "_embedded" : {
+            "properties" : {
+              "permissionResponseList" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/PermissionResponse"
+                },
+                "type" : "array"
+              }
+            },
+            "type" : "object"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
+        "type" : "object"
+      },
+      "CollectionModelRoleResponse" : {
+        "properties" : {
+          "_embedded" : {
+            "properties" : {
+              "roleResponseList" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/RoleResponse"
+                },
+                "type" : "array"
+              }
+            },
+            "type" : "object"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
+        "type" : "object"
+      },
+      "CollectionModelUserInfoResponse" : {
+        "properties" : {
+          "_embedded" : {
+            "properties" : {
+              "userInfos" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/userInfo"
+                },
+                "type" : "array"
+              }
+            },
+            "type" : "object"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
+        "type" : "object"
+      },
+      "CollectionModelUserResponse" : {
+        "properties" : {
+          "_embedded" : {
+            "properties" : {
+              "users" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/user"
+                },
+                "type" : "array"
+              }
+            },
+            "type" : "object"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
         "type" : "object"
       },
       "Link" : {
@@ -64,6 +140,20 @@
         },
         "type" : "object"
       },
+      "PermissionResponse" : {
+        "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
       "RefreshRequest" : {
         "properties" : {
           "refreshToken" : {
@@ -93,6 +183,38 @@
           }
         },
         "required" : [ "email", "password", "passwordConfirmation", "username" ],
+        "type" : "object"
+      },
+      "RoleResponse" : {
+        "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "permissions" : {
+            "items" : {
+              "$ref" : "#/components/schemas/PermissionResponse"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          }
+        },
+        "type" : "object"
+      },
+      "Tokens" : {
+        "properties" : {
+          "accessToken" : {
+            "type" : "string"
+          },
+          "refreshToken" : {
+            "type" : "string"
+          }
+        },
         "type" : "object"
       },
       "error" : {
@@ -125,6 +247,42 @@
           }
         },
         "type" : "object"
+      },
+      "user" : {
+        "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "points" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "username" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "userInfo" : {
+        "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "roles" : {
+            "items" : {
+              "$ref" : "#/components/schemas/RoleResponse"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          },
+          "username" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
       }
     }
   },
@@ -134,6 +292,123 @@
   },
   "openapi" : "3.0.1",
   "paths" : {
+    "/auth/" : {
+      "get" : {
+        "operationId" : "isAuthenticated",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AuthenticatedResponse"
+                }
+              }
+            },
+            "description" : "User is authenticated"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "authentication-controller" ]
+      }
+    },
+    "/auth/check/{feature}" : {
+      "post" : {
+        "operationId" : "checkFeatureAccess",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "feature",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User is authorised"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "authentication-controller" ]
+      }
+    },
     "/auth/login" : {
       "post" : {
         "operationId" : "login",
@@ -178,6 +453,16 @@
             },
             "description" : "Unauthorized"
           },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
           "500" : {
             "content" : {
               "application/json" : {
@@ -199,6 +484,16 @@
           "200" : {
             "description" : "User authenticated successfully"
           },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
           "401" : {
             "content" : {
               "application/json" : {
@@ -208,6 +503,16 @@
               }
             },
             "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
           },
           "500" : {
             "content" : {
@@ -267,6 +572,16 @@
             },
             "description" : "Unauthorized"
           },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
           "500" : {
             "content" : {
               "application/json" : {
@@ -325,6 +640,16 @@
             },
             "description" : "Unauthorized"
           },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
           "500" : {
             "content" : {
               "application/json" : {
@@ -337,6 +662,122 @@
           }
         },
         "tags" : [ "authentication-controller" ]
+      }
+    },
+    "/authorisation/permissions" : {
+      "get" : {
+        "operationId" : "getPermissions",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelPermissionResponse"
+                }
+              }
+            },
+            "description" : "List of all permissions"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "authorisation-controller" ]
+      }
+    },
+    "/authorisation/roles" : {
+      "get" : {
+        "operationId" : "getRoles",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelRoleResponse"
+                }
+              }
+            },
+            "description" : "List of all roles"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "authorisation-controller" ]
       }
     },
     "/test" : {
@@ -373,6 +814,16 @@
             },
             "description" : "Unauthorized"
           },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
           "500" : {
             "content" : {
               "application/json" : {
@@ -385,6 +836,122 @@
           }
         },
         "tags" : [ "test-controller" ]
+      }
+    },
+    "/users/" : {
+      "get" : {
+        "operationId" : "getUsers",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelUserResponse"
+                }
+              }
+            },
+            "description" : "User is authenticated"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "user-controller" ]
+      }
+    },
+    "/users/info" : {
+      "get" : {
+        "operationId" : "getUsersInfo",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelUserInfoResponse"
+                }
+              }
+            },
+            "description" : "User is authenticated"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/error"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "user-controller" ]
       }
     }
   },

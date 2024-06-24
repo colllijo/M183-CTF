@@ -7,7 +7,7 @@ ctf:
   config:
     default-admin:
       username: admin
-      password: admin
+      password: coll-ctf-admin
 server:
   servlet:
     context-path: /api

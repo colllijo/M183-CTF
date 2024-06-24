@@ -1,0 +1,13 @@
+mat-card {
+  margin: 16px;
+
+  table {
+    .roles-row {
+      height: 0;
+    }
+
+    .role-table, .add-role {
+      margin-left: 32px;
+    }
+  }
+}

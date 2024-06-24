@@ -10,6 +10,7 @@ import { Error as RestError } from '@core/api/models/error';
 import { Error } from '@core/model/error';
 import { AuthenticationActions } from './authentication.actions';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '@app/core/service/authentication.service';
 
 @Injectable()
 export class AuthenticationEffects {
@@ -17,7 +18,7 @@ export class AuthenticationEffects {
     return this.actions$.pipe(
       ofType(AuthenticationActions.login),
       exhaustMap((action) =>
-        this.authenticationService.login({ body: action }).pipe(
+        this.authenticationControllerService.login({ body: action }).pipe(
           map((response: AuthenticatedResponse) => {
             sessionStorage.setItem(
               'accessToken',
@@ -27,8 +28,10 @@ export class AuthenticationEffects {
               'refreshToken',
               response.tokens?.refreshToken || ''
             );
+
             this.router.navigate(['/']);
-            return AuthenticationActions.loginSuccess();
+
+            return AuthenticationActions.loginSuccess({ username: this.authenticationService.getUsername(), roles: this.authenticationService.getRoles() });
           }),
           catchError((response: HttpErrorResponse) => {
             return of(
@@ -48,7 +51,7 @@ export class AuthenticationEffects {
     return this.actions$.pipe(
       ofType(AuthenticationActions.logout),
       exhaustMap(() =>
-        this.authenticationService.logout().pipe(
+        this.authenticationControllerService.logout().pipe(
           map(() => {
             sessionStorage.removeItem('accessToken');
             sessionStorage.removeItem('refreshToken');
@@ -68,7 +71,7 @@ export class AuthenticationEffects {
     return this.actions$.pipe(
       ofType(AuthenticationActions.register),
       exhaustMap((action) =>
-        this.authenticationService.register({ body: action }).pipe(
+        this.authenticationControllerService.register({ body: action }).pipe(
           map((response: AuthenticatedResponse) => {
             sessionStorage.setItem(
               'accessToken',
@@ -92,7 +95,8 @@ export class AuthenticationEffects {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private authenticationService: AuthenticationControllerService
+    private authenticationControllerService: AuthenticationControllerService,
+    private authenticationService: AuthenticationService
   ) {}
 
   private getDetailedErrors(response: HttpErrorResponse): Error {

@@ -30,13 +30,23 @@
         }
       }
     </mat-menu>
-    @if (authenticated$ | async) {
-      @if (username$ | async; as username) {
-        <span>{{ username }}</span>
-      }
-      <button mat-icon-button (click)="logout()">
-        <mat-icon>logout</mat-icon>
+    @if ((authenticated$ | async) && (username$ | async); as username) {
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu" #usernameTooltip="matTooltip" [matTooltip]="activeUser" matTooltipPosition="below" matTooltipHideDelay="200">
+        <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed={{ username }}" alt="{{ username }}" />
       </button>
+      <mat-menu #profileMenu="matMenu" xPosition="before">
+        <button mat-menu-item disabled routerLink="/profile">
+          {{ 'NAVIGATION.PROFILE' | translate }}
+        </button>
+        @if (isAdministrator()) {
+          <button mat-menu-item routerLink="/admin">
+            {{ 'NAVIGATION.ADMIN' | translate }}
+          </button>
+        }
+        <button mat-menu-item (click)="logout()">
+          {{ 'NAVIGATION.LOGOUT' | translate }}
+        </button>
+      </mat-menu>
     } @else {
       <button mat-icon-button routerLink="/login">
         <mat-icon>login</mat-icon>

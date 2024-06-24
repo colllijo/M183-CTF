@@ -16,9 +16,36 @@
   },
   "NAVIGATION": {
     "CHALLENGES": "Challenges",
-    "LEADERBOARD": "Leaderboard"
+    "LEADERBOARD": "Leaderboard",
+    "PROFILE": "Profile",
+    "LOGOUT": "Logout",
+    "ADMIN": "Administration"
   },
   "PAGES": {
+    "LEADERBOARD": {
+      "TITLE": "Leaderboard"
+    },
+    "ADMINISTRATION": {
+      "USERS": "Users",
+      "ROLES": "Roles",
+      "PERMISSIONS": "Permissions",
+      "USERS-TABLE": {
+        "USERNAME": "Username",
+        "EMAIL": "Email",
+        "ROLE": "Role",
+        "ADD-ROLE-TITLE": "Add role",
+        "CLOSE-DIALOG": "Close",
+        "CONFIRM-DIALOG": "Confirm"
+      },
+      "ROLES-TABLE": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description"
+      },
+      "PERMISSIONS-TABLE": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description"
+      }
+    },
     "LOGIN": {
       "TITLE": "Login",
       "REGISTRATION": "Don't have an account?",
