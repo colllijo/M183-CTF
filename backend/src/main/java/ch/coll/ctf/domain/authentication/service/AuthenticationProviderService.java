@@ -1,13 +1,13 @@
 package ch.coll.ctf.domain.authentication.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ch.coll.ctf.domain.user.model.User;
@@ -24,8 +24,13 @@ public class AuthenticationProviderService implements AuthenticationProvider {
     final String username = authentication.getName();
     final String password = authentication.getCredentials().toString();
 
-    User user = userService.getUserByUsername(username)
-        .orElseThrow(() -> new UsernameNotFoundException(username));
+    Optional<User> userOptional = userService.getUserByUsername(username);
+    if (userOptional.isEmpty()) {
+      passwordEncoder.matches("42", "TestString");
+      throw new BadCredentialsException("Invalid credentials");
+    }
+
+    User user = userOptional.get();
 
     if (passwordEncoder.matches(password, user.getPassword()))
       return new UsernamePasswordAuthenticationToken(user, password, List.of());

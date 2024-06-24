@@ -28,6 +28,10 @@
 
 ## Injections
 
+Spring Data JPA verwendet Prepared Statements, um SQL-Injections zu verhindern. [Prepared Statements](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
+https://stackoverflow.com/questions/73617743/is-springboot-data-jpa-repository-safe-against-sql-injection
+https://docs.spring.io/spring-framework/docs/3.0.x/reference/jdbc.html
+
 ## XSS
 
 ### Frontend
