@@ -1,16 +1,15 @@
 package ch.coll.ctf.adapter.repository.jpa.ctf;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import ch.coll.ctf.adapter.repository.jpa.ctf.mapper.SolveEntityMapper;
 import ch.coll.ctf.adapter.repository.jpa.ctf.service.JpaSolveEntityRepository;
-import ch.coll.ctf.adapter.repository.jpa.user.entity.UserEntity;
 import ch.coll.ctf.domain.ctf.model.Solve;
 import ch.coll.ctf.domain.ctf.port.out.SolveRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service

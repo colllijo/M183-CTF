@@ -33,6 +33,7 @@ public class JpaCtfRepository implements CtfRepositoryPort{
     }
 
     public Ctf save(Ctf ctf) {
+        log.info("Entity: {}", ctfMapper.mapModelToEntity(ctf));
         log.info("Creating Ctf - Ctf={}", ctf);
 
         return ctfMapper.mapEntityToModel(ctfRepository.save(ctfMapper.mapModelToEntity(ctf)));
@@ -40,6 +41,7 @@ public class JpaCtfRepository implements CtfRepositoryPort{
 
     public void updateCtf(Ctf ctf) {
         log.info("Updating Ctf - Ctf={}", ctf);
+
         if( ctfRepository.findByName(ctf.getName()).isEmpty()){
             throw new IllegalArgumentException("Ctf does not exist");
         }else{

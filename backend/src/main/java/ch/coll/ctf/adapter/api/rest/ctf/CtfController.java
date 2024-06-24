@@ -1,17 +1,27 @@
 package ch.coll.ctf.adapter.api.rest.ctf;
 
+import java.util.List;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import ch.coll.ctf.adapter.api.rest.exception.dto.RestExceptionResponse;
 import ch.coll.ctf.domain.ctf.model.Ctf;
 import ch.coll.ctf.domain.ctf.port.in.CtfServicePort;
+import ch.coll.ctf.domain.user.model.User;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/ctf")
@@ -22,6 +32,7 @@ public class CtfController {
     @PostMapping
     public ResponseEntity<Ctf> createCtf(@RequestBody Ctf ctf) {
         Ctf createdCtf = ctfServicePort.createCtf(ctf);
+
         return ResponseEntity.ok(createdCtf);
     }
     @ApiResponse(responseCode = "200", description = "Ctfs gotten successfully")

@@ -1,12 +1,14 @@
 package ch.coll.ctf.domain.ctf.service;
 
+import java.util.List;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import ch.coll.ctf.domain.ctf.model.Ctf;
 import ch.coll.ctf.domain.ctf.port.in.CtfServicePort;
 import ch.coll.ctf.domain.ctf.port.out.CtfRepositoryPort;
+import ch.coll.ctf.domain.user.model.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class CtfService implements CtfServicePort {
@@ -25,6 +27,11 @@ public class CtfService implements CtfServicePort {
 
     @Override
     public Ctf createCtf(Ctf ctf) {
+        System.out.println("Hell");
+
+        User author = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        ctf.setAuthor(author);
         return ctfRepositoryPort.save(ctf);
     }
 
