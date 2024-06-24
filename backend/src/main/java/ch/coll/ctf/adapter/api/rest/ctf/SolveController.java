@@ -19,6 +19,9 @@ import java.util.List;
 public class SolveController {
     private final SolveServicePort solveServicePort;
 
+    @ApiResponse(responseCode = "200", description = "Solve created successfully")
+    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
+    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
     @PostMapping
     public ResponseEntity<Solve> createSolve(@RequestBody Solve Solve) {
         Solve createdSolve = solveServicePort.createSolve(Solve);
@@ -27,7 +30,7 @@ public class SolveController {
     @ApiResponse(responseCode = "200", description = "Solves gotten successfully")
     @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
     @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<List<Solve>> getAllSolves() {
         List<Solve> Solves = solveServicePort.getAllSolves();
         return ResponseEntity.ok(Solves);

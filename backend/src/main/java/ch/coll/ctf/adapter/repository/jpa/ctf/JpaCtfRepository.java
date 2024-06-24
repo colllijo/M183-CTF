@@ -1,5 +1,6 @@
 package ch.coll.ctf.adapter.repository.jpa.ctf;
 
+import ch.coll.ctf.adapter.repository.jpa.ctf.entity.CtfEntity;
 import ch.coll.ctf.adapter.repository.jpa.ctf.mapper.CtfEntityMapper;
 import ch.coll.ctf.adapter.repository.jpa.ctf.service.JpaCtfEntityRepository;
 import ch.coll.ctf.domain.ctf.model.Ctf;
@@ -33,12 +34,13 @@ public class JpaCtfRepository implements CtfRepositoryPort{
     }
 
     public Ctf save(Ctf ctf) {
-        log.info("Entity: {}", ctfMapper.mapModelToEntity(ctf));
+        CtfEntity ctfEntity = ctfMapper.mapModelToEntity(ctf);
+        log.info("Entity: {}", ctfEntity);
         log.info("Creating Ctf - Ctf={}", ctf);
-
-        return ctfMapper.mapEntityToModel(ctfRepository.save(ctfMapper.mapModelToEntity(ctf)));
+        System.out.println("created ctf backend");
+        return ctfMapper.mapEntityToModel(ctfRepository.save(ctfEntity));
     }
-
+/*
     public void updateCtf(Ctf ctf) {
         log.info("Updating Ctf - Ctf={}", ctf);
 
@@ -48,6 +50,8 @@ public class JpaCtfRepository implements CtfRepositoryPort{
             ctfRepository.save(ctfMapper.mapModelToEntity(ctf));
         }
     }
+    */
+
 
     public void deleteByName(String name) {
         log.info("Deleting Ctf by name - name={}", name);

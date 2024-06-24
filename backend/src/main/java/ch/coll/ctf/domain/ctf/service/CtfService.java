@@ -27,7 +27,7 @@ public class CtfService implements CtfServicePort {
 
     @Override
     public Ctf createCtf(Ctf ctf) {
-        System.out.println("Hell");
+        System.out.println("created ctf");
 
         User author = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 

@@ -14,4 +14,6 @@ public interface CtfEntityMapper {
 
     @Mapping(target = "id", ignore = true)
     public CtfEntity mapModelToEntity(Ctf model);
+
+
 }

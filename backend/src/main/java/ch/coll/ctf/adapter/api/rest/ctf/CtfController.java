@@ -29,6 +29,9 @@ import lombok.RequiredArgsConstructor;
 public class CtfController {
     private final CtfServicePort ctfServicePort;
 
+    @ApiResponse(responseCode = "200", description = "Ctf created successfully")
+    @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
+    @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
     @PostMapping
     public ResponseEntity<Ctf> createCtf(@RequestBody Ctf ctf) {
         Ctf createdCtf = ctfServicePort.createCtf(ctf);
