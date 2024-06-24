@@ -35,6 +35,11 @@ public class BeanConfig {
   }
 
   @Bean
+  public SolveServicePort solveService(SolveRepositoryPort solveRepository) {
+    return new SolveService(solveRepository);
+  }
+
+  @Bean
   public AuthorisationServicePort authorisationService(AuthorisationRepositoryPort authorisationRepository, UserServicePort userService) {
     return new AuthorisationService(authorisationRepository, userService);
   }
