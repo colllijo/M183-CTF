@@ -1,22 +1,24 @@
-<h1>{{challenge.name}}</h1>
-<h2>by {{challenge.author.username}}</h2>
-<div class="field">
-  <h3>Description</h3>
-  <p>{{challenge.description}}</p>
-</div>
-<div class="field">
-  <h3>File</h3>
-  <button (click)="downloadFile()">Download</button>
-</div>
-<div class="field">
-  {{ solve ? "Completed" : "Not yet completed" }}
-</div>
-<div class="field">
-  <mat-form-field>
-    <mat-label>Flag</mat-label>
-    <input matInput type="text">
-  </mat-form-field>
-  <button></button>
-</div>
-
-
+@if (challenge$ | async; as challenge) {
+  <mat-card>
+    <h1>{{challenge.name}}</h1>
+    <h2>by {{challenge.author!.username}}</h2>
+    <div class="field">
+      <h3>Description</h3>
+      <p>{{challenge.description}}</p>
+    </div>
+    <div class="field">
+      <h3>File</h3>
+      <button mat-flat-button disabled>Download</button>
+    </div>
+    <div class="field">
+      {{ false ? "Completed" : "Not yet completed" }}
+    </div>
+    <div class="field">
+      <mat-form-field>
+        <mat-label>Flag</mat-label>
+        <input matInput type="text">
+      </mat-form-field>
+      <button mat-flat-button>Submit</button>
+    </div>
+  </mat-card>
+}

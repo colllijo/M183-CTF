@@ -1,9 +1,10 @@
+import { CtfResponse } from '@app/core/api/models';
 import { Error } from '@core/model/error';
 
 export interface ChallengeState {
   file: File | null;
-  challenge: Challenge | null;
-  challenges: Challenge[];
+  challenge: CtfResponse | null;
+  challenges: CtfResponse[];
   challengeLoading: boolean;
   loading: boolean;
   fileLoading: boolean;

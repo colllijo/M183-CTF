@@ -4,24 +4,23 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { catchError, exhaustMap, map, of } from 'rxjs';
 
-import { AuthenticatedResponse } from '@core/api/models/authenticated-response';
 import { Error as RestError } from '@core/api/models/error';
 import { Error } from '@core/model/error';
 import { ChallengeActions } from './challenge.actions';
 import { Router } from '@angular/router';
-import {FileResponse} from "@core/api/models/file-response";
-import {ChallengeResponse} from "@core/api/models/challenge-response";
-import {ChallengesResponse} from "@core/api/models/challenges-response";
+import { CtfControllerService } from '@app/core/api/services';
+import { CollectionModelCtfResponse, Ctf, CtfResponse } from '@app/core/api/models';
 
 @Injectable()
-export class AuthenticationEffects {
+export class ChallengeEffects {
   public create$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ChallengeActions.create),
       exhaustMap((action) =>
-        this.ctfService.create({ body: action }).pipe(
+        this.ctfService.createCtf({ body: action as unknown as Ctf }).pipe(
           map(() => {
             this.router.navigate(['/challenges']);
+            return ChallengeActions.createSuccess();
           }),
           catchError((response: HttpErrorResponse) => {
             return of(
@@ -34,17 +33,14 @@ export class AuthenticationEffects {
       )
     );
   });
+
   public getChallenge$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ChallengeActions.getChallenge),
       exhaustMap((action) =>
-        this.ctfService.get({ body: action }).pipe(
-          map((response: ChallengeResponse) => {
-            return of(
-              ChallengeActions.getChallengeSuccess({
-                challenge: response.challenge
-              })
-            )
+        this.ctfService.getCtf({ name: action.name }).pipe(
+          map((response: CtfResponse) => {
+            return ChallengeActions.getChallengeSuccess({ challenge: response })
           }),
           catchError((response: HttpErrorResponse) => {
             return of(
@@ -57,21 +53,19 @@ export class AuthenticationEffects {
       )
     );
   });
+
   public getChallenges$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ChallengeActions.getAllChallenges),
-      exhaustMap((action) =>
-        this.ctfService.get({ body: action }).pipe(
-          map((response: ChallengesResponse) => {
-            return of(
-              ChallengeActions.getAllChallengesSuccess({
-                challenges: response.challenges
-              })
-            )
+      exhaustMap(() =>
+        this.ctfService.getAllCtfs().pipe(
+          map((response: CollectionModelCtfResponse) => {
+            console.log(response);
+            return ChallengeActions.getAllChallengesSuccess({ challenges: response._embedded?.ctfResponseList ?? [] })
           }),
           catchError((response: HttpErrorResponse) => {
             return of(
-              ChallengeActions.createFailure({
+              ChallengeActions.getAllChallengesFailure({
                 errors: this.getDetailedErrors(response)
               })
             );
@@ -80,27 +74,28 @@ export class AuthenticationEffects {
       )
     );
   });
-  public downloadFile$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(ChallengeActions.downloadFile),
-      exhaustMap((action) =>
-        this.ctfService.getFile({ body: action }).pipe(
-          map((response: FileResponse) => {
-            return of(ChallengeActions.downloadFileSuccess({
-              file: response.file
-            }))
-          }),
-          catchError((response: HttpErrorResponse) => {
-            return of(
-              ChallengeActions.createFailure({
-                errors: this.getDetailedErrors(response)
-              })
-            );
-          })
-        )
-      )
-    );
-  });
+
+  // public downloadFile$ = createEffect(() => {
+  //   return this.actions$.pipe(
+  //     ofType(ChallengeActions.downloadFile),
+  //     exhaustMap((action) =>
+  //       this.ctfService.getFile({ body: action }).pipe(
+  //         map((response: FileResponse) => {
+  //           return of(ChallengeActions.downloadFileSuccess({
+  //             file: response.file
+  //           }))
+  //         }),
+  //         catchError((response: HttpErrorResponse) => {
+  //           return of(
+  //             ChallengeActions.createFailure({
+  //               errors: this.getDetailedErrors(response)
+  //             })
+  //           );
+  //         })
+  //       )
+  //     )
+  //   );
+  // });
 
   constructor(
     private actions$: Actions,

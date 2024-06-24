@@ -31,7 +31,7 @@ public class CtfController {
 
   @ApiResponse(responseCode = "200", description = "Ctf created successfully")
   @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
-  @PostMapping
+  @PostMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public CtfResponse createCtf(@RequestBody Ctf ctf) {
     Ctf createdCtf = ctfServicePort.createCtf(ctf);
 
@@ -40,16 +40,18 @@ public class CtfController {
 
   @ApiResponse(responseCode = "200", description = "Ctfs gotten successfully")
   @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
-  @GetMapping
+  @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public CollectionModel<CtfResponse> getAllCtfs() {
     List<Ctf> ctfs = ctfServicePort.getAllCtfs();
+
+    System.out.println(ctfs.size());
 
     return ctfResponseAssembler.toCollectionModel(ctfs);
   }
 
   @ApiResponse(responseCode = "200", description = "Ctf gotten successfully")
   @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
-  @GetMapping("/{name}")
+  @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
   public CtfResponse getCtf(@PathVariable String name) {
     Ctf ctf = ctfServicePort.getCtfByName(name);
 

@@ -1116,13 +1116,13 @@
         "tags" : [ "authorisation-controller" ]
       }
     },
-    "/ctf" : {
+    "/ctf/" : {
       "get" : {
         "operationId" : "getAllCtfs",
         "responses" : {
           "200" : {
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/CollectionModelCtfResponse"
                 }
@@ -1188,7 +1188,7 @@
         "responses" : {
           "200" : {
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/CtfResponse"
                 }
@@ -1254,7 +1254,7 @@
         "responses" : {
           "200" : {
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/CtfResponse"
                 }

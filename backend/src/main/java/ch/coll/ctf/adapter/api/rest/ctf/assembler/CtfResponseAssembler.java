@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class CtfResponseAssembler implements RepresentationModelAssembler<Ctf, CtfResponse> {
-  private UserResponseAssembler userResponseAssembler;
+  private final UserResponseAssembler userResponseAssembler;
 
   @Override
   public CtfResponse toModel(Ctf entity) {

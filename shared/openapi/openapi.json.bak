@@ -29,6 +29,25 @@
         "required" : [ "password", "username" ],
         "type" : "object"
       },
+      "CollectionModelCtfResponse" : {
+        "properties" : {
+          "_embedded" : {
+            "properties" : {
+              "ctfResponseList" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/CtfResponse"
+                },
+                "type" : "array"
+              }
+            },
+            "type" : "object"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
+        "type" : "object"
+      },
       "CollectionModelPermissionResponse" : {
         "properties" : {
           "_embedded" : {
@@ -129,6 +148,23 @@
           }
         },
         "required" : [ "flag", "name", "solves" ],
+        "type" : "object"
+      },
+      "CtfResponse" : {
+        "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "author" : {
+            "$ref" : "#/components/schemas/user"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
         "type" : "object"
       },
       "Link" : {
@@ -1088,10 +1124,7 @@
             "content" : {
               "*/*" : {
                 "schema" : {
-                  "items" : {
-                    "$ref" : "#/components/schemas/Ctf"
-                  },
-                  "type" : "array"
+                  "$ref" : "#/components/schemas/CollectionModelCtfResponse"
                 }
               }
             },
@@ -1157,7 +1190,7 @@
             "content" : {
               "*/*" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Ctf"
+                  "$ref" : "#/components/schemas/CtfResponse"
                 }
               }
             },
@@ -1208,63 +1241,6 @@
       }
     },
     "/ctf/{name}" : {
-      "delete" : {
-        "operationId" : "deleteCtf",
-        "parameters" : [ {
-          "in" : "path",
-          "name" : "name",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Ctf deleted successfully"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "ctf-controller" ]
-      },
       "get" : {
         "operationId" : "getCtf",
         "parameters" : [ {
@@ -1280,85 +1256,11 @@
             "content" : {
               "*/*" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Ctf"
+                  "$ref" : "#/components/schemas/CtfResponse"
                 }
               }
             },
             "description" : "Ctf gotten successfully"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "ctf-controller" ]
-      },
-      "put" : {
-        "operationId" : "updateCtf",
-        "parameters" : [ {
-          "in" : "path",
-          "name" : "name",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Ctf"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Ctf"
-                }
-              }
-            },
-            "description" : "Ctf created successfully"
           },
           "400" : {
             "content" : {

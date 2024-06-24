@@ -25,7 +25,7 @@ export class CtfControllerService extends BaseService {
   }
 
   /** Path part for operation `getAllCtfs()` */
-  static readonly GetAllCtfsPath = '/ctf';
+  static readonly GetAllCtfsPath = '/ctf/';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -50,7 +50,7 @@ export class CtfControllerService extends BaseService {
   }
 
   /** Path part for operation `createCtf()` */
-  static readonly CreateCtfPath = '/ctf';
+  static readonly CreateCtfPath = '/ctf/';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
