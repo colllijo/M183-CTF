@@ -27,4 +27,5 @@ public class CtfResponse extends RepresentationModel<CtfResponse> {
   private String name;
   private String description;
   private UserInfoResponse author;
+  private String filePath;
 }

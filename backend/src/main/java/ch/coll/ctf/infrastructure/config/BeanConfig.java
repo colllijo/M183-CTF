@@ -1,8 +1,5 @@
 package ch.coll.ctf.infrastructure.config;
 
-import ch.coll.ctf.domain.ctf.port.in.SolveServicePort;
-import ch.coll.ctf.domain.ctf.port.out.SolveRepositoryPort;
-import ch.coll.ctf.domain.ctf.service.SolveService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,8 +11,14 @@ import ch.coll.ctf.domain.authorisation.port.in.AuthorisationServicePort;
 import ch.coll.ctf.domain.authorisation.port.out.AuthorisationRepositoryPort;
 import ch.coll.ctf.domain.authorisation.service.AuthorisationService;
 import ch.coll.ctf.domain.ctf.port.in.CtfServicePort;
+import ch.coll.ctf.domain.ctf.port.in.SolveServicePort;
 import ch.coll.ctf.domain.ctf.port.out.CtfRepositoryPort;
+import ch.coll.ctf.domain.ctf.port.out.SolveRepositoryPort;
 import ch.coll.ctf.domain.ctf.service.CtfService;
+import ch.coll.ctf.domain.ctf.service.SolveService;
+import ch.coll.ctf.domain.scanner.port.in.ScannerServicePort;
+import ch.coll.ctf.domain.scanner.port.out.ScannerPort;
+import ch.coll.ctf.domain.scanner.service.ScannerService;
 import ch.coll.ctf.domain.token.port.in.JwtServicePort;
 import ch.coll.ctf.domain.token.service.JwtService;
 import ch.coll.ctf.domain.user.port.in.UserServicePort;
@@ -30,13 +33,18 @@ public class BeanConfig {
   }
 
   @Bean
-  public CtfServicePort ctfService(CtfRepositoryPort ctfRepository) {
-    return new CtfService(ctfRepository);
+  public CtfServicePort ctfService(CtfRepositoryPort ctfRepository, ScannerServicePort scannerService) {
+    return new CtfService(ctfRepository, scannerService);
   }
 
   @Bean
   public SolveServicePort solveService(SolveRepositoryPort solveRepository) {
     return new SolveService(solveRepository);
+  }
+
+  @Bean
+  public ScannerServicePort scannerService(ScannerPort scannerPort) {
+    return new ScannerService(scannerPort);
   }
 
   @Bean
