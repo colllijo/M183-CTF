@@ -2,7 +2,6 @@ package ch.coll.ctf.adapter.api.rest.ctf.dto;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import ch.coll.ctf.domain.validation.annotation.ValidPasswordConfirmation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,6 @@ import lombok.NoArgsConstructor;
 @JsonRootName("CtfForm")
 @AllArgsConstructor
 @NoArgsConstructor
-@ValidPasswordConfirmation
 public class CtfRequest {
   @NotBlank
   private String name;
