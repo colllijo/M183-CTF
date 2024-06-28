@@ -40,7 +40,7 @@ export class ChallengeCreationComponent {
         description: new FormControl('', Validators.required),
         flag: new FormControl('CCTF{}', [
           Validators.required,
-          Validators.pattern("^CCTF\{[A-Za-z0-9]+\}$")
+          Validators.pattern("^CCTF{[A-Za-z0-9_-]+}$")
         ]),
         file: new FormControl('')
     });

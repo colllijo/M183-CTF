@@ -18,6 +18,5 @@ export const AdministrationActions = createActionGroup({
     getRoles: emptyProps(),
     getRolesSuccess: props<{ roles: RoleResponse[] }>(),
     getRolesFailure: props<{ error: string }>()
-    // Permission Administration
   }
 });

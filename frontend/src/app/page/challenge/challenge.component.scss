@@ -4,4 +4,24 @@ mat-card {
   transform: translateY(-75%);
   max-width: 800px;
   margin: auto;
+
+  mat-card-content {
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  mat-card-actions {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 1rem;
+
+    box-sizing: border-box;
+
+    button {
+      padding-top: 2em;
+      padding-bottom: 2em;
+      margin-bottom: 1.5em;
+    }
+  }
 }

@@ -1,44 +1,49 @@
 {
+  "COMPONENTS": {
+    "FILEINPUT": {
+      "NOTSELECTED": "No file selected",
+      "SELECT": "Select file"
+    }
+  },
   "DIALOGS": {
     "ERROR": {
-      "TITLE": "An error occurred",
-      "CLOSE": "Close"
+      "CLOSE": "Close",
+      "TITLE": "An error occurred"
     }
   },
   "ERRORS": {
-    "NAME-REQUIRED": "Name is required",
     "DESCRIPTION-REQUIRED": "Description is required",
-    "FLAG-REQUIRED": "Flag is required",
-    "FLAG-PATTERN": "Flag does not match the pattern CCTF{<FLAG>}",
-    "USERNAME-REQUIRED": "Username is required",
-    "EMAIL-REQUIRED": "Email is required",
     "EMAIL-INVALID": "Email is invalid",
-    "PASSWORD-REQUIRED": "Password is required",
-    "PASSWORD-MIN-LENGTH": "Password must be at least {{ length }} characters long",
+    "EMAIL-REQUIRED": "Email is required",
+    "FLAG-PATTERN": "Flag does not match the pattern CCTF{<FLAG>}",
+    "FLAG-REQUIRED": "Flag is required",
+    "NAME-REQUIRED": "Name is required",
     "PASSWORD-CONFIRMATION-REQUIRED": "Confirm Password is required",
-    "PASSWORD-MISMATCH": "Passwords do not match"
-  },
-  "COMPONENTS": {
-    "FILEINPUT": {
-      "SELECT": "Select file",
-      "NOTSELECTED": "No file selected"
-    }
+    "PASSWORD-MIN-LENGTH": "Password must be at least {{ length }} characters long",
+    "PASSWORD-MISMATCH": "Passwords do not match",
+    "PASSWORD-REQUIRED": "Password is required",
+    "USERNAME-REQUIRED": "Username is required"
   },
   "NAVIGATION": {
+    "ADMIN": "Administration",
     "CHALLENGES": "Challenges",
     "LEADERBOARD": "Leaderboard",
-    "PROFILE": "Profile",
     "LOGOUT": "Logout",
-    "ADMIN": "Administration"
+    "PROFILE": "Profile"
   },
   "PAGES": {
-    "LEADERBOARD": {
-      "TITLE": "Leaderboard"
-    },
     "ADMINISTRATION": {
-      "USERS": "Users",
-      "ROLES": "Roles",
       "PERMISSIONS": "Permissions",
+      "PERMISSIONS-TABLE": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description"
+      },
+      "ROLES": "Roles",
+      "ROLES-TABLE": {
+        "NAME": "Name",
+        "DESCRIPTION": "Description"
+      },
+      "USERS": "Users",
       "USERS-TABLE": {
         "USERNAME": "Username",
         "EMAIL": "Email",
@@ -46,54 +51,49 @@
         "ADD-ROLE-TITLE": "Add role",
         "CLOSE-DIALOG": "Close",
         "CONFIRM-DIALOG": "Confirm"
-      },
-      "ROLES-TABLE": {
-        "NAME": "Name",
-        "DESCRIPTION": "Description"
-      },
-      "PERMISSIONS-TABLE": {
-        "NAME": "Name",
-        "DESCRIPTION": "Description"
-      }
-    },
-    "LOGIN": {
-      "TITLE": "Login",
-      "REGISTRATION": "Don't have an account?",
-      "REGISTRATION-LINK": "Register here",
-      "USERNAME": "Username",
-      "PASSWORD": "Password",
-      "LOGIN": "Login",
-      "ERROR": {
-        "TITLE": "Login failed",
-        "CLOSE": "Close",
-        "BAD-CREDENTIALS": "Invalid credentials"
-      }
-    },
-    "REGISTRATION": {
-      "TITLE": "Registration",
-      "LOGIN": "Already have an account?",
-      "LOGIN-LINK": "Login here",
-      "USERNAME": "Username",
-      "EMAIL": "Email",
-      "PASSWORD": "Password",
-      "PASSWORD-CONFIRMATION": "Confirm Password",
-      "REGISTER": "Register",
-      "ERROR": {
-        "TITLE": "Registration failed",
-        "CLOSE": "Close",
-        "USERNAME": "Username is invalid",
-        "EMAIL": "Email is invalid",
-        "PASSWORD": "Password is invalid",
-        "PASSWORDCONFIRMATION": "Passwords do not match"
       }
     },
     "CTFCREATION": {
-      "TITLE": "Create a challenge",
-      "NAME": "Name",
+      "CREATE": "Create",
       "DESCRIPTION": "Description",
-      "FLAG": "Flag",
       "FILE": "File",
-      "CREATE": "Create"
+      "FLAG": "Flag",
+      "NAME": "Name",
+      "TITLE": "Create a challenge"
+    },
+    "LEADERBOARD": {
+      "TITLE": "Leaderboard"
+    },
+    "LOGIN": {
+      "ERROR": {
+        "BAD-CREDENTIALS": "Invalid credentials",
+        "CLOSE": "Close",
+        "TITLE": "Login failed"
+      },
+      "LOGIN": "Login",
+      "PASSWORD": "Password",
+      "REGISTRATION": "Don't have an account?",
+      "REGISTRATION-LINK": "Register here",
+      "TITLE": "Login",
+      "USERNAME": "Username"
+    },
+    "REGISTRATION": {
+      "EMAIL": "Email",
+      "ERROR": {
+        "CLOSE": "Close",
+        "EMAIL": "Email is invalid",
+        "PASSWORD": "Password is invalid",
+        "PASSWORDCONFIRMATION": "Passwords do not match",
+        "TITLE": "Registration failed",
+        "USERNAME": "Username is invalid"
+      },
+      "LOGIN": "Already have an account?",
+      "LOGIN-LINK": "Login here",
+      "PASSWORD": "Password",
+      "PASSWORD-CONFIRMATION": "Confirm Password",
+      "REGISTER": "Register",
+      "TITLE": "Registration",
+      "USERNAME": "Username"
     }
   }
 }

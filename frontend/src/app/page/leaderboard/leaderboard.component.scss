@@ -1,16 +1,18 @@
-mat-table {
-  width: 100%;
-  margin: 10px;
+mat-card {
+  width: fit-content;
+  min-width: 60%;
+
+  margin: auto;
+
+  position: relative;
+  top: 5%;
+
+  .mat-column-username {
+    width: 80%;
+  }
+
+  .mat-column-points {
+    width: 20%;
+  }
 }
 
-tr {
-  width: 100%;
-}
-
-.table-column-20 {
-  width: 20%;
-}
-
-.table-column-80 {
-  width: 80%;
-}

@@ -1,20 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
-import {User} from "@core/api/models/user";
-import {Store} from "@ngrx/store";
-import {userFeature} from "@+store/user/user.reducers";
-import {AsyncPipe} from "@angular/common";
-import {UserActions} from "@+store/user/user.actions";
-import {TranslateModule} from "@ngx-translate/core";
-import {MatTableModule} from "@angular/material/table";
+import { AsyncPipe } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { MatCardModule } from "@angular/material/card";
+import { MatTableModule } from "@angular/material/table";
+import { Store } from "@ngrx/store";
+import { TranslateModule } from "@ngx-translate/core";
+import { Observable } from "rxjs";
+
+import { UserActions } from "@+store/user/user.actions";
+import { userFeature } from "@+store/user/user.reducers";
+import { User } from "@core/api/models/user";
 
 @Component({
   selector: 'ctf-leaderboard',
   standalone: true,
   imports: [
     AsyncPipe,
-    TranslateModule,
-    MatTableModule
+    MatCardModule,
+    MatTableModule,
+    TranslateModule
   ],
   templateUrl: './leaderboard.component.html',
   styleUrl: './leaderboard.component.scss'

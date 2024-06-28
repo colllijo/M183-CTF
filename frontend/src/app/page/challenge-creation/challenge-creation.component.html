@@ -1,46 +1,48 @@
-<h1>{{ 'PAGES.CTFCREATION.TITLE' | translate }}</h1>
-
-<form [formGroup]="ctfCreationForm" (submit)="createCTF()">
-  <mat-form-field>
-    <mat-label>{{ 'PAGES.CTFCREATION.NAME' | translate }}</mat-label>
-    <input matInput formControlName="name"/>
-    @if (ctfCreationForm.controls['name'].hasError('required')) {
-      <mat-error>
-        {{ 'ERRORS.NAME-REQUIRED' | translate }}
-      </mat-error>
-    }
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{ 'PAGES.CTFCREATION.DESCRIPTION' | translate }}</mat-label>
-    <textarea matInput formControlName="description"></textarea>
-    @if (ctfCreationForm.controls['description'].hasError('required')) {
-      <mat-error>
-        {{ 'ERRORS.DESCRIPTION-REQUIRED' | translate }}
-      </mat-error>
-    }
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{ 'PAGES.CTFCREATION.FLAG' | translate }}</mat-label>
-    <input
-      matInput
-      formControlName="flag"
-      type="text"/>
-    @if (ctfCreationForm.controls['flag'].hasError('required')) {
-      <mat-error>
-        {{ 'ERRORS.FLAG-REQUIRED' | translate }}
-      </mat-error>
-    }
-    @if (ctfCreationForm.controls['flag'].hasError('pattern')) {
-      <mat-error>
-        {{ 'ERRORS.FLAG-PATTERN' | translate }}
-      </mat-error>
-    }
-  </mat-form-field>
-  {{ 'PAGES.CTFCREATION.FILE' | translate }}
-  <ctf-file-input (fileSelected)="selectFile($event)"></ctf-file-input>
-  <br/>
-  <button mat-flat-button color="primary" [disabled]="!ctfCreationForm.valid">
-    {{ 'PAGES.CTFCREATION.CREATE' | translate }}
-  </button>
-</form>
-
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ 'PAGES.CTFCREATION.TITLE' | translate }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="ctfCreationForm" (submit)="createCTF()">
+      <mat-form-field>
+        <mat-label>{{ 'PAGES.CTFCREATION.NAME' | translate }}</mat-label>
+        <input matInput formControlName="name"/>
+        @if (ctfCreationForm.controls['name'].hasError('required')) {
+          <mat-error>
+            {{ 'ERRORS.NAME-REQUIRED' | translate }}
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'PAGES.CTFCREATION.DESCRIPTION' | translate }}</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+        @if (ctfCreationForm.controls['description'].hasError('required')) {
+          <mat-error>
+            {{ 'ERRORS.DESCRIPTION-REQUIRED' | translate }}
+          </mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'PAGES.CTFCREATION.FLAG' | translate }}</mat-label>
+        <input
+          matInput
+          formControlName="flag"
+          type="text"/>
+        @if (ctfCreationForm.controls['flag'].hasError('required')) {
+          <mat-error>
+            {{ 'ERRORS.FLAG-REQUIRED' | translate }}
+          </mat-error>
+        }
+        @if (ctfCreationForm.controls['flag'].hasError('pattern')) {
+          <mat-error>
+            {{ 'ERRORS.FLAG-PATTERN' | translate }}
+          </mat-error>
+        }
+      </mat-form-field>
+      <ctf-file-input formControlName="file" [label]="'PAGES.CTFCREATION.FILE' | translate"></ctf-file-input>
+      <button mat-flat-button color="primary" [disabled]="!ctfCreationForm.valid">
+        {{ 'PAGES.CTFCREATION.CREATE' | translate }}
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

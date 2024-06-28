@@ -15,7 +15,12 @@ export const routes: Routes = [
   { path: '', redirectTo: '/challenges', pathMatch: 'full' },
   { path: 'challenges', component: ChallengesComponent },
   { path: 'challenge/:name', component: ChallengeComponent },
-  { path: 'create-challenge', component: ChallengeCreationComponent },
+  {
+    path: 'create-challenge',
+    component: ChallengeCreationComponent,
+    canActivate: [featureGuard],
+    data: { feature: 'challenge-creation' }
+  },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },

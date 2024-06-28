@@ -1,25 +1,44 @@
 {
-  "DIALOGS": {
-    "ERROR": {
-      "TITLE": "Ein Fehler ist aufgetreten",
-      "CLOSE": "Schliessen"
+  "COMPONENTS": {
+    "FILEINPUT": {
+      "NOTSELECTED": "Keine Datei ausgewählt",
+      "SELECT": "Datei auswählen"
     }
   },
+  "DIALOGS": {
+    "ERROR": {
+      "CLOSE": "Schliessen",
+      "TITLE": "Ein Fehler ist aufgetreten"
+    }
+  },
+  "ERRORS": {
+    "DESCRIPTION-REQUIRED": "Beschreibung ist erforderlich",
+    "EMAIL-INVALID": "Email ist ungültig",
+    "EMAIL-REQUIRED": "Email ist erforderlich",
+    "FLAG-PATTERN": "Flagge erfüllt das Muster /CCTF\\{[a-zA-Z0-9]+\\}/ nicht",
+    "FLAG-REQUIRED": "Flagge ist erforderlich",
+    "NAME-REQUIRED": "Name ist erforderlich",
+    "PASSWORD-CONFIRMATION-REQUIRED": "Passwort Bestätigung ist erforderlich",
+    "PASSWORD-MIN-LENGTH": "Passwort muss mindestens {{ length }} Zeichen lang sein",
+    "PASSWORD-REQUIRED": "Passwort ist erforderlich",
+    "PASSWORD-MISMATCH": "Passwörter stimmen nicht überein",
+    "USERNAME-REQUIRED": "Benutzername ist erforderlich"
+  },
   "NAVIGATION": {
+    "ADMIN": "Administration",
     "CHALLENGES": "Herausforderungen",
     "LEADERBOARD": "Rangliste",
-    "PROFILE": "Profil",
     "LOGOUT": "Abmelden",
-    "ADMIN": "Administration"
+    "PROFILE": "Profil"
   },
   "PAGES": {
-    "LEADERBOARD": {
-      "TITLE": "Rangliste"
-    },
     "ADMINISTRATION": {
-      "USERS": "Benutzer",
-      "ROLES": "Rollen",
       "PERMISSIONS": "Berechtigungen",
+      "PERMISSIONS-TABLE": {
+        "NAME": "Name",
+        "DESCRIPTION": "Beschreibung"
+      },
+      "USERS": "Benutzer",
       "USERS-TABLE": {
         "USERNAME": "Benutzername",
         "EMAIL": "Email",
@@ -28,72 +47,53 @@
         "CLOSE-DIALOG": "Schliessen",
         "CONFIRM-DIALOG": "Bestätigen"
       },
+      "ROLES": "Rollen",
       "ROLES-TABLE": {
         "NAME": "Name",
         "DESCRIPTION": "Beschreibung"
-      },
-      "PERMISSIONS-TABLE": {
-        "NAME": "Name",
-        "DESCRIPTION": "Beschreibung"
-      }
-    },
-    "LOGIN": {
-      "TITLE": "Ameldung",
-      "REGISTRATION": "Noch kein Konto erstellt?",
-      "REGISTRATION-LINK": "Hier registrieren",
-      "USERNAME": "Benutzernamen",
-      "PASSWORD": "Passwort",
-      "LOGIN": "Anmelden",
-      "ERROR": {
-        "TITLE": "Login Fehler",
-        "CLOSE": "Schliessen",
-        "BAD-CREDENTIALS": "Ungültige Anmeldeinformationen"
-      }
-    },
-    "REGISTRATION": {
-      "TITLE": "Registration",
-      "LOGIN": "Bereits ein Konto erstellt?",
-      "LOGIN-LINK": "Hier anmelden",
-      "USERNAME": "Benutzernamen",
-      "EMAIL": "Email",
-      "PASSWORD": "Passwort",
-      "PASSWORD-CONFIRMATION": "Passwort bestätigen",
-      "REGISTER": "Registrieren",
-      "ERROR": {
-        "TITLE": "Registrierungsfehler",
-        "CLOSE": "Scliessen",
-        "USERNAME": "Benutzername ist ungültig",
-        "EMAIL": "Email ist ungültig",
-        "PASSWORD": "Passwort ist ungültig",
-        "PASSWORDCONFIRMATION": "Passwort Bestätigung ist ungültig"
       }
     },
     "CTFCREATION": {
-      "TITLE": "Erstelle eine Herausforderung",
-      "NAME": "Name",
+      "CREATE": "Erstellen",
       "DESCRIPTION": "Beschreibung",
-      "FLAG": "Flagge",
       "FILE": "Datei",
-      "CREATE": "Erstellen"
+      "FLAG": "Flagge",
+      "NAME": "Name",
+      "TITLE": "Erstelle eine Herausforderung"
+    },
+    "LEADERBOARD": {
+      "TITLE": "Rangliste"
+    },
+    "LOGIN": {
+      "ERROR": {
+        "BAD-CREDENTIALS": "Ungültige Anmeldeinformationen",
+        "CLOSE": "Schliessen",
+        "TITLE": "Login Fehler"
+      },
+      "LOGIN": "Anmelden",
+      "PASSWORD": "Passwort",
+      "REGISTRATION": "Noch kein Konto erstellt?",
+      "REGISTRATION-LINK": "Hier registrieren",
+      "TITLE": "Ameldung",
+      "USERNAME": "Benutzernamen"
+    },
+    "REGISTRATION": {
+      "EMAIL": "Email",
+      "ERROR": {
+        "CLOSE": "Scliessen",
+        "EMAIL": "Email ist ungültig",
+        "PASSWORD": "Passwort ist ungültig",
+        "PASSWORDCONFIRMATION": "Passwort Bestätigung ist ungültig",
+        "TITLE": "Registrierungsfehler",
+        "USERNAME": "Benutzername ist ungültig"
+      },
+      "LOGIN": "Bereits ein Konto erstellt?",
+      "LOGIN-LINK": "Hier anmelden",
+      "PASSWORD": "Passwort",
+      "PASSWORD-CONFIRMATION": "Passwort bestätigen",
+      "REGISTER": "Registrieren",
+      "TITLE": "Registration",
+      "USERNAME": "Benutzernamen"
     }
-  },
-  "COMPONENTS": {
-    "FILEINPUT": {
-      "SELECT": "Datei auswählen",
-      "NOTSELECTED": "Keine Datei ausgewählt"
-    }
-  },
-  "ERRORS": {
-    "NAME-REQUIRED": "Name ist erforderlich",
-    "DESCRIPTION-REQUIRED": "Beschreibung ist erforderlich",
-    "FLAG-REQUIRED": "Flagge ist erforderlich",
-    "FLAG-PATTERN": "Flagge erfüllt das Muster /CCTF\\{[a-zA-Z0-9]+\\}/ nicht",
-    "USERNAME-REQUIRED": "Benutzername ist erforderlich",
-    "EMAIL-REQUIRED": "Email ist erforderlich",
-    "EMAIL-INVALID": "Email ist ungültig",
-    "PASSWORD-REQUIRED": "Passwort ist erforderlich",
-    "PASSWORD-CONFIRMATION-REQUIRED": "Passwort Bestätigung ist erforderlich",
-    "PASSWORD-MIN-LENGTH": "Passwort muss mindestens {{ length }} Zeichen lang sein",
-    "PASSWORD-MISMATCH": "Passwörter stimmen nicht überein"
   }
 }

@@ -37,8 +37,6 @@ export class NavbarComponent {
   public authenticated$: Observable<boolean>;
   public username$: Observable<string | null>;
 
-  public activeUser: string;
-
   constructor(
     private authenticationService: AuthenticationService,
     private store: Store,
@@ -56,13 +54,15 @@ export class NavbarComponent {
     this.username$ = this.store.select(authenticationFeature.selectUsername);
 
     this.authenticationService.getRoles();
-
-    this.activeUser = this.authenticationService.getUsername();
   }
 
   public switchLanguage(lang: string): void {
     this.currentLanguage = lang;
     this.translateService.use(lang);
+  }
+
+  public canAuthorChallenge(): boolean {
+    return this.authenticationService.getRoles().includes('AUTHOR') || this.isAdministrator();
   }
 
   public isAdministrator(): boolean {

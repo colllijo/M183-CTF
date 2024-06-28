@@ -65,9 +65,17 @@ public class AuthenticationService implements AuthenticationServicePort {
     featurePermissions.put("administration", List.of(
       DefaultRoles.ADMIN.getAuthorityName()
     ));
+    featurePermissions.put("challenge-creation", List.of(
+      DefaultRoles.ADMIN.getAuthorityName(),
+      DefaultRoles.AUTHOR.getAuthorityName()
+    ));
 
     List<String> authorites = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
-    if (!authorites.containsAll(featurePermissions.get(feature))) throw new UnauthorizedException(feature);
+    for (String permission: featurePermissions.get(feature)) {
+      if (authorites.contains(permission)) return;
+    }
+
+    throw new UnauthorizedException(feature);
   }
 
   @Override

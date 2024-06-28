@@ -2,8 +2,12 @@ input {
   display: none;
 }
 
-div {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
+.container {
+  display: block;
+  padding: 8px;
+}
+
+.input {
+  margin-left: 2rem;
+  font-size: 1rem;
 }

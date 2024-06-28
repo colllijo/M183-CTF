@@ -11,7 +11,7 @@ describe('FileInputComponent', () => {
       imports: [FileInputComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(FileInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
