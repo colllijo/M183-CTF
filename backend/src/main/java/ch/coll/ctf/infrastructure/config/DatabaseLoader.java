@@ -14,7 +14,9 @@ import ch.coll.ctf.domain.authorisation.port.out.AuthorisationRepositoryPort;
 import ch.coll.ctf.domain.user.model.User;
 import ch.coll.ctf.domain.user.port.out.UserRepositoryPort;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class DatabaseLoader implements ApplicationRunner {
@@ -32,6 +34,8 @@ public class DatabaseLoader implements ApplicationRunner {
     loadDefaultRoles();
 
     loadDefaultAdminUser();
+
+    log.info("DatabaseLoader has initialized the database.");
   }
 
   private void loadDefaultRoles() {

@@ -1,13 +1,12 @@
 package ch.coll.ctf.domain.ctf.port.out;
 
-import ch.coll.ctf.domain.ctf.model.Solve;
-
 import java.util.List;
-import java.util.Optional;
+
+import ch.coll.ctf.domain.ctf.model.Solve;
 
 public interface SolveRepositoryPort {
 
-    Solve save(Solve solve);
+  Solve save(Solve solve);
 
-    List<Solve> findAll();
+  List<Solve> findAll();
 }

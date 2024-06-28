@@ -9,22 +9,21 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class SolveService implements SolveServicePort {
+  private final SolveRepositoryPort solveRepositoryPort;
 
-    private final SolveRepositoryPort solveRepositoryPort;
+  @Override
+  public Solve createSolve(Solve solve) {
+    return solveRepositoryPort.save(solve);
+  }
 
-    @Override
-    public Solve createSolve(Solve solve) {
-        return solveRepositoryPort.save(solve);
-    }
+  @Override
+  public List<Solve> getSolveByUsername(String username) {
+    return null;
+    // return solveRepositoryPort.findByUsername(username);
+  }
 
-    @Override
-    public List<Solve> getSolveByUsername(String username) {
-        return null;
-        //return solveRepositoryPort.findByUsername(username);
-    }
-
-    @Override
-    public List<Solve> getAllSolves() {
-        return solveRepositoryPort.findAll();
-    }
+  @Override
+  public List<Solve> getAllSolves() {
+    return solveRepositoryPort.findAll();
+  }
 }

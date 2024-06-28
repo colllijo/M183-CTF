@@ -7,7 +7,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ch.coll.ctf.domain.user.model.User;
@@ -19,13 +18,14 @@ public class AuthenticationProviderService implements AuthenticationProvider {
   private final UserServicePort userService;
   private final PasswordEncoder passwordEncoder;
 
+  private final User unfoundUser = User.builder().password("***").build();
+
   @Override
   public Authentication authenticate(Authentication authentication) throws AuthenticationException {
     final String username = authentication.getName();
     final String password = authentication.getCredentials().toString();
 
-    User user = userService.getUserByUsername(username)
-        .orElseThrow(() -> new UsernameNotFoundException(username));
+    User user = userService.getUserByUsername(username).orElse(unfoundUser);
 
     if (passwordEncoder.matches(password, user.getPassword()))
       return new UsernamePasswordAuthenticationToken(user, password, List.of());
