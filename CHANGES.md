@@ -12,4 +12,5 @@
 
 ## Extras
 
-- Hochgeladene Datein mit ClamAV scannen
+- Hochgeladene Datein mit ClamAV scannen.
+- Möglichkeit Datein herunterzuladen.

@@ -1056,13 +1056,22 @@
         "operationId" : "createCtf",
         "requestBody" : {
           "content" : {
-            "application/json" : {
+            "multipart/form-data" : {
               "schema" : {
-                "$ref" : "#/components/schemas/CtfForm"
+                "properties" : {
+                  "ctf" : {
+                    "$ref" : "#/components/schemas/CtfForm"
+                  },
+                  "file" : {
+                    "format" : "binary",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "ctf" ],
+                "type" : "object"
               }
             }
-          },
-          "required" : true
+          }
         },
         "responses" : {
           "200" : {

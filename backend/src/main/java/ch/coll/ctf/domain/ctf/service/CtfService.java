@@ -4,9 +4,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,10 +43,24 @@ public class CtfService implements CtfServicePort {
 
     if (attachment != null && !attachment.isEmpty()) {
       scannerService.scanFile(attachment);
-      ctf.setFilePath(saveFileToDisk(attachment));
+      ctf.setFilePath(saveFileToDisk(ctf.getName(), attachment));
     }
 
     return ctfRepositoryPort.save(ctf);
+  }
+
+  @Override
+  public ByteArrayResource downloadFile(String filePath) {
+    Path file = Paths.get(uploadDir, filePath);
+    if (file.toFile().exists()) {
+      try {
+        return new ByteArrayResource(Files.readAllBytes(file));
+      } catch (Exception e) {
+        throw new RuntimeException("Could not read file from disk", e);
+      }
+    } else {
+      throw new IllegalArgumentException("File with path " + filePath + " not found");
+    }
   }
 
   @Override
@@ -62,18 +76,22 @@ public class CtfService implements CtfServicePort {
     ctfRepositoryPort.deleteByName(name);
   }
 
-  private String saveFileToDisk(MultipartFile attachment) {
+  private String saveFileToDisk(String ctfName, MultipartFile attachment) {
     Path uploadsPath = Paths.get(uploadDir);
     if (!uploadsPath.toFile().exists()) {
       if (!uploadsPath.toFile().mkdirs()) throw new RuntimeException("Could not create uploads directory");
     }
 
-    String filename = String.format("%s-%s", UUID.randomUUID().toString(), attachment.getOriginalFilename());
-    Path filePath = Paths.get(uploadDir, filename);
+    Path directoryPath = Paths.get(uploadDir, ctfName);
+    Path filePath = Paths.get(uploadDir, ctfName, attachment.getOriginalFilename());
+
+    if (!directoryPath.toFile().exists()) {
+      if (!directoryPath.toFile().mkdirs()) throw new RuntimeException("Could not create directory for ctf");
+    }
     if (!filePath.toFile().exists()) {
       try {
         Files.copy(attachment.getInputStream(), filePath);
-        return filename;
+        return Paths.get(ctfName, attachment.getOriginalFilename()).toString();
       } catch (Exception e) {
         throw new RuntimeException("Could not save file to disk", e);
       }

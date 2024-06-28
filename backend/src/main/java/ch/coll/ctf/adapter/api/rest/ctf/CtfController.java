@@ -1,7 +1,10 @@
 package ch.coll.ctf.adapter.api.rest.ctf;
 
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,5 +55,16 @@ public class CtfController {
   @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
   public CtfResponse getCtf(@PathVariable String name) {
     return ctfResponseAssembler.toModel(ctfServicePort.getCtfByName(name));
+  }
+
+  @ApiResponse(responseCode = "200", description = "Ctf gotten successfully")
+  @GetMapping(path = "/download/{name}/{file}")
+  public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String name, @PathVariable String file) {
+    ByteArrayResource resource = ctfServicePort.downloadFile(String.format("%s/%s", name, file));
+
+    return ResponseEntity.ok()
+      .contentLength(resource.contentLength())
+      .contentType(MediaType.APPLICATION_OCTET_STREAM)
+      .body(resource);
   }
 }

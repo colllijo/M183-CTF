@@ -48,4 +48,12 @@ export class ChallengeComponent implements OnInit {
   public ngOnInit(): void {
     this.store.dispatch(ChallengeActions.getChallenge({ name: this.challengeName }));
   }
+
+  public toFileName(filePath: string): string {
+    return filePath.substring(filePath.indexOf('/') + 1);
+  }
+
+  public downloadFile(filePath: string): void {
+    this.store.dispatch(ChallengeActions.downloadFile({ name: filePath }));
+  }
 }

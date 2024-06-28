@@ -20,6 +20,7 @@ public class CtfResponseAssembler implements RepresentationModelAssembler<Ctf, C
         .name(entity.getName())
         .description(entity.getDescription())
         .author(userResponseAssembler.toModel(entity.getAuthor()))
+        .filePath(entity.getFilePath())
         .build();
   }
 

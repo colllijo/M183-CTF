@@ -13,6 +13,11 @@
           value="{{ challenge.description }}"
           disabled />
       </mat-form-field>
+      @if (challenge.filePath) {
+        <button mat-flat-button color="accent" (click)="downloadFile(challenge.filePath)">
+          Download <i>{{ toFileName(challenge.filePath) }}</i>
+        </button>
+      }
     </mat-card-content>
     <mat-card-actions>
       <mat-form-field>
