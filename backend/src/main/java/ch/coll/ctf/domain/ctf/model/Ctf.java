@@ -13,5 +13,6 @@ public class Ctf {
   private String description;
   private User author;
   private String flag;
+  private String filePath;
   private Set<Solve> solves;
 }

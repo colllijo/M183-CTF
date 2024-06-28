@@ -15,8 +15,11 @@ export class ChallengeEffects {
   public create$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ChallengeActions.create),
-      exhaustMap((action) =>
-        this.ctfService.createCtf({ body: action as unknown as CtfForm }).pipe(
+      exhaustMap((action) => {
+        const ctf: CtfForm = { name: action.name, description: action.description, flag: action.flag };
+        const file = action.file ? action.file : undefined;
+
+        return this.ctfService.createCtf({ body: { ctf, file } }).pipe(
           map(() => {
             this.router.navigate(['/challenges']);
             return ChallengeActions.createSuccess();
@@ -28,8 +31,8 @@ export class ChallengeEffects {
               })
             );
           })
-        )
-      )
+        );
+      })
     );
   });
 

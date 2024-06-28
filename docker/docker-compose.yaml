@@ -10,6 +10,10 @@ services:
       - 5432:5432
     volumes:
       - db-data:/var/lib/postgresql/data
+  clamav:
+    image: clamav/clamav:1.2
+    ports:
+      - 3310:3310
   # prometheus:
   #   image: prom/prometheus:v2.52.0
   #   ports:

@@ -10,13 +10,16 @@ import { Ctf } from '../../models/ctf';
 import { CtfForm } from '../../models/ctf-form';
 
 export interface CreateCtf$Params {
-      body: CtfForm
+      body?: {
+'ctf': CtfForm;
+'file'?: Blob;
+}
 }
 
-export function createCtf(http: HttpClient, rootUrl: string, params: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<Ctf>> {
+export function createCtf(http: HttpClient, rootUrl: string, params?: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<Ctf>> {
   const rb = new RequestBuilder(rootUrl, createCtf.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'application/json');
+    rb.body(params.body, 'multipart/form-data');
   }
 
   return http.request(

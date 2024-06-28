@@ -56,9 +56,9 @@ export class CtfControllerService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `createCtf()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  createCtf$Response(params: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<Ctf>> {
+  createCtf$Response(params?: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<Ctf>> {
     return createCtf(this.http, this.rootUrl, params, context);
   }
 
@@ -66,9 +66,9 @@ export class CtfControllerService extends BaseService {
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `createCtf$Response()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  createCtf(params: CreateCtf$Params, context?: HttpContext): Observable<Ctf> {
+  createCtf(params?: CreateCtf$Params, context?: HttpContext): Observable<Ctf> {
     return this.createCtf$Response(params, context).pipe(
       map((r: StrictHttpResponse<Ctf>): Ctf => r.body)
     );
