@@ -19,6 +19,6 @@ public class CtfRequest {
   private String name;
   private String description;
   @NotBlank
-  @Pattern(regexp = "^CCTF\\{a-zA-Z0-9_-}$", message = "Flag must be in the format CCTF{<FLAG>}")
+  @Pattern(regexp = "^CCTF\\{[a-zA-Z0-9_-]+}$", message = "Flag must be in the format CCTF{<FLAG>}")
   private String flag;
 }
