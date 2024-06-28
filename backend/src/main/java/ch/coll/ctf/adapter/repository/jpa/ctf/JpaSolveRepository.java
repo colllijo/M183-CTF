@@ -15,19 +15,18 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 public class JpaSolveRepository implements SolveRepositoryPort {
-    private final JpaSolveEntityRepository solveRepository;
-    private final SolveEntityMapper solveMapper;
+  private final JpaSolveEntityRepository solveRepository;
+  private final SolveEntityMapper solveMapper;
 
-    public List<Solve> findAll() {
-        log.info("Getting all Solves");
+  public List<Solve> findAll() {
+    log.info("Getting all Solves");
 
-        return solveRepository.findAll().stream().map(solveMapper::mapEntityToModel).toList();
-    }
+    return solveRepository.findAll().stream().map(solveMapper::mapEntityToModel).toList();
+  }
 
+  public Solve save(Solve solve) {
+    log.info("Creating Solve - Solve={}", solve);
 
-    public Solve save(Solve solve) {
-        log.info("Creating Solve - Solve={}", solve);
-
-        return solveMapper.mapEntityToModel(solveRepository.save(solveMapper.mapModelToEntity(solve)));
-    }
+    return solveMapper.mapEntityToModel(solveRepository.save(solveMapper.mapModelToEntity(solve)));
+  }
 }

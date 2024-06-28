@@ -1,15 +1,11 @@
 package ch.coll.ctf.adapter.repository.jpa.ctf.service;
 
-import ch.coll.ctf.adapter.repository.jpa.ctf.entity.CtfEntity;
-import ch.coll.ctf.adapter.repository.jpa.ctf.entity.SolveEntity;
-import ch.coll.ctf.adapter.repository.jpa.user.entity.UserEntity;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-
-import java.util.List;
-import java.util.Optional;
+import ch.coll.ctf.adapter.repository.jpa.ctf.entity.SolveEntity;
 
 public interface JpaSolveEntityRepository extends JpaRepository<SolveEntity, Long> {
-    List<SolveEntity> findAll();
-    SolveEntity save(SolveEntity SolveEntity);
+  List<SolveEntity> findAll();
 }

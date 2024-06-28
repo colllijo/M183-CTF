@@ -10,7 +10,7 @@ import ch.coll.ctf.domain.ctf.model.Ctf;
 import ch.coll.ctf.domain.mapping.model.CycleAvoidingMappingContext;
 import ch.coll.ctf.domain.mapping.model.DoIgnore;
 
-@Mapper(config = EntityMapperConfig.class, uses = {SolveEntityMapper.class, UserEntityMapper.class})
+@Mapper(config = EntityMapperConfig.class, uses = { SolveEntityMapper.class, UserEntityMapper.class })
 public interface CtfEntityMapper {
   @DoIgnore
   public default Ctf mapEntityToModel(CtfEntity entity) {
