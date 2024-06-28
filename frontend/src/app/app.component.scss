@@ -1,0 +1,8 @@
+.content {
+  display: grid;
+  /* navbar | router-outlet | content */
+  grid-template-rows: auto 0 1fr;
+
+  width: 100vw;
+  height: 100vh;
+}

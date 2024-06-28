@@ -1,0 +1,18 @@
+.add-role-dialog {
+  min-width: 300px;
+
+  h2 {
+    margin: auto;
+    padding: 4px;
+    text-align: center;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  mat-dialog-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr
+  }
+}

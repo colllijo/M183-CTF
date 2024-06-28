@@ -1,0 +1,18 @@
+mat-card {
+  width: fit-content;
+  min-width: 60%;
+
+  margin: auto;
+
+  position: relative;
+  top: 5%;
+
+  .mat-column-username {
+    width: 80%;
+  }
+
+  .mat-column-points {
+    width: 20%;
+  }
+}
+

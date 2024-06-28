@@ -1,0 +1,25 @@
+mat-toolbar {
+  .align-right {
+    margin-left: auto;
+  }
+
+  .title {
+    margin: 0 2rem 0 0;
+
+    font-weight: bold;
+
+    > :first-child {
+      margin: 0 0.5rem 0 0;
+    }
+  }
+
+  .pages {
+    display: grid;
+    grid-gap: 1rem;
+    grid-auto-flow: column;
+
+    button {
+      font-size: 1.2rem;
+    }
+  }
+}

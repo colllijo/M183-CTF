@@ -1,0 +1,19 @@
+<div class="container">
+  @if (label) {
+    <mat-label>{{ label }}: </mat-label>
+  }
+  <div class="input">
+    @if (this.file) {
+      <button mat-flat-button (click)="deleteFile()" matTooltip="Remove file">
+        <i>{{ this.file ? this.file.name : 'COMPONENTS.FILEINPUT.NOTSELECTED' | translate }}</i>
+        <mat-icon iconPositionEnd>close</mat-icon>
+      </button>
+    } @else {
+      <button type="button" mat-flat-button (click)="fileInput.click()" matTooltip="Upload a file">
+        <i>{{ 'COMPONENTS.FILEINPUT.NOTSELECTED' | translate }}</i>
+        <mat-icon iconPositionEnd>file_upload</mat-icon>
+      </button>
+    }
+  </div>
+  <input type="file" #fileInput [disabled]="disabled" (change)="onSelect($event)">
+</div>

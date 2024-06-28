@@ -1,0 +1,13 @@
+<div class="challenge-container">
+  @if(challenges$ | async; as challenges) {
+    @for (challenge of challenges; track challenge) {
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{challenge.name}}</mat-card-title><button routerLink="/challenge/{{challenge.name}}" mat-flat-button>Open</button>
+          <mat-card-subtitle>by {{challenge.author!.username}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>{{challenge.description}}</mat-card-content>
+      </mat-card>
+    }
+  }
+</div>

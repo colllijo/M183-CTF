@@ -1,0 +1,29 @@
+<div class="add-role-dialog">
+  <h2>{{ 'PAGES.ADMINISTRATION.USERS-TABLE.ADD-ROLE-TITLE' | translate }}</h2>
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>{{ 'PAGES.ADMINISTRATION.USERS-TABLE.ROLE' | translate }}</mat-label>
+      <input matInput #input
+        type="text"
+        [(ngModel)]="role"
+        [matAutocomplete]="auto"
+        (input)="filter()"
+        (focus)="filter()">
+      <mat-autocomplete requireSelection #auto="matAutocomplete">
+        @for (roleName of filteredOptions; track roleName) {
+          <mat-option [value]="roleName">
+            {{ roleName }}
+          </mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="role()">
+      {{ 'PAGES.ADMINISTRATION.USERS-TABLE.CONFIRM-DIALOG' | translate }}
+    </button>
+    <button mat-button mat-dialog-close>
+      {{ 'PAGES.ADMINISTRATION.USERS-TABLE.CLOSE-DIALOG' | translate }}
+    </button>
+  </mat-dialog-actions>
+</div>

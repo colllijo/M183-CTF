@@ -1,0 +1,61 @@
+<mat-toolbar color="primary">
+  <div class="title">
+    <span>COLL CaptureTheFlag</span>
+    <mat-icon>flag</mat-icon>
+  </div>
+  <div class="pages">
+    <button mat-button routerLink="/challenges">
+      <mat-icon>bug_report</mat-icon>
+      {{ 'NAVIGATION.CHALLENGES' | translate }}
+    </button>
+    <button mat-button routerLink="/leaderboard">
+      <mat-icon>leaderboard</mat-icon>
+      {{ 'NAVIGATION.LEADERBOARD' | translate }}
+    </button>
+  </div>
+  <div class="align-right">
+    @if ((authenticated$ | async) && canAuthorChallenge()) {
+      <button mat-icon-button routerLink="/create-challenge">
+        <mat-icon>add</mat-icon>
+      </button>
+    }
+    <button mat-icon-button [matMenuTriggerFor]="languageMenu">
+      <mat-icon>language</mat-icon>
+    </button>
+    <mat-menu #languageMenu="matMenu" xPosition="before">
+      @for (language of languages | keyvalue; track language) {
+        @if (language.key !== currentLanguage) {
+          <button mat-menu-item (click)="switchLanguage(language.key)">
+            {{ language.value }}
+          </button>
+        } @else {
+          <button mat-menu-item disabled>
+            {{ language.value }}
+          </button>
+        }
+      }
+    </mat-menu>
+    @if ((authenticated$ | async) && (username$ | async); as username) {
+      <button mat-icon-button [matMenuTriggerFor]="profileMenu" #usernameTooltip="matTooltip" [matTooltip]="username" matTooltipPosition="below" matTooltipHideDelay="200">
+        <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed={{ username }}" alt="{{ username }}" />
+      </button>
+      <mat-menu #profileMenu="matMenu" xPosition="before">
+        <button mat-menu-item disabled routerLink="/profile">
+          {{ 'NAVIGATION.PROFILE' | translate }}
+        </button>
+        @if (isAdministrator()) {
+          <button mat-menu-item routerLink="/admin">
+            {{ 'NAVIGATION.ADMIN' | translate }}
+          </button>
+        }
+        <button mat-menu-item (click)="logout()">
+          {{ 'NAVIGATION.LOGOUT' | translate }}
+        </button>
+      </mat-menu>
+    } @else {
+      <button mat-icon-button routerLink="/login">
+        <mat-icon>login</mat-icon>
+      </button>
+    }
+  </div>
+</mat-toolbar>
