@@ -1,5 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface RefreshRequest {
+export interface RefreshForm {
   refreshToken: string;
 }

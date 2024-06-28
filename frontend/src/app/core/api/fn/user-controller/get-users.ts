@@ -6,12 +6,12 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { CollectionModelUserResponse } from '../../models/collection-model-user-response';
+import { CollectionModelUserInfoResponse } from '../../models/collection-model-user-info-response';
 
 export interface GetUsers$Params {
 }
 
-export function getUsers(http: HttpClient, rootUrl: string, params?: GetUsers$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelUserResponse>> {
+export function getUsers(http: HttpClient, rootUrl: string, params?: GetUsers$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelUserInfoResponse>> {
   const rb = new RequestBuilder(rootUrl, getUsers.PATH, 'get');
   if (params) {
   }
@@ -21,7 +21,7 @@ export function getUsers(http: HttpClient, rootUrl: string, params?: GetUsers$Pa
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<CollectionModelUserResponse>;
+      return r as StrictHttpResponse<CollectionModelUserInfoResponse>;
     })
   );
 }

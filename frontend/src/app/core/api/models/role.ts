@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
+import { Links } from '../models/links';
 import { Permission } from '../models/permission';
-import { User } from '../models/user';
 export interface Role {
+  '_links'?: Links;
   description?: string;
   name?: string;
   permissions?: Array<Permission>;
-  users?: Array<User>;
 }

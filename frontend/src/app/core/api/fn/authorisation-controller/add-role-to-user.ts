@@ -6,15 +6,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { RoleRequest } from '../../models/role-request';
-import { UserInfo } from '../../models/user-info';
+import { RoleForm } from '../../models/role-form';
+import { UserDetails } from '../../models/user-details';
 
 export interface AddRoleToUser$Params {
   username: string;
-      body: RoleRequest
+      body: RoleForm
 }
 
-export function addRoleToUser(http: HttpClient, rootUrl: string, params: AddRoleToUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserInfo>> {
+export function addRoleToUser(http: HttpClient, rootUrl: string, params: AddRoleToUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserDetails>> {
   const rb = new RequestBuilder(rootUrl, addRoleToUser.PATH, 'put');
   if (params) {
     rb.path('username', params.username, {});
@@ -26,7 +26,7 @@ export function addRoleToUser(http: HttpClient, rootUrl: string, params: AddRole
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<UserInfo>;
+      return r as StrictHttpResponse<UserDetails>;
     })
   );
 }

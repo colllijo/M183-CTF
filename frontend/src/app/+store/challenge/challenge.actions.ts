@@ -1,6 +1,6 @@
 import {createActionGroup, emptyProps, props} from '@ngrx/store';
 
-import { CtfResponse } from '@core/api/models';
+import { Ctf } from '@core/api/models';
 import { Error } from '@core/model/error';
 
 export const ChallengeActions = createActionGroup({
@@ -13,12 +13,12 @@ export const ChallengeActions = createActionGroup({
       errors: Error;
     }>(),
     getChallenge: props<{ name: string }>(),
-    getChallengeSuccess: props<{ challenge?: CtfResponse}>(),
+    getChallengeSuccess: props<{ challenge?: Ctf}>(),
     getChallengeFailure: props<{
       errors: Error;
     }>(),
     getAllChallenges: emptyProps(),
-    getAllChallengesSuccess: props<{challenges?: CtfResponse[]}>(),
+    getAllChallengesSuccess: props<{challenges?: Ctf[]}>(),
     getAllChallengesFailure: props<{
       errors: Error;
     }>(),

@@ -1,13 +1,13 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
-import {User} from "@core/api/models/user";
+import { UserInfo } from '@core/api/models';
 
 export const UserActions = createActionGroup({
   source: 'User',
   events: {
     // Login
     getUsers: emptyProps(),
-    getUsersSuccess: props<{ users: User[] }>(),
+    getUsersSuccess: props<{ users: UserInfo[] }>(),
     getUsersFailure: props<{
       error: string;
     }>(),

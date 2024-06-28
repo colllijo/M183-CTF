@@ -1,27 +1,27 @@
+import {
+    animate,
+    state,
+    style,
+    transition,
+    trigger
+} from '@angular/animations';
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger
-} from '@angular/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
-import { AdministrationActions } from '@app/+store/administration/administration.actions';
-import { administrationFeature } from '@app/+store/administration/administration.reducers';
-import { RoleResponse, UserInfo } from '@app/core/api/models';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { AddRoleDialogComponent } from '../add-role-dialog/add-role-dialog.component';
+import { AdministrationActions } from '@app/+store/administration/administration.actions';
+import { administrationFeature } from '@app/+store/administration/administration.reducers';
+import { Role, UserDetails } from '@app/core/api/models';
 import { AuthenticationService } from '@app/core/service/authentication.service';
+import { AddRoleDialogComponent } from '../add-role-dialog/add-role-dialog.component';
 
 @Component({
   selector: 'ctf-users',
@@ -53,10 +53,10 @@ import { AuthenticationService } from '@app/core/service/authentication.service'
 })
 export class UsersComponent implements OnInit {
   public displayedColumns: string[] = ['username', 'email', 'expanded'];
-  public expandedElement: UserInfo | null = null;
+  public expandedElement: UserDetails | null = null;
 
-  public userInfos$: Observable<UserInfo[]>;
-  public roles$: Observable<RoleResponse[]>;
+  public userInfos$: Observable<UserDetails[]>;
+  public roles$: Observable<Role[]>;
 
   public activeUser: string;
 
@@ -72,11 +72,11 @@ export class UsersComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.store.dispatch(AdministrationActions.getUserInfos());
+    this.store.dispatch(AdministrationActions.getUserDetails());
     this.store.dispatch(AdministrationActions.getRoles());
   }
 
-  public addRole(user: UserInfo, roles: RoleResponse[]): void {
+  public addRole(user: UserDetails, roles: Role[]): void {
     const dialogRef = this.dialog.open(AddRoleDialogComponent, {
       data: {
         roles: roles
@@ -92,7 +92,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  public removeRole(user: UserInfo, role: RoleResponse): void {
+  public removeRole(user: UserDetails, role: Role): void {
     this.store.dispatch(AdministrationActions.removeRole({ user, role }));
   }
 }

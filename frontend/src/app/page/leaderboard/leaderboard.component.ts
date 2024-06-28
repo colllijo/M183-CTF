@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 
 import { UserActions } from "@+store/user/user.actions";
 import { userFeature } from "@+store/user/user.reducers";
-import { User } from "@core/api/models/user";
+import { UserInfo } from "@core/api/models";
 
 @Component({
   selector: 'ctf-leaderboard',
@@ -24,7 +24,7 @@ import { User } from "@core/api/models/user";
 })
 export class LeaderboardComponent implements OnInit {
 
-  public users$: Observable<User[]>;
+  public users$: Observable<UserInfo[]>;
   public userTableColumns: string[] = ['username', 'points'];
 
   constructor(private store: Store) {

@@ -1,11 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
-import { Solve } from '../models/solve';
-import { User } from '../models/user';
+import { Links } from '../models/links';
+import { UserInfo } from '../models/user-info';
 export interface Ctf {
-  author?: User;
+  '_links'?: Links;
+  author?: UserInfo;
   description?: string;
-  flag: string;
-  name: string;
-  solves: Array<Solve>;
+  name?: string;
 }

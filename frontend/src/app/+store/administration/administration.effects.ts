@@ -7,22 +7,22 @@ import { catchError, exhaustMap, map, of } from 'rxjs';
 import { UserControllerService } from '@core/api/services/user-controller.service';
 import { AuthorisationControllerService } from '@core/api/services/authorisation-controller.service';
 import { AdministrationActions } from './administration.actions';
-import { CollectionModelUserInfoResponse, RoleRequest } from '@app/core/api/models';
+import { CollectionModelUserDetailsResponse, RoleForm } from '@app/core/api/models';
 import { CollectionModelRoleResponse } from '@app/core/api/models';
 
 @Injectable()
 export class AdministrationEffects {
   public getUserInfos$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(AdministrationActions.getUserInfos),
+      ofType(AdministrationActions.getUserDetails),
       exhaustMap(() =>
         this.userService.getUsersInfo().pipe(
-          map((response: CollectionModelUserInfoResponse) => {
-            return AdministrationActions.getUserInfosSuccess({ users: response._embedded?.userInfos ?? [] });
+          map((response: CollectionModelUserDetailsResponse) => {
+            return AdministrationActions.getUserDetailsSuccess({ users: response._embedded?.UserDetailsCollection ?? [] });
           }),
           catchError((response: HttpErrorResponse) => {
             return of(
-              AdministrationActions.getUserInfosFailure({
+              AdministrationActions.getUserDetailsFailure({
                 error: response.error.error
               })
             );
@@ -38,7 +38,7 @@ export class AdministrationEffects {
       exhaustMap(() =>
         this.authorisationService.getRoles().pipe(
           map((response: CollectionModelRoleResponse) => {
-            return AdministrationActions.getRolesSuccess({ roles: response._embedded?.roleResponseList ?? [] });
+            return AdministrationActions.getRolesSuccess({ roles: response._embedded?.RoleCollection ?? [] });
           }),
           catchError((response: HttpErrorResponse) => {
             return of(
@@ -79,7 +79,7 @@ export class AdministrationEffects {
       exhaustMap((action) =>
         this.authorisationService.removeRoleFromUser({
           username: action.user.username!,
-          body: action.role as RoleRequest
+          body: action.role as RoleForm
         }).pipe(
           map((user) => AdministrationActions.removeRoleSuccess({user})),
           catchError((response: HttpErrorResponse) => {

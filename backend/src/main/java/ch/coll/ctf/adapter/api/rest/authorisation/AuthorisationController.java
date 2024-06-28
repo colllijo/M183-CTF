@@ -17,7 +17,7 @@ import ch.coll.ctf.adapter.api.rest.authorisation.dto.PermissionResponse;
 import ch.coll.ctf.adapter.api.rest.authorisation.dto.RoleRequest;
 import ch.coll.ctf.adapter.api.rest.authorisation.dto.RoleResponse;
 import ch.coll.ctf.adapter.api.rest.user.assembler.UserInfoResponseAssembler;
-import ch.coll.ctf.adapter.api.rest.user.dto.UserInfoResponse;
+import ch.coll.ctf.adapter.api.rest.user.dto.UserDetailsResponse;
 import ch.coll.ctf.domain.authorisation.port.in.AuthorisationServicePort;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -43,14 +43,14 @@ public class AuthorisationController {
   @PreAuthorize("hasAuthority('MODIFY_USER_ROLES')")
   @ApiResponse(responseCode = "200", description = "Add role to user")
   @PutMapping(path = "/roles/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public UserInfoResponse addRoleToUser(@PathVariable String username, @Valid @RequestBody RoleRequest role) {
+  public UserDetailsResponse addRoleToUser(@PathVariable String username, @Valid @RequestBody RoleRequest role) {
     return userInfoAssembler.toModel(authorisationService.addRoleToUser(username, role.getName()));
   }
 
   @PreAuthorize("hasAuthority('MODIFY_USER_ROLES')")
   @ApiResponse(responseCode = "200", description = "Add role to user")
   @DeleteMapping(path = "/roles/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public UserInfoResponse removeRoleFromUser(@PathVariable String username, @Valid @RequestBody RoleRequest role) {
+  public UserDetailsResponse removeRoleFromUser(@PathVariable String username, @Valid @RequestBody RoleRequest role) {
     return userInfoAssembler.toModel(authorisationService.removeRoleFromUser(username, role.getName()));
   }
 

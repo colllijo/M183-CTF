@@ -1,25 +1,22 @@
 /* tslint:disable */
 /* eslint-disable */
-export { AuthenticatedResponse } from './models/authenticated-response';
-export { AuthenticationRequest } from './models/authentication-request';
+export { Authentication } from './models/authentication';
+export { AuthenticationForm } from './models/authentication-form';
 export { CollectionModelCtfResponse } from './models/collection-model-ctf-response';
 export { CollectionModelPermissionResponse } from './models/collection-model-permission-response';
 export { CollectionModelRoleResponse } from './models/collection-model-role-response';
+export { CollectionModelUserDetailsResponse } from './models/collection-model-user-details-response';
 export { CollectionModelUserInfoResponse } from './models/collection-model-user-info-response';
-export { CollectionModelUserResponse } from './models/collection-model-user-response';
 export { Ctf } from './models/ctf';
-export { CtfResponse } from './models/ctf-response';
-export { Error } from './models/error';
+export { CtfForm } from './models/ctf-form';
 export { Link } from './models/link';
 export { Links } from './models/links';
 export { Permission } from './models/permission';
-export { PermissionResponse } from './models/permission-response';
-export { RefreshRequest } from './models/refresh-request';
-export { RegistrationRequest } from './models/registration-request';
+export { RefreshForm } from './models/refresh-form';
+export { RegistrationForm } from './models/registration-form';
+export { RequestError } from './models/request-error';
 export { Role } from './models/role';
-export { RoleRequest } from './models/role-request';
-export { RoleResponse } from './models/role-response';
-export { Solve } from './models/solve';
+export { RoleForm } from './models/role-form';
 export { Tokens } from './models/tokens';
-export { User } from './models/user';
+export { UserDetails } from './models/user-details';
 export { UserInfo } from './models/user-info';

@@ -19,7 +19,7 @@ import { getRoles } from '../fn/authorisation-controller/get-roles';
 import { GetRoles$Params } from '../fn/authorisation-controller/get-roles';
 import { removeRoleFromUser } from '../fn/authorisation-controller/remove-role-from-user';
 import { RemoveRoleFromUser$Params } from '../fn/authorisation-controller/remove-role-from-user';
-import { UserInfo } from '../models/user-info';
+import { UserDetails } from '../models/user-details';
 
 @Injectable({ providedIn: 'root' })
 export class AuthorisationControllerService extends BaseService {
@@ -86,7 +86,7 @@ export class AuthorisationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addRoleToUser$Response(params: AddRoleToUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserInfo>> {
+  addRoleToUser$Response(params: AddRoleToUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserDetails>> {
     return addRoleToUser(this.http, this.rootUrl, params, context);
   }
 
@@ -96,9 +96,9 @@ export class AuthorisationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addRoleToUser(params: AddRoleToUser$Params, context?: HttpContext): Observable<UserInfo> {
+  addRoleToUser(params: AddRoleToUser$Params, context?: HttpContext): Observable<UserDetails> {
     return this.addRoleToUser$Response(params, context).pipe(
-      map((r: StrictHttpResponse<UserInfo>): UserInfo => r.body)
+      map((r: StrictHttpResponse<UserDetails>): UserDetails => r.body)
     );
   }
 
@@ -111,7 +111,7 @@ export class AuthorisationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  removeRoleFromUser$Response(params: RemoveRoleFromUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserInfo>> {
+  removeRoleFromUser$Response(params: RemoveRoleFromUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserDetails>> {
     return removeRoleFromUser(this.http, this.rootUrl, params, context);
   }
 
@@ -121,9 +121,9 @@ export class AuthorisationControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  removeRoleFromUser(params: RemoveRoleFromUser$Params, context?: HttpContext): Observable<UserInfo> {
+  removeRoleFromUser(params: RemoveRoleFromUser$Params, context?: HttpContext): Observable<UserDetails> {
     return this.removeRoleFromUser$Response(params, context).pipe(
-      map((r: StrictHttpResponse<UserInfo>): UserInfo => r.body)
+      map((r: StrictHttpResponse<UserDetails>): UserDetails => r.body)
     );
   }
 

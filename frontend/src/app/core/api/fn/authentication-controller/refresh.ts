@@ -6,14 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { AuthenticatedResponse } from '../../models/authenticated-response';
-import { RefreshRequest } from '../../models/refresh-request';
+import { Authentication } from '../../models/authentication';
+import { RefreshForm } from '../../models/refresh-form';
 
 export interface Refresh$Params {
-      body: RefreshRequest
+      body: RefreshForm
 }
 
-export function refresh(http: HttpClient, rootUrl: string, params: Refresh$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticatedResponse>> {
+export function refresh(http: HttpClient, rootUrl: string, params: Refresh$Params, context?: HttpContext): Observable<StrictHttpResponse<Authentication>> {
   const rb = new RequestBuilder(rootUrl, refresh.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
@@ -24,7 +24,7 @@ export function refresh(http: HttpClient, rootUrl: string, params: Refresh$Param
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<AuthenticatedResponse>;
+      return r as StrictHttpResponse<Authentication>;
     })
   );
 }

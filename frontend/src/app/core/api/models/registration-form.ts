@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface RegistrationRequest {
+export interface RegistrationForm {
   email: string;
   password: string;
   passwordConfirmation: string;

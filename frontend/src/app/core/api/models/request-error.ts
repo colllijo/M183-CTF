@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Links } from '../models/links';
-export interface Error {
+export interface RequestError {
   '_links'?: Links;
   details?: {
 [key: string]: {

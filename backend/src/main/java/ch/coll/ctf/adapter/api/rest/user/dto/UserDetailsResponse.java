@@ -2,12 +2,15 @@ package ch.coll.ctf.adapter.api.rest.user.dto;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+import java.util.Set;
+
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import ch.coll.ctf.adapter.api.rest.authorisation.dto.RoleResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,13 +22,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(NON_NULL)
-@JsonRootName(value = "user")
+@JsonRootName(value = "UserDetails")
 @EqualsAndHashCode(callSuper = false)
-@Relation(collectionRelation = "users")
-public class UserResponse extends RepresentationModel<UserResponse> {
+@Relation(collectionRelation = "UserDetailsCollection")
+public class UserDetailsResponse extends RepresentationModel<UserDetailsResponse> {
   private String username;
-
-  private Integer points;
-
-  // private Set<SolveResponse> solves;
+  private String email;
+  private Set<RoleResponse> roles;
 }

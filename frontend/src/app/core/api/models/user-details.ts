@@ -1,8 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Links } from '../models/links';
-export interface User {
+import { Role } from '../models/role';
+export interface UserDetails {
   '_links'?: Links;
-  points?: number;
+  email?: string;
+  roles?: Array<Role>;
   username?: string;
 }

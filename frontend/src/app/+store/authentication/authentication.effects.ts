@@ -5,8 +5,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of } from 'rxjs';
 
 import { AuthenticationControllerService } from '@core/api/services/authentication-controller.service';
-import { AuthenticatedResponse } from '@core/api/models/authenticated-response';
-import { Error as RestError } from '@core/api/models/error';
+import { Authentication } from '@core/api/models';
+import { RequestError } from '@core/api/models';
 import { Error } from '@core/model/error';
 import { AuthenticationActions } from './authentication.actions';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ export class AuthenticationEffects {
       ofType(AuthenticationActions.login),
       exhaustMap((action) =>
         this.authenticationControllerService.login({ body: action }).pipe(
-          map((response: AuthenticatedResponse) => {
+          map((response: Authentication) => {
             sessionStorage.setItem(
               'accessToken',
               response.tokens?.accessToken || ''
@@ -37,7 +37,7 @@ export class AuthenticationEffects {
             return of(
               AuthenticationActions.loginFailure({
                 error: this.toErrorPropertyName(
-                  (response.error as RestError).error || 'Login failed'
+                  (response.error as RequestError).error || 'Login failed'
                 )
               })
             );
@@ -72,7 +72,7 @@ export class AuthenticationEffects {
       ofType(AuthenticationActions.register),
       exhaustMap((action) =>
         this.authenticationControllerService.register({ body: action }).pipe(
-          map((response: AuthenticatedResponse) => {
+          map((response: Authentication) => {
             sessionStorage.setItem(
               'accessToken',
               response.tokens?.accessToken || ''
@@ -101,8 +101,8 @@ export class AuthenticationEffects {
 
   private getDetailedErrors(response: HttpErrorResponse): Error {
     let errors = {};
-    if ((response.error as RestError).details) {
-      errors = (response.error as RestError).details!;
+    if ((response.error as RequestError).details) {
+      errors = (response.error as RequestError).details!;
     }
 
     return errors;

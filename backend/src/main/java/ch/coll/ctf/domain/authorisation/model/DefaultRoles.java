@@ -7,13 +7,19 @@ import lombok.Getter;
 
 @Getter
 public enum DefaultRoles {
-  USER("USER", "User role"),
-  AUTHOR("AUTHOR", "Author role"),
+  USER("USER", "User role",
+    Permissions.SOLVE_CHALLENGE.getPermission()
+  ),
+  AUTHOR("AUTHOR", "Author role",
+    Permissions.CREATE_CHALLENGE.getPermission()
+  ),
   ADMIN("ADMIN", "Admin role",
     Permissions.READ_USERS.getPermission(),
     Permissions.READ_ROLES.getPermission(),
     Permissions.READ_PERMISSIONS.getPermission(),
-    Permissions.MODIFY_USER_ROLES.getPermission()
+    Permissions.MODIFY_USER_ROLES.getPermission(),
+    Permissions.CREATE_CHALLENGE.getPermission(),
+    Permissions.SOLVE_CHALLENGE.getPermission()
   );
 
   private final Role role;

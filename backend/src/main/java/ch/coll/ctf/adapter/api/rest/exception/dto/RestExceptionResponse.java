@@ -24,9 +24,9 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@JsonRootName(value = "error")
+@JsonRootName(value = "RequestError")
 @JsonInclude(NON_NULL)
-@Relation(collectionRelation = "errors")
+@Relation(collectionRelation = "RequestErrorCollection")
 public class RestExceptionResponse extends RepresentationModel<RestExceptionResponse> {
   private Integer status;
   private String error;

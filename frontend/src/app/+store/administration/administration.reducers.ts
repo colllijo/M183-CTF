@@ -16,7 +16,7 @@ export const administrationFeature = createFeature({
     initialState,
     // User Administration
     on(
-      AdministrationActions.getUserInfos,
+      AdministrationActions.getUserDetails,
       (state): AdministrationState => ({
         ...state,
         users: [],
@@ -25,7 +25,7 @@ export const administrationFeature = createFeature({
       })
     ),
     on(
-      AdministrationActions.getUserInfosSuccess,
+      AdministrationActions.getUserDetailsSuccess,
       (state, { users }): AdministrationState => ({
         ...state,
         users,
@@ -34,7 +34,7 @@ export const administrationFeature = createFeature({
       })
     ),
     on(
-      AdministrationActions.getUserInfosFailure,
+      AdministrationActions.getUserDetailsFailure,
       (state, { error }): AdministrationState => ({
         ...state,
         error,

@@ -6,12 +6,13 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
-import { ChallengeActions } from '@app/+store/challenge/challenge.actions';
-import { challengeFeature } from '@app/+store/challenge/challenge.reducers';
-import { CtfResponse } from '@app/core/api/models';
-import { AuthenticationService } from '@app/core/service/authentication.service';
 import { Store } from "@ngrx/store";
 import { Observable } from 'rxjs';
+
+import { ChallengeActions } from '@app/+store/challenge/challenge.actions';
+import { challengeFeature } from '@app/+store/challenge/challenge.reducers';
+import { Ctf } from '@app/core/api/models';
+import { AuthenticationService } from '@app/core/service/authentication.service';
 
 @Component({
   selector: 'ctf-challenge',
@@ -28,7 +29,7 @@ import { Observable } from 'rxjs';
   styleUrl: './challenge.component.scss'
 })
 export class ChallengeComponent implements OnInit {
-  public challenge$: Observable<CtfResponse | null>;
+  public challenge$: Observable<Ctf | null>;
   public authenticated$: Observable<boolean>;
 
   private challengeName: string;

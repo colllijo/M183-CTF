@@ -1,7 +1,7 @@
-import {User} from "@core/api/models/user";
+import { UserInfo } from "@core/api/models";
 
 export interface UserState {
-  users: User[];
+  users: UserInfo[];
   loading: boolean;
   error: string | null;
 }

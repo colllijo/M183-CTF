@@ -46,9 +46,7 @@ public class AuthenticationController {
   public AuthenticatedResponse isAuthenticated() {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-    if (principal instanceof User) {
-      return new AuthenticatedResponse(((User) principal).getUsername(), null);
-    }
+    if (principal instanceof User) return new AuthenticatedResponse(((User) principal).getUsername(), null);
     throw new RuntimeException("User not authenticated");
   }
 
@@ -108,7 +106,7 @@ public class AuthenticationController {
     response.addCookie(createFingerprintCookie("Access-Token", "", 0));
     response.addCookie(createFingerprintCookie("Refresh-Token", "", 0));
   }
-  
+
   @ApiResponse(responseCode = "200", description = "User is authorised")
   @PostMapping(path = "/check/{feature}")
   public void checkFeatureAccess(@PathVariable String feature) {

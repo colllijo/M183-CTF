@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface RoleRequest {
+export interface CtfForm {
   description?: string;
+  flag: string;
   name: string;
 }

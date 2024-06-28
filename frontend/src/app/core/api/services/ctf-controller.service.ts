@@ -12,7 +12,7 @@ import { StrictHttpResponse } from '../strict-http-response';
 import { CollectionModelCtfResponse } from '../models/collection-model-ctf-response';
 import { createCtf } from '../fn/ctf-controller/create-ctf';
 import { CreateCtf$Params } from '../fn/ctf-controller/create-ctf';
-import { CtfResponse } from '../models/ctf-response';
+import { Ctf } from '../models/ctf';
 import { getAllCtfs } from '../fn/ctf-controller/get-all-ctfs';
 import { GetAllCtfs$Params } from '../fn/ctf-controller/get-all-ctfs';
 import { getCtf } from '../fn/ctf-controller/get-ctf';
@@ -58,7 +58,7 @@ export class CtfControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  createCtf$Response(params: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<CtfResponse>> {
+  createCtf$Response(params: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<Ctf>> {
     return createCtf(this.http, this.rootUrl, params, context);
   }
 
@@ -68,9 +68,9 @@ export class CtfControllerService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  createCtf(params: CreateCtf$Params, context?: HttpContext): Observable<CtfResponse> {
+  createCtf(params: CreateCtf$Params, context?: HttpContext): Observable<Ctf> {
     return this.createCtf$Response(params, context).pipe(
-      map((r: StrictHttpResponse<CtfResponse>): CtfResponse => r.body)
+      map((r: StrictHttpResponse<Ctf>): Ctf => r.body)
     );
   }
 
@@ -83,7 +83,7 @@ export class CtfControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getCtf$Response(params: GetCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<CtfResponse>> {
+  getCtf$Response(params: GetCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<Ctf>> {
     return getCtf(this.http, this.rootUrl, params, context);
   }
 
@@ -93,9 +93,9 @@ export class CtfControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getCtf(params: GetCtf$Params, context?: HttpContext): Observable<CtfResponse> {
+  getCtf(params: GetCtf$Params, context?: HttpContext): Observable<Ctf> {
     return this.getCtf$Response(params, context).pipe(
-      map((r: StrictHttpResponse<CtfResponse>): CtfResponse => r.body)
+      map((r: StrictHttpResponse<Ctf>): Ctf => r.body)
     );
   }
 

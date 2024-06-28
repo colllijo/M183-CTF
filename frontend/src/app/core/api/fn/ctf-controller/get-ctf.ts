@@ -6,13 +6,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { CtfResponse } from '../../models/ctf-response';
+import { Ctf } from '../../models/ctf';
 
 export interface GetCtf$Params {
   name: string;
 }
 
-export function getCtf(http: HttpClient, rootUrl: string, params: GetCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<CtfResponse>> {
+export function getCtf(http: HttpClient, rootUrl: string, params: GetCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<Ctf>> {
   const rb = new RequestBuilder(rootUrl, getCtf.PATH, 'get');
   if (params) {
     rb.path('name', params.name, {});
@@ -23,7 +23,7 @@ export function getCtf(http: HttpClient, rootUrl: string, params: GetCtf$Params,
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<CtfResponse>;
+      return r as StrictHttpResponse<Ctf>;
     })
   );
 }

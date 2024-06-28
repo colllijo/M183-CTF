@@ -7,13 +7,13 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { Ctf } from '../../models/ctf';
-import { CtfResponse } from '../../models/ctf-response';
+import { CtfForm } from '../../models/ctf-form';
 
 export interface CreateCtf$Params {
-      body: Ctf
+      body: CtfForm
 }
 
-export function createCtf(http: HttpClient, rootUrl: string, params: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<CtfResponse>> {
+export function createCtf(http: HttpClient, rootUrl: string, params: CreateCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<Ctf>> {
   const rb = new RequestBuilder(rootUrl, createCtf.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
@@ -24,7 +24,7 @@ export function createCtf(http: HttpClient, rootUrl: string, params: CreateCtf$P
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<CtfResponse>;
+      return r as StrictHttpResponse<Ctf>;
     })
   );
 }

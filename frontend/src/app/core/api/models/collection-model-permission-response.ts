@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 import { Links } from '../models/links';
-import { PermissionResponse } from '../models/permission-response';
+import { Permission } from '../models/permission';
 export interface CollectionModelPermissionResponse {
   '_embedded'?: {
-'permissionResponseList'?: Array<PermissionResponse>;
+'PermissionCollection'?: Array<Permission>;
 };
   '_links'?: Links;
 }

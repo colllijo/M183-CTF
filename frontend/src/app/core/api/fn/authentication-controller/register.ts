@@ -6,14 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { AuthenticatedResponse } from '../../models/authenticated-response';
-import { RegistrationRequest } from '../../models/registration-request';
+import { Authentication } from '../../models/authentication';
+import { RegistrationForm } from '../../models/registration-form';
 
 export interface Register$Params {
-      body: RegistrationRequest
+      body: RegistrationForm
 }
 
-export function register(http: HttpClient, rootUrl: string, params: Register$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticatedResponse>> {
+export function register(http: HttpClient, rootUrl: string, params: Register$Params, context?: HttpContext): Observable<StrictHttpResponse<Authentication>> {
   const rb = new RequestBuilder(rootUrl, register.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
@@ -24,7 +24,7 @@ export function register(http: HttpClient, rootUrl: string, params: Register$Par
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<AuthenticatedResponse>;
+      return r as StrictHttpResponse<Authentication>;
     })
   );
 }

@@ -1,22 +1,22 @@
-import { RoleResponse, UserInfo } from '@app/core/api/models';
+import { Role, UserDetails } from '@app/core/api/models';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const AdministrationActions = createActionGroup({
   source: 'Administration',
   events: {
     // User Administration
-    getUserInfos: emptyProps(),
-    getUserInfosSuccess: props<{ users: UserInfo[] }>(),
-    getUserInfosFailure: props<{ error: string }>(),
-    addRole: props<{ user: UserInfo; role: string }>(),
-    addRoleSuccess: props<{ user: UserInfo; }>(),
+    getUserDetails: emptyProps(),
+    getUserDetailsSuccess: props<{ users: UserDetails[] }>(),
+    getUserDetailsFailure: props<{ error: string }>(),
+    addRole: props<{ user: UserDetails; role: string }>(),
+    addRoleSuccess: props<{ user: UserDetails; }>(),
     addRoleFailure: props<{ error: string }>(),
-    removeRole: props<{ user: UserInfo; role: RoleResponse }>(),
-    removeRoleSuccess: props<{ user: UserInfo }>(),
+    removeRole: props<{ user: UserDetails; role: Role }>(),
+    removeRoleSuccess: props<{ user: UserDetails }>(),
     removeRoleFailure: props<{ error: string }>(),
     // Role Administration
     getRoles: emptyProps(),
-    getRolesSuccess: props<{ roles: RoleResponse[] }>(),
+    getRolesSuccess: props<{ roles: Role[] }>(),
     getRolesFailure: props<{ error: string }>()
   }
 });

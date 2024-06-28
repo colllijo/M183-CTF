@@ -6,12 +6,12 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { AuthenticatedResponse } from '../../models/authenticated-response';
+import { Authentication } from '../../models/authentication';
 
 export interface IsAuthenticated$Params {
 }
 
-export function isAuthenticated(http: HttpClient, rootUrl: string, params?: IsAuthenticated$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticatedResponse>> {
+export function isAuthenticated(http: HttpClient, rootUrl: string, params?: IsAuthenticated$Params, context?: HttpContext): Observable<StrictHttpResponse<Authentication>> {
   const rb = new RequestBuilder(rootUrl, isAuthenticated.PATH, 'get');
   if (params) {
   }
@@ -21,7 +21,7 @@ export function isAuthenticated(http: HttpClient, rootUrl: string, params?: IsAu
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<AuthenticatedResponse>;
+      return r as StrictHttpResponse<Authentication>;
     })
   );
 }

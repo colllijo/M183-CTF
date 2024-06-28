@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, switchMap, throwError } from 'rxjs';
 import { AuthenticationControllerService } from '../api/services';
-import { AuthenticatedResponse } from '../api/models';
+import { Authentication } from '../api/models';
 import { Store } from '@ngrx/store';
 import { AuthenticationActions } from '@app/+store/authentication/authentication.actions';
 
@@ -26,7 +26,7 @@ export const accessTokenInterceptor: HttpInterceptorFn = (req, next) => {
             body: { refreshToken }
           })
           .pipe(
-            switchMap((response: AuthenticatedResponse) => {
+            switchMap((response: Authentication) => {
               if (response.tokens?.accessToken) {
                 sessionStorage.setItem(
                   'accessToken',

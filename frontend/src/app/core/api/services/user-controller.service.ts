@@ -9,8 +9,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { CollectionModelUserDetailsResponse } from '../models/collection-model-user-details-response';
 import { CollectionModelUserInfoResponse } from '../models/collection-model-user-info-response';
-import { CollectionModelUserResponse } from '../models/collection-model-user-response';
 import { getUsers } from '../fn/user-controller/get-users';
 import { GetUsers$Params } from '../fn/user-controller/get-users';
 import { getUsersInfo } from '../fn/user-controller/get-users-info';
@@ -31,7 +31,7 @@ export class UserControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getUsers$Response(params?: GetUsers$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelUserResponse>> {
+  getUsers$Response(params?: GetUsers$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelUserInfoResponse>> {
     return getUsers(this.http, this.rootUrl, params, context);
   }
 
@@ -41,14 +41,14 @@ export class UserControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getUsers(params?: GetUsers$Params, context?: HttpContext): Observable<CollectionModelUserResponse> {
+  getUsers(params?: GetUsers$Params, context?: HttpContext): Observable<CollectionModelUserInfoResponse> {
     return this.getUsers$Response(params, context).pipe(
-      map((r: StrictHttpResponse<CollectionModelUserResponse>): CollectionModelUserResponse => r.body)
+      map((r: StrictHttpResponse<CollectionModelUserInfoResponse>): CollectionModelUserInfoResponse => r.body)
     );
   }
 
   /** Path part for operation `getUsersInfo()` */
-  static readonly GetUsersInfoPath = '/users/info';
+  static readonly GetUsersInfoPath = '/users/detailed';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -56,7 +56,7 @@ export class UserControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getUsersInfo$Response(params?: GetUsersInfo$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelUserInfoResponse>> {
+  getUsersInfo$Response(params?: GetUsersInfo$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelUserDetailsResponse>> {
     return getUsersInfo(this.http, this.rootUrl, params, context);
   }
 
@@ -66,9 +66,9 @@ export class UserControllerService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getUsersInfo(params?: GetUsersInfo$Params, context?: HttpContext): Observable<CollectionModelUserInfoResponse> {
+  getUsersInfo(params?: GetUsersInfo$Params, context?: HttpContext): Observable<CollectionModelUserDetailsResponse> {
     return this.getUsersInfo$Response(params, context).pipe(
-      map((r: StrictHttpResponse<CollectionModelUserInfoResponse>): CollectionModelUserInfoResponse => r.body)
+      map((r: StrictHttpResponse<CollectionModelUserDetailsResponse>): CollectionModelUserDetailsResponse => r.body)
     );
   }
 
