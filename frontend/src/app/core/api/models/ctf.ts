@@ -6,5 +6,6 @@ export interface Ctf {
   '_links'?: Links;
   author?: UserInfo;
   description?: string;
+  filePath?: string;
   name?: string;
 }

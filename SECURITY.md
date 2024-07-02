@@ -42,3 +42,13 @@ https://docs.spring.io/spring-framework/docs/3.0.x/reference/jdbc.html
 - Für jedes Feld wird eine Kontrolle erstellt, welche die Validation für das Feld macht
 - Angular Reactive Forms FormGroup + FormControl
 https://blog.angular-university.io/angular-custom-form-controls/
+
+## File Upload Security
+
+The ClamAV Scanner, an open-source antivirus engine, is used in this application to secure file uploads. 
+Files are scanned in a Docker container before being accepted into the system. 
+The scanner compares files against a database of known threats, rejecting any matches. 
+This process is facilitated by the ClamAV client, a Java library that interacts with the ClamAV API.
+- [ClamAV Scanner](https://docs.clamav.net/manual/Installing/Docker.html)
+- [ClamAV Scanner Docker](https://hub.docker.com/r/mkodockx/docker-clamav)
+- [ClamAV Scanner GitHub](https://github.com/cdarras/clamav-client)

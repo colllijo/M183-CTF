@@ -1,7 +1,7 @@
 {
   "components" : {
     "schemas" : {
-      "AuthenticatedResponse" : {
+      "Authentication" : {
         "properties" : {
           "_links" : {
             "$ref" : "#/components/schemas/Links"
@@ -15,7 +15,7 @@
         },
         "type" : "object"
       },
-      "AuthenticationRequest" : {
+      "AuthenticationForm" : {
         "properties" : {
           "password" : {
             "maxLength" : 2147483647,
@@ -33,9 +33,9 @@
         "properties" : {
           "_embedded" : {
             "properties" : {
-              "ctfResponseList" : {
+              "CtfCollection" : {
                 "items" : {
-                  "$ref" : "#/components/schemas/CtfResponse"
+                  "$ref" : "#/components/schemas/Ctf"
                 },
                 "type" : "array"
               }
@@ -52,9 +52,9 @@
         "properties" : {
           "_embedded" : {
             "properties" : {
-              "permissionResponseList" : {
+              "PermissionCollection" : {
                 "items" : {
-                  "$ref" : "#/components/schemas/PermissionResponse"
+                  "$ref" : "#/components/schemas/Permission"
                 },
                 "type" : "array"
               }
@@ -71,9 +71,28 @@
         "properties" : {
           "_embedded" : {
             "properties" : {
-              "roleResponseList" : {
+              "RoleCollection" : {
                 "items" : {
-                  "$ref" : "#/components/schemas/RoleResponse"
+                  "$ref" : "#/components/schemas/Role"
+                },
+                "type" : "array"
+              }
+            },
+            "type" : "object"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
+        "type" : "object"
+      },
+      "CollectionModelUserDetailsResponse" : {
+        "properties" : {
+          "_embedded" : {
+            "properties" : {
+              "UserDetailsCollection" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/UserDetails"
                 },
                 "type" : "array"
               }
@@ -90,28 +109,9 @@
         "properties" : {
           "_embedded" : {
             "properties" : {
-              "userInfos" : {
+              "UserInfoCollection" : {
                 "items" : {
-                  "$ref" : "#/components/schemas/userInfo"
-                },
-                "type" : "array"
-              }
-            },
-            "type" : "object"
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          }
-        },
-        "type" : "object"
-      },
-      "CollectionModelUserResponse" : {
-        "properties" : {
-          "_embedded" : {
-            "properties" : {
-              "users" : {
-                "items" : {
-                  "$ref" : "#/components/schemas/user"
+                  "$ref" : "#/components/schemas/UserInfo"
                 },
                 "type" : "array"
               }
@@ -126,37 +126,11 @@
       },
       "Ctf" : {
         "properties" : {
-          "author" : {
-            "$ref" : "#/components/schemas/User"
-          },
-          "description" : {
-            "type" : "string"
-          },
-          "flag" : {
-            "pattern" : "^cctf\\{.*}$",
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "solves" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Solve"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          }
-        },
-        "required" : [ "flag", "name", "solves" ],
-        "type" : "object"
-      },
-      "CtfResponse" : {
-        "properties" : {
           "_links" : {
             "$ref" : "#/components/schemas/Links"
           },
           "author" : {
-            "$ref" : "#/components/schemas/user"
+            "$ref" : "#/components/schemas/UserInfo"
           },
           "description" : {
             "type" : "string"
@@ -165,6 +139,22 @@
             "type" : "string"
           }
         },
+        "type" : "object"
+      },
+      "CtfForm" : {
+        "properties" : {
+          "description" : {
+            "type" : "string"
+          },
+          "flag" : {
+            "pattern" : "^CCTF\\{a-zA-Z0-9_-}$",
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "flag", "name" ],
         "type" : "object"
       },
       "Link" : {
@@ -204,24 +194,6 @@
       },
       "Permission" : {
         "properties" : {
-          "description" : {
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "roles" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Role"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          }
-        },
-        "type" : "object"
-      },
-      "PermissionResponse" : {
-        "properties" : {
           "_links" : {
             "$ref" : "#/components/schemas/Links"
           },
@@ -234,7 +206,7 @@
         },
         "type" : "object"
       },
-      "RefreshRequest" : {
+      "RefreshForm" : {
         "properties" : {
           "refreshToken" : {
             "type" : "string"
@@ -243,7 +215,7 @@
         "required" : [ "refreshToken" ],
         "type" : "object"
       },
-      "RegistrationRequest" : {
+      "RegistrationForm" : {
         "properties" : {
           "email" : {
             "type" : "string"
@@ -251,6 +223,7 @@
           "password" : {
             "maxLength" : 2147483647,
             "minLength" : 12,
+            "pattern" : "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$",
             "type" : "string"
           },
           "passwordConfirmation" : {
@@ -265,145 +238,7 @@
         "required" : [ "email", "password", "passwordConfirmation", "username" ],
         "type" : "object"
       },
-      "Role" : {
-        "properties" : {
-          "description" : {
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "permissions" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Permission"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          },
-          "users" : {
-            "items" : {
-              "$ref" : "#/components/schemas/User"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          }
-        },
-        "type" : "object"
-      },
-      "RoleRequest" : {
-        "properties" : {
-          "description" : {
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string"
-          }
-        },
-        "required" : [ "name" ],
-        "type" : "object"
-      },
-      "RoleResponse" : {
-        "properties" : {
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "description" : {
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "permissions" : {
-            "items" : {
-              "$ref" : "#/components/schemas/PermissionResponse"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          }
-        },
-        "type" : "object"
-      },
-      "Solve" : {
-        "properties" : {
-          "ctf" : {
-            "$ref" : "#/components/schemas/Ctf"
-          },
-          "points" : {
-            "format" : "int32",
-            "type" : "integer"
-          },
-          "rank" : {
-            "format" : "int32",
-            "type" : "integer"
-          },
-          "solver" : {
-            "$ref" : "#/components/schemas/User"
-          },
-          "timestamp" : {
-            "format" : "date-time",
-            "type" : "string"
-          }
-        },
-        "required" : [ "ctf", "points" ],
-        "type" : "object"
-      },
-      "Tokens" : {
-        "properties" : {
-          "accessToken" : {
-            "type" : "string"
-          },
-          "refreshToken" : {
-            "type" : "string"
-          }
-        },
-        "type" : "object"
-      },
-      "User" : {
-        "properties" : {
-          "active" : {
-            "type" : "boolean"
-          },
-          "email" : {
-            "type" : "string"
-          },
-          "id" : {
-            "format" : "int64",
-            "type" : "integer"
-          },
-          "password" : {
-            "maxLength" : 2147483647,
-            "minLength" : 12,
-            "type" : "string"
-          },
-          "permissions" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Permission"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          },
-          "roles" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Role"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          },
-          "solves" : {
-            "items" : {
-              "$ref" : "#/components/schemas/Solve"
-            },
-            "type" : "array",
-            "uniqueItems" : true
-          },
-          "username" : {
-            "type" : "string"
-          }
-        },
-        "required" : [ "active", "email", "password", "roles", "solves", "username" ],
-        "type" : "object"
-      },
-      "error" : {
+      "RequestError" : {
         "properties" : {
           "_links" : {
             "$ref" : "#/components/schemas/Links"
@@ -434,22 +269,51 @@
         },
         "type" : "object"
       },
-      "user" : {
+      "Role" : {
         "properties" : {
           "_links" : {
             "$ref" : "#/components/schemas/Links"
           },
-          "points" : {
-            "format" : "int32",
-            "type" : "integer"
+          "description" : {
+            "type" : "string"
           },
-          "username" : {
+          "name" : {
+            "type" : "string"
+          },
+          "permissions" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Permission"
+            },
+            "type" : "array",
+            "uniqueItems" : true
+          }
+        },
+        "type" : "object"
+      },
+      "RoleForm" : {
+        "properties" : {
+          "description" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "name" ],
+        "type" : "object"
+      },
+      "Tokens" : {
+        "properties" : {
+          "accessToken" : {
+            "type" : "string"
+          },
+          "refreshToken" : {
             "type" : "string"
           }
         },
         "type" : "object"
       },
-      "userInfo" : {
+      "UserDetails" : {
         "properties" : {
           "_links" : {
             "$ref" : "#/components/schemas/Links"
@@ -459,10 +323,25 @@
           },
           "roles" : {
             "items" : {
-              "$ref" : "#/components/schemas/RoleResponse"
+              "$ref" : "#/components/schemas/Role"
             },
             "type" : "array",
             "uniqueItems" : true
+          },
+          "username" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "UserInfo" : {
+        "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "points" : {
+            "format" : "int32",
+            "type" : "integer"
           },
           "username" : {
             "type" : "string"
@@ -486,7 +365,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/AuthenticatedResponse"
+                  "$ref" : "#/components/schemas/Authentication"
                 }
               }
             },
@@ -496,7 +375,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -506,7 +385,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -516,7 +395,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -526,7 +405,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -555,7 +434,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -565,7 +444,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -575,7 +454,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -585,7 +464,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -602,7 +481,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/AuthenticationRequest"
+                "$ref" : "#/components/schemas/AuthenticationForm"
               }
             }
           },
@@ -613,7 +492,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/AuthenticatedResponse"
+                  "$ref" : "#/components/schemas/Authentication"
                 }
               }
             },
@@ -623,7 +502,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -633,7 +512,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -643,7 +522,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -653,7 +532,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -674,7 +553,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -684,7 +563,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -694,7 +573,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -704,7 +583,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -721,7 +600,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/RefreshRequest"
+                "$ref" : "#/components/schemas/RefreshForm"
               }
             }
           },
@@ -732,7 +611,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/AuthenticatedResponse"
+                  "$ref" : "#/components/schemas/Authentication"
                 }
               }
             },
@@ -742,7 +621,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -752,7 +631,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -762,7 +641,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -772,7 +651,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -789,7 +668,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/RegistrationRequest"
+                "$ref" : "#/components/schemas/RegistrationForm"
               }
             }
           },
@@ -800,7 +679,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/AuthenticatedResponse"
+                  "$ref" : "#/components/schemas/Authentication"
                 }
               }
             },
@@ -810,7 +689,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -820,7 +699,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -830,7 +709,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -840,7 +719,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -868,7 +747,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -878,7 +757,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -888,7 +767,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -898,7 +777,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -926,7 +805,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -936,7 +815,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -946,7 +825,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -956,7 +835,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -981,7 +860,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/RoleRequest"
+                "$ref" : "#/components/schemas/RoleForm"
               }
             }
           },
@@ -992,7 +871,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/userInfo"
+                  "$ref" : "#/components/schemas/UserDetails"
                 }
               }
             },
@@ -1002,7 +881,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1012,7 +891,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1022,7 +901,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1032,7 +911,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1055,7 +934,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/RoleRequest"
+                "$ref" : "#/components/schemas/RoleForm"
               }
             }
           },
@@ -1066,7 +945,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/userInfo"
+                  "$ref" : "#/components/schemas/UserDetails"
                 }
               }
             },
@@ -1076,7 +955,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1086,7 +965,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1096,7 +975,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1106,7 +985,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1134,7 +1013,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1144,7 +1023,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1154,7 +1033,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1164,7 +1043,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1177,20 +1056,29 @@
         "operationId" : "createCtf",
         "requestBody" : {
           "content" : {
-            "application/json" : {
+            "multipart/form-data" : {
               "schema" : {
-                "$ref" : "#/components/schemas/Ctf"
+                "properties" : {
+                  "ctf" : {
+                    "$ref" : "#/components/schemas/CtfForm"
+                  },
+                  "file" : {
+                    "format" : "binary",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "ctf" ],
+                "type" : "object"
               }
             }
-          },
-          "required" : true
+          }
         },
         "responses" : {
           "200" : {
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/CtfResponse"
+                  "$ref" : "#/components/schemas/Ctf"
                 }
               }
             },
@@ -1200,7 +1088,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1210,7 +1098,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1220,7 +1108,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1230,7 +1118,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1256,7 +1144,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/CtfResponse"
+                  "$ref" : "#/components/schemas/Ctf"
                 }
               }
             },
@@ -1266,7 +1154,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1276,7 +1164,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1286,7 +1174,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1296,7 +1184,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1306,314 +1194,9 @@
         "tags" : [ "ctf-controller" ]
       }
     },
-    "/solve" : {
-      "get" : {
-        "operationId" : "getAllSolves",
-        "responses" : {
-          "200" : {
-            "content" : {
-              "*/*" : {
-                "schema" : {
-                  "items" : {
-                    "$ref" : "#/components/schemas/Solve"
-                  },
-                  "type" : "array"
-                }
-              }
-            },
-            "description" : "Solves gotten successfully"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "solve-controller" ]
-      },
-      "post" : {
-        "operationId" : "createSolve",
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Solve"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Solve"
-                }
-              }
-            },
-            "description" : "Solve created successfully"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "solve-controller" ]
-      }
-    },
-    "/solve/{username}" : {
-      "get" : {
-        "operationId" : "getSolve",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "*/*" : {
-                "schema" : {
-                  "items" : {
-                    "$ref" : "#/components/schemas/Solve"
-                  },
-                  "type" : "array"
-                }
-              }
-            },
-            "description" : "Solve gotten successfully"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "solve-controller" ]
-      }
-    },
-    "/test" : {
-      "get" : {
-        "operationId" : "test",
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "description" : "User authenticated successfully"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "test-controller" ]
-      }
-    },
     "/users/" : {
       "get" : {
         "operationId" : "getUsers",
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/CollectionModelUserResponse"
-                }
-              }
-            },
-            "description" : "User is authenticated"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/error"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "user-controller" ]
-      }
-    },
-    "/users/info" : {
-      "get" : {
-        "operationId" : "getUsersInfo",
         "responses" : {
           "200" : {
             "content" : {
@@ -1629,7 +1212,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1639,7 +1222,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1649,7 +1232,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },
@@ -1659,7 +1242,65 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/error"
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "user-controller" ]
+      }
+    },
+    "/users/detailed" : {
+      "get" : {
+        "operationId" : "getUsersInfo",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelUserDetailsResponse"
+                }
+              }
+            },
+            "description" : "User is authenticated"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
                 }
               }
             },

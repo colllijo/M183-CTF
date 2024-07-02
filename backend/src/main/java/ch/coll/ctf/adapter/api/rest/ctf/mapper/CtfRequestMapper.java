@@ -11,5 +11,6 @@ import ch.coll.ctf.domain.ctf.model.Ctf;
 public interface CtfRequestMapper {
   @Mapping(target = "author", ignore = true)
   @Mapping(target = "solves", ignore = true)
+  @Mapping(target = "filePath", ignore = true)
   public Ctf mapRequestToUser(CtfRequest request);
 }
