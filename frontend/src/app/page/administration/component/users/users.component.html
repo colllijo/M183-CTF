@@ -12,8 +12,8 @@
       <ng-container matColumnDef="expanded">
         <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
         <td mat-cell *matCellDef="let user">
-          <button mat-icon-button (click)="(expandedElement = expandedElement === user ? null : user); $event.stopPropagation()">
-            @if (expandedElement === user) {
+          <button mat-icon-button (click)="selectUser(user)">
+            @if ((selectedUser$ | async) === user) {
               <mat-icon>keyboard_arrow_up</mat-icon>
             } @else {
               <mat-icon>keyboard_arrow_down</mat-icon>
@@ -24,7 +24,7 @@
 
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let user" [attr.colspan]="displayedColumns.length">
-          <div [@detailExpand]="user === expandedElement ? 'expanded' : 'collapsed'" class="role-details">
+          <div [@detailExpand]="(selectedUser$ | async) === user ? 'expanded' : 'collapsed'" class="role-details">
             <table mat-table [dataSource]="user.roles" class="role-table">
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>{{ 'PAGES.ADMINISTRATION.ROLES-TABLE.NAME' | translate }}</th>
@@ -58,7 +58,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row
         *matRowDef="let row; columns: displayedColumns;"
-        (click)="expandedElement = expandedElement === row ? null : row">
+        (click)="selectUser(row)">
       </tr>
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];" class="roles-row"></tr>
     </table>

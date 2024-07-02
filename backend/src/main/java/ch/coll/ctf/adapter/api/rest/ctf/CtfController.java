@@ -2,7 +2,6 @@ package ch.coll.ctf.adapter.api.rest.ctf;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,15 +42,12 @@ public class CtfController {
   }
 
   @ApiResponse(responseCode = "200", description = "Ctfs gotten successfully")
-  @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
   @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-  @Schema(name = "CtfCollection", description = "Collection of Ctfs")
   public CollectionModel<CtfResponse> getAllCtfs() {
     return ctfResponseAssembler.toCollectionModel(ctfServicePort.getAllCtfs());
   }
 
   @ApiResponse(responseCode = "200", description = "Ctf gotten successfully")
-  @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
   @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
   public CtfResponse getCtf(@PathVariable String name) {
     return ctfResponseAssembler.toModel(ctfServicePort.getCtfByName(name));

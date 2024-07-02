@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import ch.coll.ctf.adapter.api.rest.authentication.dto.RefreshRequest;
 import ch.coll.ctf.adapter.api.rest.authentication.dto.RegistrationRequest;
 import ch.coll.ctf.adapter.api.rest.authentication.mapper.RegistrationRequestMapper;
 import ch.coll.ctf.adapter.api.rest.exception.dto.RestExceptionResponse;
+import ch.coll.ctf.domain.authentication.exception.UnauthenticatedException;
 import ch.coll.ctf.domain.authentication.port.in.AuthenticationServicePort;
 import ch.coll.ctf.domain.token.model.SecureToken;
 import ch.coll.ctf.domain.user.model.User;
@@ -44,10 +46,11 @@ public class AuthenticationController {
   @ApiResponse(responseCode = "200", description = "User is authenticated")
   @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public AuthenticatedResponse isAuthenticated() {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    SecurityContextHolder.getContext();
 
-    if (principal instanceof User) return new AuthenticatedResponse(((User) principal).getUsername(), null);
-    throw new RuntimeException("User not authenticated");
+    if (authentication != null & authentication.getPrincipal() instanceof User) return new AuthenticatedResponse(((User) authentication.getPrincipal()).getUsername(), null);
+    throw new UnauthenticatedException();
   }
 
   @ApiResponse(responseCode = "200", description = "User authenticated successfully")
@@ -80,8 +83,6 @@ public class AuthenticationController {
   @PostMapping(path = "/refresh", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
   public AuthenticatedResponse refresh(@Valid @RequestBody RefreshRequest refreshRequest, HttpServletRequest request,
       HttpServletResponse response) {
-    log.info("Refresh request");
-
     String refreshFingerprint = null;
     Cookie[] cookies = request.getCookies();
 
@@ -93,11 +94,9 @@ public class AuthenticationController {
           .orElse(null);
     }
 
-    SecureToken token = authenticationService.refresh(refreshRequest.getRefreshToken(), refreshFingerprint);
-    response.addCookie(createFingerprintCookie("Access-Token", token.getFingerprint(),
-        authenticationService.getAccessExpirationTime()));
+    Map<String, SecureToken> tokens = authenticationService.refresh(refreshRequest.getRefreshToken(), refreshFingerprint);
 
-    return new AuthenticatedResponse(token.getToken(), null);
+    return createTokenResponse(tokens, response);
   }
 
   @ApiResponse(responseCode = "200", description = "User authenticated successfully")
@@ -114,18 +113,20 @@ public class AuthenticationController {
   }
 
   private AuthenticatedResponse createTokenResponse(Map<String, SecureToken> tokens, HttpServletResponse response) {
-    response.addCookie(createFingerprintCookie("Access-Token", tokens.get("Access-Token").getFingerprint(),
-        authenticationService.getAccessExpirationTime()));
-    response.addCookie(createFingerprintCookie("Refresh-Token", tokens.get("Refresh-Token").getFingerprint(),
-        authenticationService.getRefreshExpirationTime()));
+    AuthenticatedResponse authenticatedResponse = AuthenticatedResponse.builder().tokens(AuthenticatedResponse.Tokens.builder().build()).build();
 
-    return AuthenticatedResponse.builder()
-        .tokens(
-            AuthenticatedResponse.Tokens.builder()
-                .accessToken(tokens.get("Access-Token").getToken())
-                .refreshToken(tokens.get("Refresh-Token").getToken())
-                .build())
-        .build();
+    if (tokens.containsKey("Access-Token")) {
+      authenticatedResponse.getTokens().setAccessToken(tokens.get("Access-Token").getToken());
+      response.addCookie(createFingerprintCookie("Access-Token", tokens.get("Access-Token").getFingerprint(),
+        authenticationService.getAccessExpirationTime()));
+    }
+    if (tokens.containsKey("Refresh-Token")) {
+      authenticatedResponse.getTokens().setRefreshToken(tokens.get("Refresh-Token").getToken());
+      response.addCookie(createFingerprintCookie("Refresh-Token", tokens.get("Refresh-Token").getFingerprint(),
+        authenticationService.getRefreshExpirationTime()));
+    }
+
+    return authenticatedResponse;
   }
 
   private Cookie createFingerprintCookie(String name, String fingerprint, int maxAge) {

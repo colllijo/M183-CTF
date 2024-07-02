@@ -3,19 +3,7 @@
 This is an application designed for hosting Capture The Flag (CTF) challenges. 
 It was developed for the Modul 183 @ BBZBL.
   
-# Technologies Used
-
-- Java
-- Maven
-- TypeScript
-- JavaScript
-- NPM
-- Angular
-- Spring Boot
-- Docker
-- PostgreSQL
-
-# Features
+## Features
 
 - User Registration
 - User Login
@@ -24,7 +12,7 @@ It was developed for the Modul 183 @ BBZBL.
 - Upload Files
 - Virus Scan Files
 
-# Getting Started
+## Running the application locally
 
 - Clone the repository
 - Run `docker-compose up` in the docker folder

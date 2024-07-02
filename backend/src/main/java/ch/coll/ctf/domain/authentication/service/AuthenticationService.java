@@ -47,7 +47,7 @@ public class AuthenticationService implements AuthenticationServicePort {
   }
 
   @Override
-  public SecureToken refresh(String refreshToken, String refreshFingerprint) {
+  public Map<String, SecureToken> refresh(String refreshToken, String refreshFingerprint) {
     User user = userService.getUserByUsername(jwtService.extractUsername(refreshToken))
         .orElse(null);
 
@@ -55,8 +55,13 @@ public class AuthenticationService implements AuthenticationServicePort {
       throw new InvalidRefreshTokenException();
     }
 
+    Map<String, SecureToken> tokens = new HashMap<>();
+
     String accessFingerprint = generateFingerprint();
-    return new SecureToken(jwtService.generateAccessToken(user, accessFingerprint), accessFingerprint);
+    tokens.put("Access-Token",
+        new SecureToken(jwtService.generateAccessToken(user, accessFingerprint), accessFingerprint));
+
+    return tokens;
   }
 
   @Override

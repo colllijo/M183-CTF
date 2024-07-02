@@ -1,19 +1,20 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { ChallengeActions } from '@app/+store/challenge/challenge.actions';
 import { challengeFeature } from '@app/+store/challenge/challenge.reducers';
-import { Ctf } from '@core/api/models';
+import { Ctf } from '@app/core/api/models';
+import { ChallengeActions } from '@app/+store/challenge/challenge.actions';
 
 @Component({
   selector: 'ctf-challenges',
   standalone: true,
-  imports: [AsyncPipe, MatCardModule, RouterLink, MatButton],
+  imports: [AsyncPipe, MatButtonModule, MatCardModule, RouterLink, TranslateModule],
   templateUrl: './challenges.component.html',
   styleUrl: './challenges.component.scss'
 })

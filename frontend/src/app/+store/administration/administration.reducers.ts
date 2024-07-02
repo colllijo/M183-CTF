@@ -4,6 +4,7 @@ import { AdministrationActions } from './administration.actions';
 
 const initialState: AdministrationState = {
   users: [],
+  selectedUser: null,
   roles: [],
   permissions: [],
   error: null,
@@ -42,6 +43,13 @@ export const administrationFeature = createFeature({
       })
     ),
     on(
+      AdministrationActions.selectUser,
+      (state, { user }): AdministrationState => ({
+        ...state,
+        selectedUser: state.selectedUser === user ? null : user
+      })
+    ),
+    on(
       AdministrationActions.addRole,
       (state): AdministrationState => ({
         ...state,
@@ -54,6 +62,7 @@ export const administrationFeature = createFeature({
       (state, { user }): AdministrationState => ({
         ...state,
         users: state.users.map((u) => (u.username === user.username ? user : u)),
+        selectedUser: user,
         error: null,
         loading: false
       })
@@ -71,6 +80,7 @@ export const administrationFeature = createFeature({
       (state, { user }): AdministrationState => ({
         ...state,
         users: state.users.map((u) => (u.username === user.username ? user : u)),
+        selectedUser: user,
         error: null,
         loading: false
       })

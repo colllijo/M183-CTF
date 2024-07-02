@@ -10,9 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'ctf-administration',
   standalone: true,
   imports: [MatButtonModule, MatIconModule, MatListModule, MatSidenavModule, RouterModule, TranslateModule],
-  templateUrl: './administration.component.html',
-  styleUrl: './administration.component.scss'
+  templateUrl: './administration-page.component.html',
+  styleUrl: './administration-page.component.scss'
 })
-export class AdministrationComponent {
+export class AdministrationPageComponent {
 
 }

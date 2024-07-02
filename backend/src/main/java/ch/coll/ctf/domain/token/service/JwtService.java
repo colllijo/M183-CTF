@@ -48,8 +48,12 @@ public class JwtService implements JwtServicePort {
   }
 
   private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
-    final Claims claims = extractAllClaims(token);
-    return claimsResolvers.apply(claims);
+    try {
+      final Claims claims = extractAllClaims(token);
+      return claimsResolvers.apply(claims);
+    } catch (ExpiredJwtException e) {
+      return null;
+    }
   }
 
   private Claims extractAllClaims(String token) {
@@ -86,13 +90,9 @@ public class JwtService implements JwtServicePort {
 
   @Override
   public boolean isTokenValid(String token, String fingerprint, User user) {
-    try {
-      return Objects.equals(user.getUsername(), extractUsername(token))
-          && Objects.equals(hashFingerprint(fingerprint), extractFingerprint(token)) &&
-          !isTokenExpired(token);
-    } catch (ExpiredJwtException e) {
-      return false;
-    }
+    return Objects.equals(user.getUsername(), extractUsername(token))
+        && Objects.equals(hashFingerprint(fingerprint), extractFingerprint(token)) &&
+        !isTokenExpired(token);
   }
 
   @Override

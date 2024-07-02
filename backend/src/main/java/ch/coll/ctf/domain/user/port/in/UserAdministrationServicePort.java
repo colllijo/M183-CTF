@@ -5,12 +5,10 @@ import java.util.Optional;
 
 import ch.coll.ctf.domain.user.model.User;
 
-public interface UserServicePort {
+public interface UserAdministrationServicePort {
   List<User> getUsers();
 
   Optional<User> getUserByUsername(String username);
-
-  User createUser(User user);
 
   User updateUser(User user);
 }

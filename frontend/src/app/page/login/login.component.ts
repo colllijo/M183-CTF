@@ -50,10 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {
     this.loginForm = new FormGroup({
       username: new FormControl('', Validators.required),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(12)
-      ])
+      password: new FormControl('', Validators.required)
     });
     this.passwordVisible = false;
 

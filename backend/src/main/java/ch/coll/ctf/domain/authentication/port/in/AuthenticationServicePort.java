@@ -11,7 +11,7 @@ public interface AuthenticationServicePort {
 
   public Map<String, SecureToken> register(User registrationUser);
 
-  public SecureToken refresh(String refreshToken, String refreshFingerprint);
+  public Map<String, SecureToken> refresh(String refreshToken, String refreshFingerprint);
 
   public Integer getAccessExpirationTime();
 

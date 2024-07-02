@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import ch.coll.ctf.adapter.api.rest.exception.assembler.RestExceptionAssembler;
 import ch.coll.ctf.adapter.api.rest.exception.dto.RestExceptionResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,8 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class RestExceptionAdvice {
-  private final RestExceptionAssembler assembler;
-
   @ResponseBody
   @ExceptionHandler(RuntimeException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -29,7 +26,11 @@ public class RestExceptionAdvice {
   public RestExceptionResponse handleRuntimeException(RuntimeException exception) {
     log.error(exception.getMessage(), exception);
 
-    return assembler.toModel(exception);
+    return RestExceptionResponse.builder()
+      .error(exception.getClass().getSimpleName())
+      .message(exception.getMessage())
+      .status(500)
+    .build();
   }
 
   @ResponseBody
@@ -37,6 +38,10 @@ public class RestExceptionAdvice {
   @ResponseStatus(HttpStatus.FORBIDDEN)
   @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
   public RestExceptionResponse handleAccessDeniedException(AccessDeniedException exception) {
-    return assembler.toModel(exception).setStatus(403);
+    return RestExceptionResponse.builder()
+      .error(exception.getClass().getSimpleName())
+      .message(exception.getMessage())
+      .status(403)
+    .build();
   }
 }

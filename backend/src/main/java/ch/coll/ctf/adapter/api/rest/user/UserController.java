@@ -11,6 +11,7 @@ import ch.coll.ctf.adapter.api.rest.user.assembler.UserInfoResponseAssembler;
 import ch.coll.ctf.adapter.api.rest.user.assembler.UserResponseAssembler;
 import ch.coll.ctf.adapter.api.rest.user.dto.UserDetailsResponse;
 import ch.coll.ctf.adapter.api.rest.user.dto.UserInfoResponse;
+import ch.coll.ctf.domain.user.port.in.UserAdministrationServicePort;
 import ch.coll.ctf.domain.user.port.in.UserServicePort;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
   private final UserServicePort userService;
+  private final UserAdministrationServicePort userAdministrationService;
 
   private final UserResponseAssembler userResponseAssembler;
   private final UserInfoResponseAssembler userInfoResponseAssembler;
@@ -34,6 +36,6 @@ public class UserController {
   @ApiResponse(responseCode = "200", description = "User is authenticated")
   @GetMapping(path = "/detailed", produces = MediaType.APPLICATION_JSON_VALUE)
   public CollectionModel<UserDetailsResponse> getUsersInfo() {
-    return userInfoResponseAssembler.toCollectionModel(userService.getUsers());
+    return userInfoResponseAssembler.toCollectionModel(userAdministrationService.getUsers());
   }
 }

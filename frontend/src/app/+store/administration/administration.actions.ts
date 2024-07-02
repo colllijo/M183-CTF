@@ -8,6 +8,7 @@ export const AdministrationActions = createActionGroup({
     getUserDetails: emptyProps(),
     getUserDetailsSuccess: props<{ users: UserDetails[] }>(),
     getUserDetailsFailure: props<{ error: string }>(),
+    selectUser: props<{ user: UserDetails }>(),
     addRole: props<{ user: UserDetails; role: string }>(),
     addRoleSuccess: props<{ user: UserDetails; }>(),
     addRoleFailure: props<{ error: string }>(),

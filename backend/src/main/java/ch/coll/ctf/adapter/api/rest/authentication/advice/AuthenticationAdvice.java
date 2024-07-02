@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import ch.coll.ctf.adapter.api.rest.exception.assembler.RestExceptionAssembler;
 import ch.coll.ctf.adapter.api.rest.exception.dto.RestExceptionResponse;
+import ch.coll.ctf.domain.authentication.exception.UnauthenticatedException;
 import ch.coll.ctf.domain.authentication.exception.UnauthorizedException;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -27,21 +26,27 @@ import lombok.RequiredArgsConstructor;
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class AuthenticationAdvice {
-  private final RestExceptionAssembler exceptionAssembler;
-
   @ResponseBody
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public RestExceptionResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException exception) {
-    return exceptionAssembler.toModel(exception).setStatus(400).setMessage(null).setDetails(getDetails(exception));
+    return RestExceptionResponse.builder()
+        .error(exception.getClass().getSimpleName())
+        .status(400)
+        .details(getDetails(exception))
+        .build();
   }
 
   @ResponseBody
-  @ExceptionHandler(ExpiredJwtException.class)
+  @ExceptionHandler(UnauthenticatedException.class)
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
   @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
-  public RestExceptionResponse handleRuntimeException(ExpiredJwtException exception) {
-    return exceptionAssembler.toModel(exception).setStatus(401).setMessage("Token expired");
+  public RestExceptionResponse handleUnauthenticatedException(UnauthenticatedException exception) {
+    return RestExceptionResponse.builder()
+        .error(exception.getClass().getSimpleName())
+        .message(exception.getMessage())
+        .status(401)
+        .build();
   }
 
   @ResponseBody
@@ -49,10 +54,11 @@ public class AuthenticationAdvice {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
   public RestExceptionResponse handleBadCredentials(Exception exception) {
-    return exceptionAssembler.toModel(exception)
-        .setError("Bad credentials")
-        .setMessage("Username and/or password are incorrect")
-        .setStatus(400);
+    return RestExceptionResponse.builder()
+        .error("Bad credentials")
+        .message("Username and/or password are incorrect")
+        .status(400)
+        .build();
   }
 
   @ResponseBody
@@ -60,7 +66,11 @@ public class AuthenticationAdvice {
   @ResponseStatus(HttpStatus.FORBIDDEN)
   @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
   public RestExceptionResponse handleUnauthorizedException(UnauthorizedException exception) {
-    return exceptionAssembler.toModel(exception).setStatus(403);
+    return RestExceptionResponse.builder()
+        .error(exception.getClass().getSimpleName())
+        .message(exception.getMessage())
+        .status(403)
+        .build();
   }
 
   /**

@@ -21,8 +21,10 @@ import ch.coll.ctf.domain.scanner.port.out.ScannerPort;
 import ch.coll.ctf.domain.scanner.service.ScannerService;
 import ch.coll.ctf.domain.token.port.in.JwtServicePort;
 import ch.coll.ctf.domain.token.service.JwtService;
+import ch.coll.ctf.domain.user.port.in.UserAdministrationServicePort;
 import ch.coll.ctf.domain.user.port.in.UserServicePort;
 import ch.coll.ctf.domain.user.port.out.UserRepositoryPort;
+import ch.coll.ctf.domain.user.service.UserAdministrationService;
 import ch.coll.ctf.domain.user.service.UserService;
 
 @Configuration
@@ -30,6 +32,11 @@ public class BeanConfig {
   @Bean
   public UserServicePort userService(UserRepositoryPort userRepository) {
     return new UserService(userRepository);
+  }
+
+  @Bean
+  public UserAdministrationServicePort userAdministrationService(UserRepositoryPort userRepository) {
+    return new UserAdministrationService(userRepository);
   }
 
   @Bean

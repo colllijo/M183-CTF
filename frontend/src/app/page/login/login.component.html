@@ -37,11 +37,6 @@
             {{ 'ERRORS.PASSWORD-REQUIRED' | translate }}
           </mat-error>
         }
-        @if (loginForm.controls['password'].hasError('minlength')) {
-          <mat-error>
-            {{ 'ERRORS.PASSWORD-MIN-LENGTH' | translate: { length: 12 } }}
-          </mat-error>
-        }
       </mat-form-field>
       <button mat-flat-button color="primary" [disabled]="!loginForm.valid">
         {{ 'PAGES.LOGIN.LOGIN' | translate }}

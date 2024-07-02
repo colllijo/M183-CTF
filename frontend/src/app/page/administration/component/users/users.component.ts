@@ -53,10 +53,10 @@ import { AddRoleDialogComponent } from '../add-role-dialog/add-role-dialog.compo
 })
 export class UsersComponent implements OnInit {
   public displayedColumns: string[] = ['username', 'email', 'expanded'];
-  public expandedElement: UserDetails | null = null;
 
   public userInfos$: Observable<UserDetails[]>;
   public roles$: Observable<Role[]>;
+  public selectedUser$: Observable<UserDetails | null>;
 
   public activeUser: string;
 
@@ -67,6 +67,7 @@ export class UsersComponent implements OnInit {
   ) {
     this.userInfos$ = this.store.select(administrationFeature.selectUsers);
     this.roles$ = this.store.select(administrationFeature.selectRoles);
+    this.selectedUser$ = this.store.select(administrationFeature.selectSelectedUser);
 
     this.activeUser = this.authenticationService.getUsername();
   }
@@ -74,6 +75,10 @@ export class UsersComponent implements OnInit {
   public ngOnInit(): void {
     this.store.dispatch(AdministrationActions.getUserDetails());
     this.store.dispatch(AdministrationActions.getRoles());
+  }
+
+  public selectUser(user: UserDetails): void {
+    this.store.dispatch(AdministrationActions.selectUser({ user }));
   }
 
   public addRole(user: UserDetails, roles: Role[]): void {

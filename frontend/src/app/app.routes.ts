@@ -1,32 +1,43 @@
 import { Routes } from '@angular/router';
 
 import { featureGuard } from '@core/guard/feature.guard';
-import { AdministrationComponent } from '@page/administration/administration.component';
+
+import { AdministrationPageComponent } from '@app/page/administration/administration-page.component';
 import { RolesComponent } from '@page/administration/component/roles/roles.component';
 import { UsersComponent } from '@page/administration/component/users/users.component';
-import { ChallengesComponent } from '@page/challenges/challenges.component';
+
+import { ChallengesPageComponent } from '@app/page/challenges/challenges-page.component';
+import { ChallengeCreateComponent } from '@page/challenges/component/create/create.component';
+import { ChallengeComponent } from '@page/challenges/component/challenge/challenge.component';
+import { ChallengesComponent } from '@page/challenges/component/challenges/challenges.component';
+
 import { LeaderboardComponent } from '@page/leaderboard/leaderboard.component';
+
 import { LoginComponent } from '@page/login/login.component';
 import { RegistrationComponent } from '@page/registration/registration.component';
-import { ChallengeCreationComponent } from "@page/challenge-creation/challenge-creation.component";
-import { ChallengeComponent } from './page/challenge/challenge.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/challenges', pathMatch: 'full' },
-  { path: 'challenges', component: ChallengesComponent },
-  { path: 'challenge/:name', component: ChallengeComponent },
   {
-    path: 'create-challenge',
-    component: ChallengeCreationComponent,
-    canActivate: [featureGuard],
-    data: { feature: 'challenge-creation' }
+    path: 'challenges',
+    component: ChallengesPageComponent,
+    children: [
+      { path: '', component: ChallengesComponent, pathMatch: 'full' },
+      { path: ':name', component: ChallengeComponent },
+      {
+        path: 'create',
+        component: ChallengeCreateComponent,
+        canActivate: [featureGuard],
+        data: { feature: 'challenge-creation' }
+      }
+    ]
   },
   { path: 'leaderboard', component: LeaderboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   {
     path: 'admin',
-    component: AdministrationComponent,
+    component: AdministrationPageComponent,
     canActivate: [featureGuard],
     data: { feature: 'administration' },
     children: [

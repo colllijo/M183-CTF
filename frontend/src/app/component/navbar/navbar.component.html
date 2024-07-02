@@ -15,7 +15,7 @@
   </div>
   <div class="align-right">
     @if ((authenticated$ | async) && canAuthorChallenge()) {
-      <button mat-icon-button routerLink="/create-challenge">
+      <button mat-icon-button routerLink="/challenges/create">
         <mat-icon>add</mat-icon>
       </button>
     }

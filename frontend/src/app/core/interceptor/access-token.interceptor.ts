@@ -14,7 +14,7 @@ export const accessTokenInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((response: HttpErrorResponse) => {
       if (
         response.status === 401 &&
-        response.error.error === 'ExpiredJwtException'
+        response.error.error === 'UnauthenticatedException'
       ) {
         const refreshToken = sessionStorage.getItem('refreshToken');
         sessionStorage.removeItem('refreshToken');
