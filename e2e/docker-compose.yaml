@@ -1,0 +1,29 @@
+name: ctf-e2e
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ctf
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ctf
+    # ports:
+    #   - 5432:5432
+  clamav:
+    image: clamav/clamav:1.2
+    # ports:
+    #   - 3310:3310
+  backend:
+    image: colllijo/ctf-backend:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/ctf
+    depends_on:
+      - db
+      - clamav
+    ports:
+      - 8080:8080
+  frontend:
+    image: colllijo/ctf-frontend:latest
+    depends_on:
+      - backend
+    ports:
+      - 4200:80

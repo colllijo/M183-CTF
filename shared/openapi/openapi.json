@@ -247,12 +247,6 @@
             "$ref" : "#/components/schemas/Links"
           },
           "details" : {
-            "additionalProperties" : {
-              "additionalProperties" : {
-                "type" : "string"
-              },
-              "type" : "object"
-            },
             "type" : "object"
           },
           "error" : {

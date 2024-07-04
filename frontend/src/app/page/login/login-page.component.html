@@ -13,8 +13,8 @@
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <form [formGroup]="loginForm" (submit)="login()">
-      <mat-form-field>
+    <form [formGroup]="loginForm" (submit)="login()" ctfTestId="login-form">
+      <mat-form-field ctfTestId="username-input">
         <mat-label>{{ 'PAGES.LOGIN.USERNAME' | translate }}</mat-label>
         <input matInput formControlName="username" />
         @if (loginForm.controls['username'].hasError('required')) {
@@ -23,7 +23,7 @@
           </mat-error>
         }
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field  ctfTestId="password-input">
         <mat-label>{{ 'PAGES.LOGIN.PASSWORD' | translate }}</mat-label>
         <input
           matInput
@@ -38,7 +38,7 @@
           </mat-error>
         }
       </mat-form-field>
-      <button mat-flat-button color="primary" [disabled]="!loginForm.valid">
+      <button mat-flat-button ctfTestId="login-button" color="primary" [disabled]="!loginForm.valid">
         {{ 'PAGES.LOGIN.LOGIN' | translate }}
       </button>
     </form>

@@ -13,7 +13,7 @@ import { ChallengesComponent } from '@page/challenges/component/challenges/chall
 
 import { LeaderboardComponent } from '@page/leaderboard/leaderboard.component';
 
-import { LoginComponent } from '@page/login/login.component';
+import { LoginPageComponent } from '@app/page/login/login-page.component';
 import { RegistrationComponent } from '@page/registration/registration.component';
 
 export const routes: Routes = [
@@ -33,7 +33,7 @@ export const routes: Routes = [
     ]
   },
   { path: 'leaderboard', component: LeaderboardComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegistrationComponent },
   {
     path: 'admin',

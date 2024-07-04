@@ -13,7 +13,10 @@
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "prettier": "prettier --check .",
-    "prettier:write": "prettier --write ."
+    "prettier:write": "prettier --write .",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "dockerBuild": "docker build -f .docker/Dockerfile . -t colllijo/ctf-frontend"
   },
   "private": true,
   "dependencies": {
@@ -52,6 +55,7 @@
     "@typescript-eslint/eslint-plugin": "7.11.0",
     "@typescript-eslint/parser": "7.11.0",
     "eslint": "^8.57.0",
+    "cypress": "13.8.1",
     "jest": "^29.7.0",
     "ng-openapi-gen": "^0.51.0",
     "prettier": "^3.2.5",

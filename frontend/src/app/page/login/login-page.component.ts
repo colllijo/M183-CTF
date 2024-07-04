@@ -1,10 +1,10 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators
+    FormControl,
+    FormGroup,
+    ReactiveFormsModule,
+    Validators
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -13,11 +13,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink } from '@angular/router';
-import { AuthenticationActions } from '@app/+store/authentication/authentication.actions';
-import { authenticationFeature } from '@app/+store/authentication/authentication.reducers';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
+
+import { AuthenticationActions } from '@app/+store/authentication/authentication.actions';
+import { authenticationFeature } from '@app/+store/authentication/authentication.reducers';
+import { TestIdDirective } from '@app/core/directive/test-id.directive';
 import { ErrorDialogComponent } from './component/error-dialog/error-dialog.component';
 
 @Component({
@@ -32,12 +34,13 @@ import { ErrorDialogComponent } from './component/error-dialog/error-dialog.comp
     MatInputModule,
     ReactiveFormsModule,
     RouterLink,
+    TestIdDirective,
     TranslateModule
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: './login-page.component.html',
+  styleUrl: './login-page.component.scss'
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginPageComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
   public passwordVisible: boolean;
 
