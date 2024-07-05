@@ -1,5 +1,13 @@
 # TODO
 
+## Features
+
+- [ ] CTFs Lösen
+- [ ] CTFs bearbeiten
+- [ ] Logging
+- [ ] Testing
+- [x] Liquibase in der DB benutzten
+
 ## Benuterauthentifizierung
 
 - [x] Refresh-Token
@@ -12,11 +20,8 @@
 - [ ] Unauthenticated Antwort
 - [ ] Bestätigungs-Email
 - [ ] Fehlerdarstellung im Frontend
-- [ ] Logging
-- [ ] Testing
 - [x] Rollenverwaltung durch Admin
 - [x] Funktionen hinter Berechtigungen verstecken
-- [x] Liquibase in der DB benutzten
 
 ## Monitoring
 

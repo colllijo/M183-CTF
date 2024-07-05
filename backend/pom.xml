@@ -8,7 +8,7 @@
 		<version>3.2.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>ch.coll</groupId>
+	<groupId>dev.coll</groupId>
 	<artifactId>ctf-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>m183-ctf-backend</name>
