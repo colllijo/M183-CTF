@@ -2,6 +2,12 @@
 
 set -ou pipefail
 
+check_health() {
+  curl -s localhost:8080/api/actuator/health | grep -q '"status":"UP"'
+
+  echo $?
+}
+
 CUR_PATH=$PWD
 
 SCRIPT=$(readlink -f "$0")
@@ -12,7 +18,10 @@ docker compose \
   --file "$SCRIPT_PATH/docker-compose.yaml" \
   up \
   --detach
-sleep 10s
+
+while [ "$(check_health)" != '0' ]; do
+  sleep 1
+done
 
 cd "$SCRIPT_PATH/../frontend" || exit 1
 
