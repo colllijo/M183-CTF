@@ -5,11 +5,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import dev.coll.ctf.domain.authorisation.model.DefaultRoles;
-import dev.coll.ctf.domain.authorisation.model.Permission;
-import dev.coll.ctf.domain.authorisation.model.Role;
 import dev.coll.ctf.domain.ctf.model.Solve;
-import jakarta.validation.Valid;
+import dev.coll.ctf.domain.iam.model.authorisation.Permission;
+import dev.coll.ctf.domain.iam.model.authorisation.Role;
+import dev.coll.ctf.domain.iam.model.authorisation.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,13 +22,9 @@ public class User {
   private String username;
   private String password;
   private String email;
-
-  @Builder.Default
-  private boolean active = false;
-  private Set<@Valid Solve> solves;
-
-  @Builder.Default
-  private Set<Role> roles = new HashSet<>(Set.of(DefaultRoles.USER.getRole()));
+  private boolean active;
+  private Set<Solve> solves;
+  @Builder.Default private Set<Role> roles = new HashSet<>(Set.of(Roles.USER.getRole()));
 
   public Set<Permission> getPermissions() {
     return roles.stream()

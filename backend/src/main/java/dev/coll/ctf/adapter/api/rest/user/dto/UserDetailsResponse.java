@@ -10,7 +10,7 @@ import org.springframework.hateoas.server.core.Relation;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import dev.coll.ctf.adapter.api.rest.authorisation.dto.RoleResponse;
+import dev.coll.ctf.adapter.api.rest.iam.dto.RoleResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

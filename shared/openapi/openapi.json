@@ -354,6 +354,355 @@
   },
   "openapi" : "3.0.1",
   "paths" : {
+    "/administration/permissions" : {
+      "get" : {
+        "operationId" : "getPermissions",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelPermissionResponse"
+                }
+              }
+            },
+            "description" : "List of all permissions"
+          },
+          "400" : {
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "administration-controller" ]
+      }
+    },
+    "/administration/roles" : {
+      "get" : {
+        "operationId" : "getRoles",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelRoleResponse"
+                }
+              }
+            },
+            "description" : "List of all roles"
+          },
+          "400" : {
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "administration-controller" ]
+      }
+    },
+    "/administration/roles/{username}" : {
+      "delete" : {
+        "operationId" : "removeRoleFromUser",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "username",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RoleForm"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserDetails"
+                }
+              }
+            },
+            "description" : "Add role to user"
+          },
+          "400" : {
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "administration-controller" ]
+      },
+      "put" : {
+        "operationId" : "addRoleToUser",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "username",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/RoleForm"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserDetails"
+                }
+              }
+            },
+            "description" : "Add role to user"
+          },
+          "400" : {
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "administration-controller" ]
+      }
+    },
+    "/administration/users" : {
+      "get" : {
+        "operationId" : "getUsers_1",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CollectionModelUserDetailsResponse"
+                }
+              }
+            },
+            "description" : "List of all users"
+          },
+          "400" : {
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              },
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "administration-controller" ]
+      }
+    },
     "/auth/" : {
       "get" : {
         "operationId" : "isAuthenticated",
@@ -370,6 +719,11 @@
           },
           "400" : {
             "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -420,6 +774,7 @@
           "name" : "feature",
           "required" : true,
           "schema" : {
+            "enum" : [ "ADMINISTRATION", "CHALLENGE_CREATION" ],
             "type" : "string"
           }
         } ],
@@ -429,6 +784,11 @@
           },
           "400" : {
             "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -548,6 +908,11 @@
           },
           "400" : {
             "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -726,272 +1091,6 @@
         "tags" : [ "authentication-controller" ]
       }
     },
-    "/authorisation/permissions" : {
-      "get" : {
-        "operationId" : "getPermissions",
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/CollectionModelPermissionResponse"
-                }
-              }
-            },
-            "description" : "List of all permissions"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "authorisation-controller" ]
-      }
-    },
-    "/authorisation/roles" : {
-      "get" : {
-        "operationId" : "getRoles",
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/CollectionModelRoleResponse"
-                }
-              }
-            },
-            "description" : "List of all roles"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "authorisation-controller" ]
-      }
-    },
-    "/authorisation/roles/{username}" : {
-      "delete" : {
-        "operationId" : "removeRoleFromUser",
-        "parameters" : [ {
-          "in" : "path",
-          "name" : "username",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/RoleForm"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UserDetails"
-                }
-              }
-            },
-            "description" : "Add role to user"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "authorisation-controller" ]
-      },
-      "put" : {
-        "operationId" : "addRoleToUser",
-        "parameters" : [ {
-          "in" : "path",
-          "name" : "username",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/RoleForm"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/UserDetails"
-                }
-              }
-            },
-            "description" : "Add role to user"
-          },
-          "400" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "authorisation-controller" ]
-      }
-    },
     "/ctf/" : {
       "get" : {
         "operationId" : "getAllCtfs",
@@ -1008,6 +1107,11 @@
           },
           "400" : {
             "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -1157,6 +1261,11 @@
           },
           "400" : {
             "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -1223,6 +1332,11 @@
           },
           "400" : {
             "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -1281,64 +1395,11 @@
           },
           "400" : {
             "content" : {
-              "application/json" : {
+              "*/*" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
                 }
-              }
-            },
-            "description" : "Bad request"
-          },
-          "401" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Unauthorized"
-          },
-          "403" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Forbidden"
-          },
-          "500" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            },
-            "description" : "Internal Server Error"
-          }
-        },
-        "tags" : [ "user-controller" ]
-      }
-    },
-    "/users/detailed" : {
-      "get" : {
-        "operationId" : "getUsersInfo",
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/CollectionModelUserDetailsResponse"
-                }
-              }
-            },
-            "description" : "User is authenticated"
-          },
-          "400" : {
-            "content" : {
+              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"

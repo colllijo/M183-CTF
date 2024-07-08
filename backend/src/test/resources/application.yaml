@@ -1,48 +1,5 @@
-info:
-  app:
-    name: CTF
-    description: COLL - Capture The Flag Hub
-    version: 1.0.0
-ctf:
-  config:
-    default-admin:
-      username: admin
-      password: coll-ctf-admin
-    upload-dir: uploads
-server:
-  servlet:
-    context-path: /api
-security:
-  jwt:
-    secret: Rn4x02v8+G/CpX5IwNI4+Asc+UpBA8nmW0iB2hVCiJf+lPJZrkCVwaDcARssEl1mYkWb3xr77dSigp5LlM+VLg==
-    accessExpiration: 900000
-    refreshExpiration: 86400000
-clamd:
-  host: 127.0.0.1
-  port: 3310
 spring:
-  datasource:
-    url: jdbc:h2:mem:ctf;DB_CLOSE_DELAY=-1
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: sa
-  jpa:
-    hiberrnative:
-      ddl-auto: create
-    open-in-view: false
-  liquibase:
-    drop-first: false
-springdoc:
-  api-docs:
-    path: /docs
-  swagger-ui:
-    path: /docs/swagger-ui
-    disable-swagger-default-url: true
-management:
-  endpoints:
-    web:
-      exposure:
-        include: metrics, health, prometheus
-  metrics:
-    tags:
-      application: ${spring.application.name}
+  profiles:
+    active: test
+  config:
+    import: file:src/main/resources/application.yaml

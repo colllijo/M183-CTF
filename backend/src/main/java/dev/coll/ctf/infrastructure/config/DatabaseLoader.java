@@ -8,9 +8,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import dev.coll.ctf.domain.authorisation.model.DefaultRoles;
-import dev.coll.ctf.domain.authorisation.model.Permissions;
-import dev.coll.ctf.domain.authorisation.port.out.AuthorisationRepositoryPort;
+import dev.coll.ctf.domain.iam.model.authorisation.Permissions;
+import dev.coll.ctf.domain.iam.model.authorisation.Roles;
+import dev.coll.ctf.domain.iam.port.out.AuthorisationRepositoryPort;
 import dev.coll.ctf.domain.user.model.User;
 import dev.coll.ctf.domain.user.port.out.UserRepositoryPort;
 import lombok.RequiredArgsConstructor;
@@ -39,8 +39,8 @@ public class DatabaseLoader implements ApplicationRunner {
   }
 
   private void loadDefaultRoles() {
-    EnumSet.allOf(DefaultRoles.class).stream()
-      .map(DefaultRoles::getRole)
+    EnumSet.allOf(Roles.class).stream()
+      .map(Roles::getRole)
       .filter(role -> authorisationRepository.getRoleByName(role.getName()).isEmpty())
       .forEach(role -> authorisationRepository.createRole(role));
   }
@@ -58,7 +58,7 @@ public class DatabaseLoader implements ApplicationRunner {
     User admin = User.builder()
         .username(defaultAdminUsername)
         .password(passwordEncoder.encode(defaultAdminPassword)).email("info@ctf.com").build();
-    admin.getRoles().add(DefaultRoles.ADMIN.getRole());
+    admin.getRoles().add(Roles.ADMIN.getRole());
 
     userRepository.createUser(admin);
   }

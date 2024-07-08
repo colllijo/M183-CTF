@@ -15,8 +15,9 @@ server:
 security:
   jwt:
     secret: Rn4x02v8+G/CpX5IwNI4+Asc+UpBA8nmW0iB2hVCiJf+lPJZrkCVwaDcARssEl1mYkWb3xr77dSigp5LlM+VLg==
-    accessExpiration: 900000
-    refreshExpiration: 86400000
+    lifetime:
+      access: 900000
+      refresh: 43200000
 clamd:
   host: 127.0.0.1
   port: 3310

@@ -15,7 +15,7 @@ import dev.coll.ctf.adapter.repository.jpa.authorisation.entity.RoleEntity;
 import dev.coll.ctf.adapter.repository.jpa.authorisation.service.JpaRoleEntityRepository;
 import dev.coll.ctf.adapter.repository.jpa.ctf.mapper.SolveEntityMapper;
 import dev.coll.ctf.adapter.repository.jpa.user.entity.UserEntity;
-import dev.coll.ctf.domain.authorisation.model.Role;
+import dev.coll.ctf.domain.iam.model.authorisation.Role;
 import dev.coll.ctf.domain.mapping.model.CycleAvoidingMappingContext;
 import dev.coll.ctf.domain.mapping.model.DoIgnore;
 import dev.coll.ctf.domain.user.model.User;
