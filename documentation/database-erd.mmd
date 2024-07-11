@@ -1,0 +1,53 @@
+---
+title: CTF Database ERD
+---
+erDiagram
+    USER_ACCOUNT ||--o{ CTF : authored
+    USER_ACCOUNT ||--o{ SOLVE : solved
+    USER_ACCOUNT ||--o{ USER_ACCOUNT_ROLE : has
+    USER_ACCOUNT {
+        int id
+        string username
+        string password
+        string email
+        bool active
+    }
+    USER_ACCOUNT_ROLE {
+        int user_id
+        int role_id
+    }
+    CTF ||--o{ SOLVE : "was solved"
+    CTF {
+        int id
+        string name
+        string description
+        string flag
+        string file_path
+        int author_id
+    }
+    SOLVE {
+        int user_id
+        int ctf_id
+        int points
+        int rank
+        timestamp timestamp
+    }
+    ROLE ||--o{ USER_ACCOUNT_ROLE : "is owned"
+    ROLE ||--o{ ROLE_PERMISSION : "has"
+    ROLE {
+        int id
+        string name
+        string description
+    }
+    ROLE_PERMISSION {
+        int role_id
+        int permission_id
+    }
+    PERMISSION ||--o{ ROLE_PERMISSION : "is owned"
+    PERMISSION {
+        int id
+        string name
+        string description
+    }
+
+
