@@ -13,6 +13,11 @@ import dev.coll.ctf.domain.user.model.User;
  */
 public interface AuthenticationServicePort {
   /**
+   * @return
+   */
+  public User getAuthenticatedUser();
+
+  /**
    * @param user
    * @return
    */

@@ -11,6 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
 import dev.coll.ctf.domain.ctf.model.Ctf;
+import dev.coll.ctf.domain.ctf.model.Solve;
+import dev.coll.ctf.domain.ctf.model.exception.BadFlagException;
+import dev.coll.ctf.domain.ctf.model.exception.CtfNotFoundException;
 import dev.coll.ctf.domain.ctf.port.in.CtfServicePort;
 import dev.coll.ctf.domain.ctf.port.out.CtfRepositoryPort;
 import dev.coll.ctf.domain.scanner.port.in.ScannerServicePort;
@@ -27,12 +30,12 @@ public class CtfService implements CtfServicePort {
 
   @Override
   public List<Ctf> getAllCtfs() {
-    return ctfRepositoryPort.findAll();
+    return ctfRepositoryPort.getCtfs();
   }
 
   @Override
   public Ctf getCtfByName(String name) {
-    return ctfRepositoryPort.findByName(name)
+    return ctfRepositoryPort.getCtfByName(name)
         .orElseThrow(() -> new IllegalArgumentException("Ctf with name " + name + " not found"));
   }
 
@@ -46,7 +49,7 @@ public class CtfService implements CtfServicePort {
       ctf.setFilePath(saveFileToDisk(ctf.getName(), attachment));
     }
 
-    return ctfRepositoryPort.save(ctf);
+    return ctfRepositoryPort.createCtf(ctf);
   }
 
   @Override
@@ -64,16 +67,30 @@ public class CtfService implements CtfServicePort {
   }
 
   @Override
+  public Solve submitFlag(String name, String flag) {
+    Ctf ctf = ctfRepositoryPort.getCtfByName(name).orElseThrow(() -> new CtfNotFoundException(name));
+
+    if (!ctf.getFlag().equals(flag)) throw new BadFlagException(name);
+
+    User solver = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Solve solve = Solve.builder()
+        .ctf(ctf)
+        .solver(solver)
+        .points(100)
+        .rank(ctf.getSolves().size() + 1)
+        .build();
+
+    return ctfRepositoryPort.createSolve(solve);
+  }
+
+  @Override
   public Ctf updateCtf(String name, Ctf ctf) {
-    if (ctfRepositoryPort.findByName(name).isEmpty()) {
-      throw new IllegalArgumentException("Ctf with name " + name + " does not exist");
-    }
-    return ctfRepositoryPort.save(ctf);
+    return ctfRepositoryPort.updateCtf(ctf);
   }
 
   @Override
   public void deleteCtf(String name) {
-    ctfRepositoryPort.deleteByName(name);
+    ctfRepositoryPort.deleteCtfByName(name);
   }
 
   private String saveFileToDisk(String ctfName, MultipartFile attachment) {

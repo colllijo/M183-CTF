@@ -2,9 +2,9 @@ package dev.coll.ctf.domain.iam.port.in;
 
 import java.util.List;
 
-import dev.coll.ctf.domain.iam.model.annotation.RequirePermission;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import dev.coll.ctf.domain.iam.model.authorisation.Permission;
-import dev.coll.ctf.domain.iam.model.authorisation.Permissions;
 import dev.coll.ctf.domain.iam.model.authorisation.Role;
 import dev.coll.ctf.domain.user.model.User;
 
@@ -16,14 +16,14 @@ public interface AdministrationServicePort {
   /**
    * @return
    */
-  @RequirePermission(Permissions.READ_USERS)
+  @PreAuthorize("hasAuthority('READ_USERS')")
   public List<User> getUsers();
 
   /**
    * @param username
    * @return
    */
-  @RequirePermission(Permissions.READ_USERS)
+  @PreAuthorize("hasAuthority('READ_USER')")
   public User getUserByUsername(String username);
 
   /**
@@ -31,7 +31,7 @@ public interface AdministrationServicePort {
    * @param roleName
    * @return
    */
-  @RequirePermission(Permissions.MODIFY_USER_ROLES)
+  @PreAuthorize("hasAuthority('MODIFY_USER_ROLES')")
   public User addRoleToUser(String username, String roleName);
 
   /**
@@ -39,25 +39,25 @@ public interface AdministrationServicePort {
    * @param roleName
    * @return
    */
-  @RequirePermission(Permissions.MODIFY_USER_ROLES)
+  @PreAuthorize("hasAuthority('MODIFY_USER_ROLES')")
   public User removeRoleFromUser(String username, String roleName);
 
   /**
    * @return
    */
-  @RequirePermission(Permissions.READ_ROLES)
+  @PreAuthorize("hasAuthority('READ_ROLES')")
   public List<Role> getRoles();
 
   /**
    * @param name
    * @return
    */
-  @RequirePermission(Permissions.READ_ROLES)
+  @PreAuthorize("hasAuthority('READ_ROLES')")
   public Role getRoleByName(String name);
 
   /**
    * @return
    */
-  @RequirePermission(Permissions.READ_PERMISSIONS)
+  @PreAuthorize("hasAuthority('READ_PERMISSIONS')")
   public List<Permission> getPermissions();
 }

@@ -7,11 +7,8 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import dev.coll.ctf.domain.ctf.port.in.CtfServicePort;
-import dev.coll.ctf.domain.ctf.port.in.SolveServicePort;
 import dev.coll.ctf.domain.ctf.port.out.CtfRepositoryPort;
-import dev.coll.ctf.domain.ctf.port.out.SolveRepositoryPort;
 import dev.coll.ctf.domain.ctf.service.CtfService;
-import dev.coll.ctf.domain.ctf.service.SolveService;
 import dev.coll.ctf.domain.iam.port.in.AdministrationServicePort;
 import dev.coll.ctf.domain.iam.port.in.AuthenticationServicePort;
 import dev.coll.ctf.domain.iam.port.in.AuthorisationServicePort;
@@ -43,11 +40,6 @@ public class BeanConfig {
   @Bean
   public CtfServicePort ctfService(CtfRepositoryPort ctfRepository, ScannerServicePort scannerService) {
     return new CtfService(ctfRepository, scannerService);
-  }
-
-  @Bean
-  public SolveServicePort solveService(SolveRepositoryPort solveRepository) {
-    return new SolveService(solveRepository);
   }
 
   @Bean

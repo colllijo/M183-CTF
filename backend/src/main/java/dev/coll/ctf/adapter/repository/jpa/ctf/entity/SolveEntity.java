@@ -11,13 +11,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "SOLVE")
@@ -31,6 +31,8 @@ public class SolveEntity {
   @Id
   @ManyToOne
   @JoinColumn(name = "user_account_id", referencedColumnName = "id")
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   private UserEntity solver;
 
   @Column(name = "points")

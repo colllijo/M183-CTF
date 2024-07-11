@@ -3,20 +3,26 @@ package dev.coll.ctf.domain.ctf.port.in;
 import java.util.List;
 
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.multipart.MultipartFile;
 
 import dev.coll.ctf.domain.ctf.model.Ctf;
+import dev.coll.ctf.domain.ctf.model.Solve;
 
 public interface CtfServicePort {
-  List<Ctf> getAllCtfs();
+  public List<Ctf> getAllCtfs();
 
-  Ctf getCtfByName(String name);
+  public Ctf getCtfByName(String name);
 
-  ByteArrayResource downloadFile(String filePath);
+  @PreAuthorize("isAuthenticated()")
+  public ByteArrayResource downloadFile(String filePath);
 
-  Ctf createCtf(Ctf ctf, MultipartFile attachment);
+  @PreAuthorize("hasAuthority('SUBMIT_FLAG')")
+  public Solve submitFlag(String ctfName, String flag);
 
-  Ctf updateCtf(String name, Ctf ctf);
+  public Ctf createCtf(Ctf ctf, MultipartFile attachment);
 
-  void deleteCtf(String name);
+  public Ctf updateCtf(String name, Ctf ctf);
+
+  public void deleteCtf(String name);
 }

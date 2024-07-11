@@ -24,7 +24,8 @@ public class User {
   private String email;
   private boolean active;
   private Set<Solve> solves;
-  @Builder.Default private Set<Role> roles = new HashSet<>(Set.of(Roles.USER.getRole()));
+  @Builder.Default private
+  Set<Role> roles = new HashSet<>(Set.of(Roles.USER.getRole()));
 
   public Set<Permission> getPermissions() {
     return roles.stream()

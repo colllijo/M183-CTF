@@ -20,7 +20,7 @@ public class UserController {
 
   private final UserResponseAssembler userResponseAssembler;
 
-  @ApiResponse(responseCode = "200", description = "User is authenticated")
+  @ApiResponse(responseCode = "200", description = "List of the users")
   @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public CollectionModel<UserInfoResponse> getUsers() {
     return userResponseAssembler.toCollectionModel(userService.getUsers());

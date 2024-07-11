@@ -18,12 +18,10 @@ public class Role {
   private Long id;
   private String name;
   private String description;
-
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   @Builder.Default
   private Set<User> users = new HashSet<>();
-
   @Builder.Default
   private Set<Permission> permissions = new HashSet<>();
 }

@@ -6,16 +6,16 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 import java.util.Set;
 
 import dev.coll.ctf.adapter.repository.jpa.user.entity.UserEntity;
+import dev.coll.ctf.domain.iam.model.authorisation.Permission;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,6 @@ import lombok.ToString;
 
 @Data
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "ROLE")
@@ -44,11 +43,7 @@ public class RoleEntity {
   @ManyToMany(mappedBy = "roles", fetch = EAGER)
   private Set<UserEntity> users;
 
-  @ManyToMany(fetch = EAGER)
-  @JoinTable(
-    name = "ROLE_PERMISSION",
-    joinColumns = @JoinColumn(name = "role_id"),
-    inverseJoinColumns = @JoinColumn(name = "permission_id")
-  )
-  private Set<PermissionEntity> permissions;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "permissions")
+  private Set<Permission> permissions;
 }

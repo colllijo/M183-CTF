@@ -13,7 +13,8 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class AuthenticationProvider implements AuthenticationProviderPort {
-  private static final User UNFOUND_USER = User.builder().password("***").build();
+  // Argon hash of '', which cannot be a user password.
+  private static final User UNFOUND_USER = User.builder().password("$argon2id$v=19$m=16,t=2,p=1$dThzN0xxcGxjUkkzbVRnRw$NAbYxxsxCQ+oB+A76VaFHQ").build();
 
   private final UserServicePort userService;
   private final PasswordEncoder passwordEncoder;

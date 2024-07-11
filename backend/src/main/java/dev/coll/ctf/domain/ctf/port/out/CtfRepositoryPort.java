@@ -1,16 +1,21 @@
 package dev.coll.ctf.domain.ctf.port.out;
 
-import dev.coll.ctf.domain.ctf.model.Ctf;
-
 import java.util.List;
 import java.util.Optional;
 
+import dev.coll.ctf.domain.ctf.model.Ctf;
+import dev.coll.ctf.domain.ctf.model.Solve;
+
 public interface CtfRepositoryPort {
-  List<Ctf> findAll();
+  List<Ctf> getCtfs();
 
-  Optional<Ctf> findByName(String name);
+  Optional<Ctf> getCtfByName(String name);
 
-  Ctf save(Ctf challenge);
+  Ctf createCtf(Ctf challenge);
 
-  void deleteByName(String name);
+  Ctf updateCtf(Ctf challenge);
+
+  void deleteCtfByName(String name);
+
+  Solve createSolve(Solve solve);
 }

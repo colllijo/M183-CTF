@@ -22,6 +22,9 @@ clamd:
   host: 127.0.0.1
   port: 3310
 spring:
+  banner:
+    image:
+      location: classpath:banner.txt
   datasource:
     url: jdbc:postgresql://localhost:5432/ctf
     driver-class-name: org.postgresql.Driver

@@ -24,7 +24,7 @@ public class UserService implements UserServicePort {
   @Override
   public List<User> getUsers() {
     return userRepository.getUsers().stream()
-        .filter(user -> !user.getRoles().contains(Roles.ADMIN.getRole()))
+        .filter(user -> !user.getRoles().stream().map(Role::getName).toList().contains(Roles.ADMIN.getName()))
         .toList();
   }
 

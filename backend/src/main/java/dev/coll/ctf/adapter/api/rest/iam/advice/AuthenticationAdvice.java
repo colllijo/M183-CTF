@@ -3,6 +3,8 @@ package dev.coll.ctf.adapter.api.rest.iam.advice;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -11,7 +13,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -25,10 +26,11 @@ import lombok.RequiredArgsConstructor;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class AuthenticationAdvice {
-  @ResponseBody
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
   public RestExceptionResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException exception) {
     return RestExceptionResponse.builder()
         .error(exception.getClass().getSimpleName())
@@ -37,10 +39,9 @@ public class AuthenticationAdvice {
         .build();
   }
 
-  @ResponseBody
   @ExceptionHandler(UnauthenticatedException.class)
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
-  @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
+  @ApiResponse(responseCode = "401", description = "Unauthenticated", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
   public RestExceptionResponse handleUnauthenticatedException(UnauthenticatedException exception) {
     return RestExceptionResponse.builder()
         .error(exception.getClass().getSimpleName())
@@ -49,7 +50,6 @@ public class AuthenticationAdvice {
         .build();
   }
 
-  @ResponseBody
   @ExceptionHandler({ UsernameNotFoundException.class, BadCredentialsException.class })
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))
@@ -61,7 +61,6 @@ public class AuthenticationAdvice {
         .build();
   }
 
-  @ResponseBody
   @ExceptionHandler(UnauthorizedException.class)
   @ResponseStatus(HttpStatus.FORBIDDEN)
   @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(name = "RestErrorResponse", implementation = RestExceptionResponse.class)))

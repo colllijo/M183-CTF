@@ -1,12 +1,14 @@
 package dev.coll.ctf.adapter.api.rest.exception.advice;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import dev.coll.ctf.adapter.api.rest.exception.dto.RestExceptionResponse;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,8 +18,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RestControllerAdvice
+@ControllerAdvice
 @RequiredArgsConstructor
+@Order(Ordered.LOWEST_PRECEDENCE)
 public class RestExceptionAdvice {
   @ResponseBody
   @ExceptionHandler(RuntimeException.class)

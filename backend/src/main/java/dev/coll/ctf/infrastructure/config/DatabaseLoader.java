@@ -8,7 +8,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import dev.coll.ctf.domain.iam.model.authorisation.Permissions;
 import dev.coll.ctf.domain.iam.model.authorisation.Roles;
 import dev.coll.ctf.domain.iam.port.out.AuthorisationRepositoryPort;
 import dev.coll.ctf.domain.user.model.User;
@@ -30,9 +29,7 @@ public class DatabaseLoader implements ApplicationRunner {
   private String defaultAdminPassword;
 
   public void run(ApplicationArguments args) {
-    loadPermissions();
     loadDefaultRoles();
-
     loadDefaultAdminUser();
 
     log.info("DatabaseLoader has initialized the database.");
@@ -43,13 +40,6 @@ public class DatabaseLoader implements ApplicationRunner {
       .map(Roles::getRole)
       .filter(role -> authorisationRepository.getRoleByName(role.getName()).isEmpty())
       .forEach(role -> authorisationRepository.createRole(role));
-  }
-
-  private void loadPermissions() {
-    EnumSet.allOf(Permissions.class).stream()
-      .map(Permissions::getPermission)
-      .filter(permission -> authorisationRepository.getPermissionByName(permission.getName()).isEmpty())
-      .forEach(permission -> authorisationRepository.createPermission(permission));
   }
 
   private void loadDefaultAdminUser() {

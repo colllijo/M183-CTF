@@ -1,25 +1,21 @@
 package dev.coll.ctf.domain.iam.model.authorisation;
 
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Getter;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import lombok.experimental.SuperBuilder;
+@Getter
+public enum Permission {
+  READ_USERS("READ_USERS", "Permission to read inforamtion about all users."),
+  READ_ROLES("READ_ROLES", "Permission to read all roles."),
+  READ_PERMISSIONS("READ_PERMISSIONS", "Permission to read all permissions."),
+  MODIFY_USER_ROLES("MODIFY_USER_ROLES", "Permission to modify user roles."),
+  CREATE_CHALLENGE("CREATE_CHALLENGE", "Permission to create a new challenge."),
+  SUBMIT_FLAG("SUBMIT_FLAG", "Permission to submit a flag for a challenge.");
 
-@Data
-@SuperBuilder
-@AllArgsConstructor
-public class Permission {
-  private Long id;
-  private String name;
-  private String description;
+  private final String name;
+  private final String description;
 
-  @ToString.Exclude
-  @EqualsAndHashCode.Exclude
-  @Builder.Default
-  private Set<Role> roles = new HashSet<>();
+  private Permission(final String name, final String description) {
+    this.name = name;
+    this.description = description;
+  }
 }

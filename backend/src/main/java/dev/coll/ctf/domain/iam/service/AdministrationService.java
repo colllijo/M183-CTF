@@ -65,6 +65,6 @@ public class AdministrationService implements AdministrationServicePort {
 
   @Override
   public List<Permission> getPermissions() {
-    return authorisationRepository.getPermissions();
+    return List.of(Permission.values());
   }
 }

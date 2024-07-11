@@ -3,7 +3,6 @@ package dev.coll.ctf.domain.iam.port.out;
 import java.util.List;
 import java.util.Optional;
 
-import dev.coll.ctf.domain.iam.model.authorisation.Permission;
 import dev.coll.ctf.domain.iam.model.authorisation.Role;
 
 /**
@@ -49,43 +48,4 @@ public interface AuthorisationRepositoryPort {
    * @param role
    */
   public void deleteRole(Role role);
-
-  /**
-   * @return
-   */
-  public List<Permission> getPermissions();
-
-  /**
-   * @param id
-   * @return
-   */
-  public Optional<Permission> getPermissionById(Long id);
-
-  /**
-   * @param name
-   * @return
-   */
-  public Optional<Permission> getPermissionByName(String name);
-
-  /**
-   * @param permission
-   * @return
-   */
-  public Permission createPermission(Permission permission);
-
-  /**
-   * @param permission
-   * @return
-   */
-  public Permission updatePermission(Permission permission);
-
-  /**
-   * @param name
-   */
-  public void deletePermissionByName(String name);
-
-  /**
-   * @param permission
-   */
-  public void deletePermission(Permission permission);
 }

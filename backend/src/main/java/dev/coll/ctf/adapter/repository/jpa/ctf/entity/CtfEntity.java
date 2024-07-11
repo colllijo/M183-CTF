@@ -1,7 +1,7 @@
 package dev.coll.ctf.adapter.repository.jpa.ctf.entity;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
 import static jakarta.persistence.FetchType.EAGER;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 import java.util.Set;
 
@@ -15,13 +15,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "CTF")
@@ -48,5 +48,7 @@ public class CtfEntity {
   private String filePath;
 
   @OneToMany(mappedBy = "ctf", fetch = EAGER)
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   private Set<SolveEntity> solves;
 }

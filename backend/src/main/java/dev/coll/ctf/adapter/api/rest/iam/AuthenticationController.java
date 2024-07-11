@@ -3,8 +3,6 @@ package dev.coll.ctf.adapter.api.rest.iam;
 import java.util.Arrays;
 
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +19,6 @@ import dev.coll.ctf.adapter.api.rest.iam.dto.RegistrationRequest;
 import dev.coll.ctf.adapter.api.rest.iam.mapper.RegistrationRequestMapper;
 import dev.coll.ctf.domain.iam.model.authentication.AuthenticationTokens;
 import dev.coll.ctf.domain.iam.model.authorisation.Feature;
-import dev.coll.ctf.domain.iam.model.exception.UnauthenticatedException;
 import dev.coll.ctf.domain.iam.port.in.AuthenticationServicePort;
 import dev.coll.ctf.domain.iam.port.in.AuthorisationServicePort;
 import dev.coll.ctf.domain.jwt.model.SecureToken;
@@ -34,9 +31,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -49,11 +44,9 @@ public class AuthenticationController {
   @ApiResponse(responseCode = "200", description = "User is authenticated")
   @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public AuthenticatedResponse isAuthenticated() {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    SecurityContextHolder.getContext();
+    User authenticatedUser = authenticationService.getAuthenticatedUser();
 
-    if (authentication != null & authentication.getPrincipal() instanceof User) return new AuthenticatedResponse(((User) authentication.getPrincipal()).getUsername(), null);
-    throw new UnauthenticatedException();
+    return AuthenticatedResponse.builder().username(authenticatedUser.getUsername()).build();
   }
 
   @ApiResponse(responseCode = "200", description = "User authenticated successfully")
@@ -61,8 +54,6 @@ public class AuthenticationController {
   @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
   public AuthenticatedResponse login(@RequestBody AuthenticationRequest authenticationRequest,
       HttpServletResponse response) {
-    log.info("Login request - username={}", authenticationRequest.getUsername());
-
     AuthenticationTokens tokens = authenticationService.login(authenticationRequest.getUsername(), authenticationRequest.getPassword());
     return createTokenResponse(tokens, response);
   }
@@ -72,8 +63,6 @@ public class AuthenticationController {
   @PostMapping(path = "/register", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
   public AuthenticatedResponse register(@Valid @RequestBody RegistrationRequest user,
       HttpServletResponse response) {
-    log.info("Register request - username={}", user.getUsername());
-
     AuthenticationTokens tokens = authenticationService.register(registrationMapper.mapRequestToUser(user));
     return createTokenResponse(tokens, response);
   }

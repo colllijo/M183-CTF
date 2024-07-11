@@ -3,9 +3,11 @@ package dev.coll.ctf.domain.iam.service;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import dev.coll.ctf.domain.iam.model.authentication.AuthenticationTokens;
 import dev.coll.ctf.domain.iam.model.exception.InvalidRefreshTokenException;
+import dev.coll.ctf.domain.iam.model.exception.UnauthenticatedException;
 import dev.coll.ctf.domain.iam.port.in.AuthenticationServicePort;
 import dev.coll.ctf.domain.jwt.model.SecureToken;
 import dev.coll.ctf.domain.jwt.port.in.JwtServicePort;
@@ -18,6 +20,14 @@ public class AuthenticationService implements AuthenticationServicePort {
   private final AuthenticationManager authenticationManager;
   private final JwtServicePort jwtService;
   private final UserServicePort userService;
+
+  @Override
+  public User getAuthenticatedUser() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+    if (authentication != null && authentication.getPrincipal() instanceof User) return (User) authentication.getPrincipal();
+    throw new UnauthenticatedException();
+  }
 
   @Override
   public AuthenticationTokens register(User registrant) {
