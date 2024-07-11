@@ -23,6 +23,10 @@
 - [x] Rollenverwaltung durch Admin
 - [x] Funktionen hinter Berechtigungen verstecken
 
+## Umsysteme
+
+- [ ] Unterschiedliche Datenbanken testen (PostgreSQL, MariaDB, Neo4j, MongoDB, CockroachDB)
+
 ## Monitoring
 
 - Grafana und Prometheus aufsetzen
