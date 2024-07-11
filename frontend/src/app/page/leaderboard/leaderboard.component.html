@@ -5,6 +5,10 @@
   <mat-card-content>
     @if (users$ | async; as users) {
       <table mat-table [dataSource]="users">
+        <ng-container matColumnDef="rank">
+          <th mat-header-cell *matHeaderCellDef> Rank </th>
+          <td mat-cell *matCellDef="let user; let i = index"> {{ i + 1 }} </td>
+        </ng-container>
         <ng-container matColumnDef="username">
           <th mat-header-cell *matHeaderCellDef> Username </th>
           <td mat-cell *matCellDef="let user"> {{user.username}} </td>

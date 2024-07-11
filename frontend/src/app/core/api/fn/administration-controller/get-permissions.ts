@@ -6,13 +6,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { CollectionModelCtfResponse } from '../../models/collection-model-ctf-response';
+import { CollectionModelPermissionResponse } from '../../models/collection-model-permission-response';
 
-export interface GetAllCtfs$Params {
+export interface GetPermissions$Params {
 }
 
-export function getAllCtfs(http: HttpClient, rootUrl: string, params?: GetAllCtfs$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelCtfResponse>> {
-  const rb = new RequestBuilder(rootUrl, getAllCtfs.PATH, 'get');
+export function getPermissions(http: HttpClient, rootUrl: string, params?: GetPermissions$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelPermissionResponse>> {
+  const rb = new RequestBuilder(rootUrl, getPermissions.PATH, 'get');
   if (params) {
   }
 
@@ -21,9 +21,9 @@ export function getAllCtfs(http: HttpClient, rootUrl: string, params?: GetAllCtf
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<CollectionModelCtfResponse>;
+      return r as StrictHttpResponse<CollectionModelPermissionResponse>;
     })
   );
 }
 
-getAllCtfs.PATH = '/ctf/';
+getPermissions.PATH = '/administration/permissions';

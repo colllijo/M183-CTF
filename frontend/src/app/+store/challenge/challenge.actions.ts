@@ -28,6 +28,11 @@ export const ChallengeActions = createActionGroup({
     }>(),
     downloadFileSuccess: props<{
       file?: File
+    }>(),
+    submitFlag: props<{ name: string; flag: string; }>(),
+    submitFlagSuccess: emptyProps(),
+    submitFlagFailure: props<{
+      errors: Error;
     }>()
   }
 });

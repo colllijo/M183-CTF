@@ -17,7 +17,11 @@ export class ChallengeEffects {
     return this.actions$.pipe(
       ofType(ChallengeActions.create),
       exhaustMap((action) => {
-        const ctf: CtfForm = { name: action.name, description: action.description, flag: action.flag };
+        const ctf: CtfForm = {
+          name: action.name,
+          description: action.description,
+          flag: action.flag
+        };
         const file = action.file ? action.file : undefined;
 
         return this.ctfService.createCtf({ body: { ctf, file } }).pipe(
@@ -43,7 +47,9 @@ export class ChallengeEffects {
       exhaustMap((action) =>
         this.ctfService.getCtf({ name: action.name }).pipe(
           map((response: Ctf) => {
-            return ChallengeActions.getChallengeSuccess({ challenge: response })
+            return ChallengeActions.getChallengeSuccess({
+              challenge: response
+            });
           }),
           catchError((response: HttpErrorResponse) => {
             return of(
@@ -61,10 +67,11 @@ export class ChallengeEffects {
     return this.actions$.pipe(
       ofType(ChallengeActions.getAllChallenges),
       exhaustMap(() =>
-        this.ctfService.getAllCtfs().pipe(
+        this.ctfService.getCtfs().pipe(
           map((response: CollectionModelCtfResponse) => {
-            console.log(response);
-            return ChallengeActions.getAllChallengesSuccess({ challenges: response._embedded?.CtfCollection ?? [] })
+            return ChallengeActions.getAllChallengesSuccess({
+              challenges: response._embedded?.CtfCollection ?? []
+            });
           }),
           catchError((response: HttpErrorResponse) => {
             return of(
@@ -78,22 +85,47 @@ export class ChallengeEffects {
     );
   });
 
-  public downloadFile$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(ChallengeActions.downloadFile),
-      exhaustMap((action) => {
-        const parts = action.name.split('/');
+  public downloadFile$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(ChallengeActions.downloadFile),
+        exhaustMap((action) => {
+          const parts = action.name.split('/');
 
-        return this.ctfService.downloadFile({ name: parts[0], file: parts[1] }).pipe(
-          tap((file) => {
-            if (file) {
-              saveAs(file, parts[1]);
-            }
+          return this.ctfService
+            .downloadFile({ name: parts[0], file: parts[1] })
+            .pipe(
+              tap((file) => {
+                if (file) {
+                  saveAs(file, parts[1]);
+                }
+              })
+            );
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  public submitFlag$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ChallengeActions.submitFlag),
+      exhaustMap((action) =>
+        this.ctfService.solveCtf({ name: action.name, body: { flag: action.flag } }).pipe(
+          map(() => {
+            return ChallengeActions.submitFlagSuccess();
+          }),
+          catchError((response: HttpErrorResponse) => {
+            return of(
+              ChallengeActions.submitFlagFailure({
+                errors: this.getDetailedErrors(response)
+              })
+            );
           })
-        );
-      })
+        )
+      )
     );
-  }, { dispatch: false });
+  });
 
   constructor(
     private actions$: Actions,

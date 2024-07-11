@@ -6,14 +6,19 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { CollectionModelUserDetailsResponse } from '../../models/collection-model-user-details-response';
+import { CtfSolveForm } from '../../models/ctf-solve-form';
+import { Solve } from '../../models/solve';
 
-export interface GetUsersInfo$Params {
+export interface SolveCtf$Params {
+  name: string;
+      body: CtfSolveForm
 }
 
-export function getUsersInfo(http: HttpClient, rootUrl: string, params?: GetUsersInfo$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelUserDetailsResponse>> {
-  const rb = new RequestBuilder(rootUrl, getUsersInfo.PATH, 'get');
+export function solveCtf(http: HttpClient, rootUrl: string, params: SolveCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<Solve>> {
+  const rb = new RequestBuilder(rootUrl, solveCtf.PATH, 'post');
   if (params) {
+    rb.path('name', params.name, {});
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -21,9 +26,9 @@ export function getUsersInfo(http: HttpClient, rootUrl: string, params?: GetUser
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<CollectionModelUserDetailsResponse>;
+      return r as StrictHttpResponse<Solve>;
     })
   );
 }
 
-getUsersInfo.PATH = '/users/detailed';
+solveCtf.PATH = '/ctf/{name}';

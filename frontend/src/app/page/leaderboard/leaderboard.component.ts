@@ -25,10 +25,10 @@ import { UserInfo } from "@core/api/models";
 export class LeaderboardComponent implements OnInit {
 
   public users$: Observable<UserInfo[]>;
-  public userTableColumns: string[] = ['username', 'points'];
+  public userTableColumns: string[] = ['rank', 'username', 'points'];
 
   constructor(private store: Store) {
-    this.users$ = this.store.select(userFeature.selectUsers);
+    this.users$ = this.store.select(userFeature.selectRankedUsers);
   }
 
   ngOnInit(): void {

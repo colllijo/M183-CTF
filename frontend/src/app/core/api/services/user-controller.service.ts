@@ -9,12 +9,9 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { CollectionModelUserDetailsResponse } from '../models/collection-model-user-details-response';
 import { CollectionModelUserInfoResponse } from '../models/collection-model-user-info-response';
 import { getUsers } from '../fn/user-controller/get-users';
 import { GetUsers$Params } from '../fn/user-controller/get-users';
-import { getUsersInfo } from '../fn/user-controller/get-users-info';
-import { GetUsersInfo$Params } from '../fn/user-controller/get-users-info';
 
 @Injectable({ providedIn: 'root' })
 export class UserControllerService extends BaseService {
@@ -44,31 +41,6 @@ export class UserControllerService extends BaseService {
   getUsers(params?: GetUsers$Params, context?: HttpContext): Observable<CollectionModelUserInfoResponse> {
     return this.getUsers$Response(params, context).pipe(
       map((r: StrictHttpResponse<CollectionModelUserInfoResponse>): CollectionModelUserInfoResponse => r.body)
-    );
-  }
-
-  /** Path part for operation `getUsersInfo()` */
-  static readonly GetUsersInfoPath = '/users/detailed';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getUsersInfo()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getUsersInfo$Response(params?: GetUsersInfo$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelUserDetailsResponse>> {
-    return getUsersInfo(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getUsersInfo$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getUsersInfo(params?: GetUsersInfo$Params, context?: HttpContext): Observable<CollectionModelUserDetailsResponse> {
-    return this.getUsersInfo$Response(params, context).pipe(
-      map((r: StrictHttpResponse<CollectionModelUserDetailsResponse>): CollectionModelUserDetailsResponse => r.body)
     );
   }
 

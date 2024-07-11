@@ -23,12 +23,12 @@ export const routes: Routes = [
     component: ChallengesPageComponent,
     children: [
       { path: '', component: ChallengesComponent, pathMatch: 'full' },
-      { path: ':name', component: ChallengeComponent },
+      { path: 'display/:name', component: ChallengeComponent },
       {
         path: 'create',
         component: ChallengeCreateComponent,
         canActivate: [featureGuard],
-        data: { feature: 'challenge-creation' }
+        data: { feature: 'CHALLENGE_CREATION' }
       }
     ]
   },
@@ -39,7 +39,7 @@ export const routes: Routes = [
     path: 'admin',
     component: AdministrationPageComponent,
     canActivate: [featureGuard],
-    data: { feature: 'administration' },
+    data: { feature: 'ADMINISTRATION' },
     children: [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },

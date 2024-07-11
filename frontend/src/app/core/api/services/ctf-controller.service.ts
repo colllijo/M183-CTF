@@ -15,10 +15,13 @@ import { CreateCtf$Params } from '../fn/ctf-controller/create-ctf';
 import { Ctf } from '../models/ctf';
 import { downloadFile } from '../fn/ctf-controller/download-file';
 import { DownloadFile$Params } from '../fn/ctf-controller/download-file';
-import { getAllCtfs } from '../fn/ctf-controller/get-all-ctfs';
-import { GetAllCtfs$Params } from '../fn/ctf-controller/get-all-ctfs';
 import { getCtf } from '../fn/ctf-controller/get-ctf';
 import { GetCtf$Params } from '../fn/ctf-controller/get-ctf';
+import { getCtfs } from '../fn/ctf-controller/get-ctfs';
+import { GetCtfs$Params } from '../fn/ctf-controller/get-ctfs';
+import { Solve } from '../models/solve';
+import { solveCtf } from '../fn/ctf-controller/solve-ctf';
+import { SolveCtf$Params } from '../fn/ctf-controller/solve-ctf';
 
 @Injectable({ providedIn: 'root' })
 export class CtfControllerService extends BaseService {
@@ -26,27 +29,27 @@ export class CtfControllerService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `getAllCtfs()` */
-  static readonly GetAllCtfsPath = '/ctf/';
+  /** Path part for operation `getCtfs()` */
+  static readonly GetCtfsPath = '/ctf/';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getAllCtfs()` instead.
+   * To access only the response body, use `getCtfs()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllCtfs$Response(params?: GetAllCtfs$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelCtfResponse>> {
-    return getAllCtfs(this.http, this.rootUrl, params, context);
+  getCtfs$Response(params?: GetCtfs$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelCtfResponse>> {
+    return getCtfs(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getAllCtfs$Response()` instead.
+   * To access the full response (for headers, for example), `getCtfs$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getAllCtfs(params?: GetAllCtfs$Params, context?: HttpContext): Observable<CollectionModelCtfResponse> {
-    return this.getAllCtfs$Response(params, context).pipe(
+  getCtfs(params?: GetCtfs$Params, context?: HttpContext): Observable<CollectionModelCtfResponse> {
+    return this.getCtfs$Response(params, context).pipe(
       map((r: StrictHttpResponse<CollectionModelCtfResponse>): CollectionModelCtfResponse => r.body)
     );
   }
@@ -123,6 +126,31 @@ export class CtfControllerService extends BaseService {
   getCtf(params: GetCtf$Params, context?: HttpContext): Observable<Ctf> {
     return this.getCtf$Response(params, context).pipe(
       map((r: StrictHttpResponse<Ctf>): Ctf => r.body)
+    );
+  }
+
+  /** Path part for operation `solveCtf()` */
+  static readonly SolveCtfPath = '/ctf/{name}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `solveCtf()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  solveCtf$Response(params: SolveCtf$Params, context?: HttpContext): Observable<StrictHttpResponse<Solve>> {
+    return solveCtf(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `solveCtf$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  solveCtf(params: SolveCtf$Params, context?: HttpContext): Observable<Solve> {
+    return this.solveCtf$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Solve>): Solve => r.body)
     );
   }
 

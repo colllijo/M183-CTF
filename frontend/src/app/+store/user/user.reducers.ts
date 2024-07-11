@@ -1,6 +1,8 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
-import { UserState } from './user.models';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+
+import { UserInfo } from '@app/core/api/models';
 import { UserActions } from './user.actions';
+import { UserState } from './user.models';
 
 const initialState: UserState = {
   users: [],
@@ -38,5 +40,8 @@ export const userFeature = createFeature({
         loading: false
       })
     ),
-  )
+  ),
+  extraSelectors: ({ selectUsers }) => ({
+    selectRankedUsers: createSelector(selectUsers, (users: UserInfo[]) => users.sort((a, b) => (b.points ?? 0) - (a.points ?? 0)))
+  })
 });

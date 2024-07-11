@@ -13,6 +13,4 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './administration-page.component.html',
   styleUrl: './administration-page.component.scss'
 })
-export class AdministrationPageComponent {
-
-}
+export class AdministrationPageComponent {}

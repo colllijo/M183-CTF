@@ -8,7 +8,7 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface CheckFeatureAccess$Params {
-  feature: string;
+  feature: 'ADMINISTRATION' | 'CHALLENGE_CREATION';
 }
 
 export function checkFeatureAccess(http: HttpClient, rootUrl: string, params: CheckFeatureAccess$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {

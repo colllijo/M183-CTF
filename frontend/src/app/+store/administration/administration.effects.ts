@@ -4,11 +4,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { catchError, exhaustMap, map, of } from 'rxjs';
 
-import { UserControllerService } from '@core/api/services/user-controller.service';
-import { AuthorisationControllerService } from '@core/api/services/authorisation-controller.service';
+import { CollectionModelRoleResponse, CollectionModelUserDetailsResponse, RoleForm } from '@app/core/api/models';
+import { AdministrationControllerService } from '@app/core/api/services';
 import { AdministrationActions } from './administration.actions';
-import { CollectionModelUserDetailsResponse, RoleForm } from '@app/core/api/models';
-import { CollectionModelRoleResponse } from '@app/core/api/models';
 
 @Injectable()
 export class AdministrationEffects {
@@ -16,7 +14,7 @@ export class AdministrationEffects {
     return this.actions$.pipe(
       ofType(AdministrationActions.getUserDetails),
       exhaustMap(() =>
-        this.userService.getUsersInfo().pipe(
+        this.administrationService.getUsers1().pipe(
           map((response: CollectionModelUserDetailsResponse) => {
             return AdministrationActions.getUserDetailsSuccess({ users: response._embedded?.UserDetailsCollection ?? [] });
           }),
@@ -36,7 +34,7 @@ export class AdministrationEffects {
     return this.actions$.pipe(
       ofType(AdministrationActions.getRoles),
       exhaustMap(() =>
-        this.authorisationService.getRoles().pipe(
+        this.administrationService.getRoles().pipe(
           map((response: CollectionModelRoleResponse) => {
             return AdministrationActions.getRolesSuccess({ roles: response._embedded?.RoleCollection ?? [] });
           }),
@@ -56,7 +54,7 @@ export class AdministrationEffects {
     return this.actions$.pipe(
       ofType(AdministrationActions.addRole),
       exhaustMap((action) =>
-        this.authorisationService.addRoleToUser({
+        this.administrationService.addRoleToUser({
           username: action.user.username!,
           body: { name: action.role }
         }).pipe(
@@ -77,7 +75,7 @@ export class AdministrationEffects {
     return this.actions$.pipe(
       ofType(AdministrationActions.removeRole),
       exhaustMap((action) =>
-        this.authorisationService.removeRoleFromUser({
+        this.administrationService.removeRoleFromUser({
           username: action.user.username!,
           body: action.role as RoleForm
         }).pipe(
@@ -96,7 +94,6 @@ export class AdministrationEffects {
 
   constructor(
     private actions$: Actions,
-    private userService: UserControllerService,
-    private authorisationService: AuthorisationControllerService
+    private administrationService: AdministrationControllerService
   ) {}
 }

@@ -9,6 +9,7 @@ export { CollectionModelUserDetailsResponse } from './models/collection-model-us
 export { CollectionModelUserInfoResponse } from './models/collection-model-user-info-response';
 export { Ctf } from './models/ctf';
 export { CtfForm } from './models/ctf-form';
+export { CtfSolveForm } from './models/ctf-solve-form';
 export { Link } from './models/link';
 export { Links } from './models/links';
 export { Permission } from './models/permission';
@@ -17,6 +18,7 @@ export { RegistrationForm } from './models/registration-form';
 export { RequestError } from './models/request-error';
 export { Role } from './models/role';
 export { RoleForm } from './models/role-form';
+export { Solve } from './models/solve';
 export { Tokens } from './models/tokens';
 export { UserDetails } from './models/user-details';
 export { UserInfo } from './models/user-info';

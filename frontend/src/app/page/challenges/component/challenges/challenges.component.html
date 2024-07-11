@@ -3,7 +3,7 @@
     @for (challenge of challenges; track challenge) {
       <mat-card>
         <mat-card-header>
-          <mat-card-title>{{challenge.name}}</mat-card-title><button routerLink="/challenges/{{ challenge.name }}" mat-flat-button>Open</button>
+          <mat-card-title>{{challenge.name}}</mat-card-title><button routerLink="/challenges/display/{{ challenge.name }}" mat-flat-button>Open</button>
           <mat-card-subtitle>by {{challenge.author!.username}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>{{challenge.description}}</mat-card-content>

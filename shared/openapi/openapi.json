@@ -160,6 +160,15 @@
         "required" : [ "flag", "name" ],
         "type" : "object"
       },
+      "CtfSolveForm" : {
+        "properties" : {
+          "flag" : {
+            "pattern" : "^CCTF\\{[a-zA-Z0-9_-]+}$",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
       "Link" : {
         "properties" : {
           "deprecation" : {
@@ -299,6 +308,26 @@
         "required" : [ "name" ],
         "type" : "object"
       },
+      "Solve" : {
+        "properties" : {
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "points" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "rank" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "timestamp" : {
+            "format" : "date-time",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
       "Tokens" : {
         "properties" : {
           "accessToken" : {
@@ -370,11 +399,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -391,7 +415,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -433,11 +457,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -454,7 +473,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -514,11 +533,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -535,7 +549,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -593,11 +607,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -614,7 +623,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -656,11 +665,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -677,7 +681,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -719,11 +723,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -740,7 +739,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -784,11 +783,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -805,7 +799,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -873,7 +867,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -908,11 +902,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -929,7 +918,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -997,7 +986,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1065,7 +1054,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1093,7 +1082,7 @@
     },
     "/ctf/" : {
       "get" : {
-        "operationId" : "getAllCtfs",
+        "operationId" : "getCtfs",
         "responses" : {
           "200" : {
             "content" : {
@@ -1107,11 +1096,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -1128,7 +1112,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1203,7 +1187,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1257,15 +1241,10 @@
                 }
               }
             },
-            "description" : "Ctf gotten successfully"
+            "description" : "Ctf attachment downloaded successfully"
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -1282,7 +1261,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1332,11 +1311,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -1353,7 +1327,81 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
+          },
+          "403" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Internal Server Error"
+          }
+        },
+        "tags" : [ "ctf-controller" ]
+      },
+      "post" : {
+        "operationId" : "solveCtf",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "name",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CtfSolveForm"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Solve"
+                }
+              }
+            },
+            "description" : "Ctf created successfully"
+          },
+          "400" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Bad request"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            },
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1391,15 +1439,10 @@
                 }
               }
             },
-            "description" : "User is authenticated"
+            "description" : "List of the users"
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -1416,7 +1459,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {

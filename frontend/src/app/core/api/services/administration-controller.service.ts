@@ -9,26 +9,29 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { addRoleToUser } from '../fn/authorisation-controller/add-role-to-user';
-import { AddRoleToUser$Params } from '../fn/authorisation-controller/add-role-to-user';
+import { addRoleToUser } from '../fn/administration-controller/add-role-to-user';
+import { AddRoleToUser$Params } from '../fn/administration-controller/add-role-to-user';
 import { CollectionModelPermissionResponse } from '../models/collection-model-permission-response';
 import { CollectionModelRoleResponse } from '../models/collection-model-role-response';
-import { getPermissions } from '../fn/authorisation-controller/get-permissions';
-import { GetPermissions$Params } from '../fn/authorisation-controller/get-permissions';
-import { getRoles } from '../fn/authorisation-controller/get-roles';
-import { GetRoles$Params } from '../fn/authorisation-controller/get-roles';
-import { removeRoleFromUser } from '../fn/authorisation-controller/remove-role-from-user';
-import { RemoveRoleFromUser$Params } from '../fn/authorisation-controller/remove-role-from-user';
+import { CollectionModelUserDetailsResponse } from '../models/collection-model-user-details-response';
+import { getPermissions } from '../fn/administration-controller/get-permissions';
+import { GetPermissions$Params } from '../fn/administration-controller/get-permissions';
+import { getRoles } from '../fn/administration-controller/get-roles';
+import { GetRoles$Params } from '../fn/administration-controller/get-roles';
+import { getUsers1 } from '../fn/administration-controller/get-users-1';
+import { GetUsers1$Params } from '../fn/administration-controller/get-users-1';
+import { removeRoleFromUser } from '../fn/administration-controller/remove-role-from-user';
+import { RemoveRoleFromUser$Params } from '../fn/administration-controller/remove-role-from-user';
 import { UserDetails } from '../models/user-details';
 
 @Injectable({ providedIn: 'root' })
-export class AuthorisationControllerService extends BaseService {
+export class AdministrationControllerService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
   /** Path part for operation `getPermissions()` */
-  static readonly GetPermissionsPath = '/authorisation/permissions';
+  static readonly GetPermissionsPath = '/administration/permissions';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -53,7 +56,7 @@ export class AuthorisationControllerService extends BaseService {
   }
 
   /** Path part for operation `getRoles()` */
-  static readonly GetRolesPath = '/authorisation/roles';
+  static readonly GetRolesPath = '/administration/roles';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -78,7 +81,7 @@ export class AuthorisationControllerService extends BaseService {
   }
 
   /** Path part for operation `addRoleToUser()` */
-  static readonly AddRoleToUserPath = '/authorisation/roles/{username}';
+  static readonly AddRoleToUserPath = '/administration/roles/{username}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -103,7 +106,7 @@ export class AuthorisationControllerService extends BaseService {
   }
 
   /** Path part for operation `removeRoleFromUser()` */
-  static readonly RemoveRoleFromUserPath = '/authorisation/roles/{username}';
+  static readonly RemoveRoleFromUserPath = '/administration/roles/{username}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -124,6 +127,31 @@ export class AuthorisationControllerService extends BaseService {
   removeRoleFromUser(params: RemoveRoleFromUser$Params, context?: HttpContext): Observable<UserDetails> {
     return this.removeRoleFromUser$Response(params, context).pipe(
       map((r: StrictHttpResponse<UserDetails>): UserDetails => r.body)
+    );
+  }
+
+  /** Path part for operation `getUsers1()` */
+  static readonly GetUsers1Path = '/administration/users';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getUsers1()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getUsers1$Response(params?: GetUsers1$Params, context?: HttpContext): Observable<StrictHttpResponse<CollectionModelUserDetailsResponse>> {
+    return getUsers1(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getUsers1$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getUsers1(params?: GetUsers1$Params, context?: HttpContext): Observable<CollectionModelUserDetailsResponse> {
+    return this.getUsers1$Response(params, context).pipe(
+      map((r: StrictHttpResponse<CollectionModelUserDetailsResponse>): CollectionModelUserDetailsResponse => r.body)
     );
   }
 

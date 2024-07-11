@@ -5,14 +5,9 @@
       <mat-card-subtitle>by {{ challenge.author!.username }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-form-field>
-        <mat-label>Description</mat-label>
-        <input
-          matInput
-          type="text"
-          value="{{ challenge.description }}"
-          disabled />
-      </mat-form-field>
+      <p>
+        {{ challenge.description }}
+      </p>
       @if (challenge.filePath) {
         <button mat-flat-button color="accent" (click)="downloadFile(challenge.filePath)">
           Download <i>{{ toFileName(challenge.filePath) }}</i>
@@ -20,20 +15,22 @@
       }
     </mat-card-content>
     <mat-card-actions>
-      <mat-form-field>
-        <mat-label>Flag</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="CCTF{}"
-          [disabled]="!(authenticated$ | async)" />
-      </mat-form-field>
-      <button
-        mat-flat-button
-        color="primary"
-        [matTooltip]="!(authenticated$ | async) ? 'Please first login to solve challenges' : ''">
-        Submit Flag
-      </button>
+      <form [formGroup]="solveForm" (submit)="submitFlag()">
+        <mat-form-field>
+          <mat-label>Flag</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="CCTF{}"
+            formControlName="flag" />
+        </mat-form-field>
+        <button
+          mat-flat-button
+          color="primary"
+          [matTooltip]="!(authenticated$ | async) ? 'Please first login to solve challenges' : ''">
+          Submit Flag
+        </button>
+      </form>
     </mat-card-actions>
   </mat-card>
 }
