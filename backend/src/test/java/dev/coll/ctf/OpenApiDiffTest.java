@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class OpenApiDiffTest {
+class OpenApiDiffTest {
   private static final Path SHARED_OPENAPI_PATH = Paths.get("../shared/openapi/openapi.json");
   private static final Path BACKUP_OPENAPI_PATH = Paths.get("../shared/openapi/openapi.json.bak");
 

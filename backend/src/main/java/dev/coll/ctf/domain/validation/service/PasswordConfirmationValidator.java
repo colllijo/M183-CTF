@@ -1,9 +1,9 @@
-package dev.coll.ctf.domain.validation.validator;
+package dev.coll.ctf.domain.validation.service;
 
 import java.util.Objects;
 
 import dev.coll.ctf.adapter.api.rest.iam.dto.RegistrationRequest;
-import dev.coll.ctf.domain.validation.annotation.ValidPasswordConfirmation;
+import dev.coll.ctf.domain.validation.model.ValidPasswordConfirmation;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

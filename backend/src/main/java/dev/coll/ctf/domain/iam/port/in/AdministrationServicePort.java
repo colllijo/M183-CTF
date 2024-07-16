@@ -1,6 +1,7 @@
 package dev.coll.ctf.domain.iam.port.in;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -24,7 +25,7 @@ public interface AdministrationServicePort {
    * @return
    */
   @PreAuthorize("hasAuthority('READ_USER')")
-  public User getUserByUsername(String username);
+  public Optional<User> getUserByUsername(String username);
 
   /**
    * @param username
@@ -53,7 +54,7 @@ public interface AdministrationServicePort {
    * @return
    */
   @PreAuthorize("hasAuthority('READ_ROLES')")
-  public Role getRoleByName(String name);
+  public Optional<Role> getRoleByName(String name);
 
   /**
    * @return

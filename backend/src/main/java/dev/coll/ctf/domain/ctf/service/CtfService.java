@@ -1,11 +1,8 @@
 package dev.coll.ctf.domain.ctf.service;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +11,7 @@ import dev.coll.ctf.domain.ctf.model.Ctf;
 import dev.coll.ctf.domain.ctf.model.Solve;
 import dev.coll.ctf.domain.ctf.model.exception.BadFlagException;
 import dev.coll.ctf.domain.ctf.model.exception.CtfNotFoundException;
+import dev.coll.ctf.domain.ctf.port.in.CtfAttachmentServicePort;
 import dev.coll.ctf.domain.ctf.port.in.CtfServicePort;
 import dev.coll.ctf.domain.ctf.port.out.CtfRepositoryPort;
 import dev.coll.ctf.domain.scanner.port.in.ScannerServicePort;
@@ -22,21 +20,18 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class CtfService implements CtfServicePort {
-  private final CtfRepositoryPort ctfRepositoryPort;
+  private final CtfRepositoryPort ctfRepository;
+  private final CtfAttachmentServicePort ctfAttachmentService;
   private final ScannerServicePort scannerService;
-
-  @Value("${config.upload-dir:uploads}")
-  private String uploadDir;
 
   @Override
   public List<Ctf> getAllCtfs() {
-    return ctfRepositoryPort.getCtfs();
+    return ctfRepository.getCtfs();
   }
 
   @Override
-  public Ctf getCtfByName(String name) {
-    return ctfRepositoryPort.getCtfByName(name)
-        .orElseThrow(() -> new IllegalArgumentException("Ctf with name " + name + " not found"));
+  public Optional<Ctf> getCtfByName(String name) {
+    return ctfRepository.getCtfByName(name);
   }
 
   @Override
@@ -46,29 +41,20 @@ public class CtfService implements CtfServicePort {
 
     if (attachment != null && !attachment.isEmpty()) {
       scannerService.scanFile(attachment);
-      ctf.setFilePath(saveFileToDisk(ctf.getName(), attachment));
+      ctf.setFilePath(ctfAttachmentService.saveFile(ctf.getName(), attachment));
     }
 
-    return ctfRepositoryPort.createCtf(ctf);
+    return ctfRepository.createCtf(ctf);
   }
 
   @Override
   public ByteArrayResource downloadFile(String filePath) {
-    Path file = Paths.get(uploadDir, filePath);
-    if (file.toFile().exists()) {
-      try {
-        return new ByteArrayResource(Files.readAllBytes(file));
-      } catch (Exception e) {
-        throw new RuntimeException("Could not read file from disk", e);
-      }
-    } else {
-      throw new IllegalArgumentException("File with path " + filePath + " not found");
-    }
+    return ctfAttachmentService.loadFile(filePath);
   }
 
   @Override
   public Solve submitFlag(String name, String flag) {
-    Ctf ctf = ctfRepositoryPort.getCtfByName(name).orElseThrow(() -> new CtfNotFoundException(name));
+    Ctf ctf = ctfRepository.getCtfByName(name).orElseThrow(() -> new CtfNotFoundException(name));
 
     if (!ctf.getFlag().equals(flag)) throw new BadFlagException(name);
 
@@ -80,40 +66,16 @@ public class CtfService implements CtfServicePort {
         .rank(ctf.getSolves().size() + 1)
         .build();
 
-    return ctfRepositoryPort.createSolve(solve);
+    return ctfRepository.createSolve(solve);
   }
 
   @Override
   public Ctf updateCtf(String name, Ctf ctf) {
-    return ctfRepositoryPort.updateCtf(ctf);
+    return ctfRepository.updateCtf(ctf);
   }
 
   @Override
   public void deleteCtf(String name) {
-    ctfRepositoryPort.deleteCtfByName(name);
-  }
-
-  private String saveFileToDisk(String ctfName, MultipartFile attachment) {
-    Path uploadsPath = Paths.get(uploadDir);
-    if (!uploadsPath.toFile().exists()) {
-      if (!uploadsPath.toFile().mkdirs()) throw new RuntimeException("Could not create uploads directory");
-    }
-
-    Path directoryPath = Paths.get(uploadDir, ctfName);
-    Path filePath = Paths.get(uploadDir, ctfName, attachment.getOriginalFilename());
-
-    if (!directoryPath.toFile().exists()) {
-      if (!directoryPath.toFile().mkdirs()) throw new RuntimeException("Could not create directory for ctf");
-    }
-    if (!filePath.toFile().exists()) {
-      try {
-        Files.copy(attachment.getInputStream(), filePath);
-        return Paths.get(ctfName, attachment.getOriginalFilename()).toString();
-      } catch (Exception e) {
-        throw new RuntimeException("Could not save file to disk", e);
-      }
-    } else {
-      throw new RuntimeException("Could not save file to disk");
-    }
+    ctfRepository.deleteCtfByName(name);
   }
 }

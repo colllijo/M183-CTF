@@ -1,6 +1,7 @@
 package dev.coll.ctf.domain.ctf.port.in;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +13,7 @@ import dev.coll.ctf.domain.ctf.model.Solve;
 public interface CtfServicePort {
   public List<Ctf> getAllCtfs();
 
-  public Ctf getCtfByName(String name);
+  public Optional<Ctf> getCtfByName(String name);
 
   @PreAuthorize("isAuthenticated()")
   public ByteArrayResource downloadFile(String filePath);

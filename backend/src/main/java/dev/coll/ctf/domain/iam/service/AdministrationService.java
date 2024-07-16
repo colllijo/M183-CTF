@@ -1,6 +1,7 @@
 package dev.coll.ctf.domain.iam.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import dev.coll.ctf.domain.iam.model.authorisation.Permission;
 import dev.coll.ctf.domain.iam.model.authorisation.Role;
@@ -23,8 +24,8 @@ public class AdministrationService implements AdministrationServicePort {
   }
 
   @Override
-  public User getUserByUsername(String username) {
-    return userRepository.getUserByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+  public Optional<User> getUserByUsername(String username) {
+    return userRepository.getUserByUsername(username);
   }
 
   @Override
@@ -59,8 +60,8 @@ public class AdministrationService implements AdministrationServicePort {
   }
 
   @Override
-  public Role getRoleByName(String name) {
-    return authorisationRepository.getRoleByName(name).orElseThrow(() -> new RoleNotFoundException(name));
+  public Optional<Role> getRoleByName(String name) {
+    return authorisationRepository.getRoleByName(name);
   }
 
   @Override

@@ -3,8 +3,8 @@ package dev.coll.ctf.adapter.api.rest.iam.dto;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import dev.coll.ctf.domain.validation.annotation.ValidPasswordConfirmation;
-import dev.coll.ctf.domain.validation.annotation.ValidUsername;
+import dev.coll.ctf.domain.validation.model.ValidPasswordConfirmation;
+import dev.coll.ctf.domain.validation.model.ValidUsername;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

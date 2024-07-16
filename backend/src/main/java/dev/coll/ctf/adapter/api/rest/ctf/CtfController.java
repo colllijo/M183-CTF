@@ -22,6 +22,7 @@ import dev.coll.ctf.adapter.api.rest.ctf.dto.SolveResponse;
 import dev.coll.ctf.adapter.api.rest.ctf.mapper.CtfRequestMapper;
 import dev.coll.ctf.adapter.api.rest.exception.dto.RestExceptionResponse;
 import dev.coll.ctf.adapter.api.rest.response.ApiBadRequestResponse;
+import dev.coll.ctf.domain.ctf.model.exception.CtfNotFoundException;
 import dev.coll.ctf.domain.ctf.port.in.CtfServicePort;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -47,7 +48,7 @@ public class CtfController {
   @ApiResponse(responseCode = "200", description = "Ctf gotten successfully")
   @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
   public CtfResponse getCtf(@PathVariable String name) {
-    return ctfResponseAssembler.toModel(ctfService.getCtfByName(name));
+    return ctfResponseAssembler.toModel(ctfService.getCtfByName(name).orElseThrow(() -> new CtfNotFoundException(name)));
   }
 
   @ApiResponse(responseCode = "200", description = "Ctf created successfully")

@@ -1,4 +1,4 @@
-package dev.coll.ctf.domain.validation.annotation;
+package dev.coll.ctf.domain.validation.model;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -7,7 +7,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import dev.coll.ctf.domain.validation.validator.PasswordConfirmationValidator;
+import dev.coll.ctf.domain.validation.service.PasswordConfirmationValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

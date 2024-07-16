@@ -74,7 +74,7 @@ public class JwtService implements JwtServicePort {
       .build();
   }
 
-  public String hashFingerprint(String fingerprint) {
+  private String hashFingerprint(String fingerprint) {
     try {
       MessageDigest digest = MessageDigest.getInstance("SHA-256");
       byte[] fingerprintBytes = digest.digest(fingerprint.getBytes());

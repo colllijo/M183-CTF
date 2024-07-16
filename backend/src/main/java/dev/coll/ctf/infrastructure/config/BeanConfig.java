@@ -6,8 +6,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import dev.coll.ctf.domain.ctf.port.in.CtfAttachmentServicePort;
 import dev.coll.ctf.domain.ctf.port.in.CtfServicePort;
 import dev.coll.ctf.domain.ctf.port.out.CtfRepositoryPort;
+import dev.coll.ctf.domain.ctf.service.CtfAttachmentService;
 import dev.coll.ctf.domain.ctf.service.CtfService;
 import dev.coll.ctf.domain.iam.port.in.AdministrationServicePort;
 import dev.coll.ctf.domain.iam.port.in.AuthenticationServicePort;
@@ -38,8 +40,13 @@ public class BeanConfig {
   }
 
   @Bean
-  public CtfServicePort ctfService(CtfRepositoryPort ctfRepository, ScannerServicePort scannerService) {
-    return new CtfService(ctfRepository, scannerService);
+  public CtfServicePort ctfService(CtfRepositoryPort ctfRepository, CtfAttachmentServicePort ctfAttachmentService, ScannerServicePort scannerService) {
+    return new CtfService(ctfRepository, ctfAttachmentService, scannerService);
+  }
+
+  @Bean
+  public CtfAttachmentServicePort ctfAttachmentService() {
+    return new CtfAttachmentService();
   }
 
   @Bean
