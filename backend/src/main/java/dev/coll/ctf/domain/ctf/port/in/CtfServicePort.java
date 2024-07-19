@@ -21,6 +21,7 @@ public interface CtfServicePort {
   @PreAuthorize("hasAuthority('SUBMIT_FLAG')")
   public Solve submitFlag(String ctfName, String flag);
 
+  @PreAuthorize("hasAuthority('CREATE_CHALLENGE')")
   public Ctf createCtf(Ctf ctf, MultipartFile attachment);
 
   public Ctf updateCtf(String name, Ctf ctf);

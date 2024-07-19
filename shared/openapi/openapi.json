@@ -33,7 +33,7 @@
         "properties" : {
           "_embedded" : {
             "properties" : {
-              "CtfCollection" : {
+              "ctfCollection" : {
                 "items" : {
                   "$ref" : "#/components/schemas/Ctf"
                 },
@@ -52,7 +52,7 @@
         "properties" : {
           "_embedded" : {
             "properties" : {
-              "PermissionCollection" : {
+              "permissionCollection" : {
                 "items" : {
                   "$ref" : "#/components/schemas/Permission"
                 },
@@ -71,7 +71,7 @@
         "properties" : {
           "_embedded" : {
             "properties" : {
-              "RoleCollection" : {
+              "roleCollection" : {
                 "items" : {
                   "$ref" : "#/components/schemas/Role"
                 },
@@ -90,7 +90,7 @@
         "properties" : {
           "_embedded" : {
             "properties" : {
-              "UserDetailsCollection" : {
+              "userDetailsCollection" : {
                 "items" : {
                   "$ref" : "#/components/schemas/UserDetails"
                 },
@@ -109,7 +109,7 @@
         "properties" : {
           "_embedded" : {
             "properties" : {
-              "UserInfoCollection" : {
+              "userInfoCollection" : {
                 "items" : {
                   "$ref" : "#/components/schemas/UserInfo"
                 },

@@ -399,11 +399,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -420,7 +415,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -462,11 +457,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -483,7 +473,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -543,11 +533,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -564,7 +549,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -622,11 +607,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -643,7 +623,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -685,11 +665,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -706,7 +681,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -748,11 +723,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -769,7 +739,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -813,11 +783,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -834,7 +799,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -902,7 +867,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -937,11 +902,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -958,7 +918,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1026,7 +986,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1094,7 +1054,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1136,11 +1096,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -1157,7 +1112,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1232,7 +1187,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1306,7 +1261,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1356,11 +1311,6 @@
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -1377,7 +1327,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1451,7 +1401,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {
@@ -1489,15 +1439,10 @@
                 }
               }
             },
-            "description" : "User is authenticated"
+            "description" : "List of the users"
           },
           "400" : {
             "content" : {
-              "*/*" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              },
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/RequestError"
@@ -1514,7 +1459,7 @@
                 }
               }
             },
-            "description" : "Unauthorized"
+            "description" : "Unauthenticated"
           },
           "403" : {
             "content" : {

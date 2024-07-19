@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(NON_NULL)
 @EqualsAndHashCode(callSuper = false)
-@Relation(collectionRelation = "RoleCollection")
+@Relation(collectionRelation = "roleCollection")
 public class RoleResponse extends RepresentationModel<RoleResponse> {
   private String name;
   private String description;

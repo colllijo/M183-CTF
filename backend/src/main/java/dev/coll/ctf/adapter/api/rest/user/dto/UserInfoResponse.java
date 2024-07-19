@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(NON_NULL)
 @JsonRootName(value = "UserInfo")
 @EqualsAndHashCode(callSuper = false)
-@Relation(collectionRelation = "UserInfoCollection")
+@Relation(collectionRelation = "userInfoCollection")
 public class UserInfoResponse extends RepresentationModel<UserInfoResponse> {
   private String username;
   private Integer points;

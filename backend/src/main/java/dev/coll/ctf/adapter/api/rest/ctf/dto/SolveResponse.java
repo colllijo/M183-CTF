@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(NON_NULL)
 @JsonRootName("Solve")
 @EqualsAndHashCode(callSuper = false)
-@Relation(collectionRelation = "SolveCollection")
+@Relation(collectionRelation = "solveCollection")
 public class SolveResponse extends RepresentationModel<CtfResponse> {
   private Integer points;
   private Instant timestamp;

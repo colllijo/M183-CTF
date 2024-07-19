@@ -22,10 +22,8 @@ import dev.coll.ctf.domain.iam.model.exception.UnauthorizedException;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import lombok.RequiredArgsConstructor;
 
 @RestControllerAdvice
-@RequiredArgsConstructor
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class AuthenticationAdvice {
   @ExceptionHandler(MethodArgumentNotValidException.class)

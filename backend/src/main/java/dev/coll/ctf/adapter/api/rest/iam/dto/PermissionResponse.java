@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(NON_NULL)
 @EqualsAndHashCode(callSuper = false)
-@Relation(collectionRelation = "PermissionCollection")
+@Relation(collectionRelation = "permissionCollection")
 public class PermissionResponse extends RepresentationModel<PermissionResponse> {
   private String name;
   private String description;

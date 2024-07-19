@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(NON_NULL)
 @JsonRootName("Ctf")
 @EqualsAndHashCode(callSuper = false)
-@Relation(collectionRelation = "CtfCollection")
+@Relation(collectionRelation = "ctfCollection")
 public class CtfResponse extends RepresentationModel<CtfResponse> {
   private String name;
   private String description;

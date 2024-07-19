@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @JsonRootName(value = "RequestError")
 @JsonInclude(NON_NULL)
-@Relation(collectionRelation = "RequestErrorCollection")
+@Relation(collectionRelation = "requestErrorCollection")
 public class RestExceptionResponse extends RepresentationModel<RestExceptionResponse> {
   private Integer status;
   private String error;
