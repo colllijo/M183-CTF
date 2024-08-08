@@ -9,7 +9,7 @@ import dev.coll.ctf.domain.iam.model.authorisation.Role;
 import dev.coll.ctf.domain.mapping.model.CycleAvoidingMappingContext;
 import dev.coll.ctf.domain.mapping.model.DoIgnore;
 
-@Mapper(config = EntityMapperConfig.class)
+@Mapper(config = EntityMapperConfig.class, uses = { PermissionEntityMapper.class })
 public interface RoleEntityMapper {
   @DoIgnore
   public default Role mapEntityToModel(RoleEntity entity) {

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import dev.coll.ctf.adapter.repository.jpa.EntityMapperConfig;
 import dev.coll.ctf.adapter.repository.jpa.authorisation.entity.RoleEntity;
+import dev.coll.ctf.adapter.repository.jpa.authorisation.mapper.RoleEntityMapper;
 import dev.coll.ctf.adapter.repository.jpa.authorisation.service.JpaRoleEntityRepository;
 import dev.coll.ctf.adapter.repository.jpa.ctf.mapper.SolveEntityMapper;
 import dev.coll.ctf.adapter.repository.jpa.user.entity.UserEntity;
@@ -20,7 +21,7 @@ import dev.coll.ctf.domain.mapping.model.CycleAvoidingMappingContext;
 import dev.coll.ctf.domain.mapping.model.DoIgnore;
 import dev.coll.ctf.domain.user.model.User;
 
-@Mapper(config = EntityMapperConfig.class, uses = { SolveEntityMapper.class })
+@Mapper(config = EntityMapperConfig.class, uses = { SolveEntityMapper.class, RoleEntityMapper.class })
 public abstract class UserEntityMapper {
   @Autowired
   protected JpaRoleEntityRepository roleRepository;

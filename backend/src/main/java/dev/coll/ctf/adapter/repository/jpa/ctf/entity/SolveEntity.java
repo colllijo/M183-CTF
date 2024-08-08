@@ -25,22 +25,22 @@ import lombok.ToString;
 public class SolveEntity {
   @Id
   @ManyToOne
-  @JoinColumn(name = "ctf_id", referencedColumnName = "id")
+  @JoinColumn(name = "CTF_ID", referencedColumnName = "ID")
   private CtfEntity ctf;
 
   @Id
   @ManyToOne
-  @JoinColumn(name = "user_account_id", referencedColumnName = "id")
+  @JoinColumn(name = "USER_ACCOUNT_ID", referencedColumnName = "ID")
   @ToString.Exclude
   @EqualsAndHashCode.Exclude
   private UserEntity solver;
 
-  @Column(name = "points")
+  @Column(name = "POINTS")
   private Integer points;
 
-  @Column(name = "timestamp")
+  @Column(name = "TIMESTAMP")
   private Instant timestamp;
 
-  @Column(name = "rank")
+  @Column(name = "RANK")
   private Integer rank;
 }

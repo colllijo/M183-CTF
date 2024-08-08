@@ -16,7 +16,7 @@ export class AdministrationEffects {
       exhaustMap(() =>
         this.administrationService.getUsers1().pipe(
           map((response: CollectionModelUserDetailsResponse) => {
-            return AdministrationActions.getUserDetailsSuccess({ users: response._embedded?.UserDetailsCollection ?? [] });
+            return AdministrationActions.getUserDetailsSuccess({ users: response._embedded?.userDetailsCollection ?? [] });
           }),
           catchError((response: HttpErrorResponse) => {
             return of(
@@ -36,7 +36,7 @@ export class AdministrationEffects {
       exhaustMap(() =>
         this.administrationService.getRoles().pipe(
           map((response: CollectionModelRoleResponse) => {
-            return AdministrationActions.getRolesSuccess({ roles: response._embedded?.RoleCollection ?? [] });
+            return AdministrationActions.getRolesSuccess({ roles: response._embedded?.roleCollection ?? [] });
           }),
           catchError((response: HttpErrorResponse) => {
             return of(

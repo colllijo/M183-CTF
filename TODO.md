@@ -25,7 +25,8 @@
 
 ## Umsysteme
 
-- [ ] Unterschiedliche Datenbanken testen (PostgreSQL, MariaDB, Neo4j, MongoDB, CockroachDB)
+- [ ] Unterschiedliche Datenbanken testen (PostgreSQL, MariaDB)
+- [ ] Evtl. NoSQL / Graph Datenbanken benutzen (Dafür muss jedoch das ganze Datenmodell neugeschrieben werden) (MongoDB, Neo4j)
 
 ## Monitoring
 

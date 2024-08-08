@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+  <changeSet author="colllijo" id="2024-08-08-normalizeArrayInRole">
+    <createTable tableName="PERMISSION">
+      <column name="PERMISSION" type="VARCHAR(64)">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="ROLE_ID" type="BIGINT">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+    </createTable>
+
+    <addForeignKeyConstraint
+      baseTableName="PERMISSION"
+      baseColumnNames="ROLE_ID"
+      constraintName="FK_PERMISSION_ROLE"
+      referencedTableName="ROLE"
+      referencedColumnNames="ID"
+    />
+
+    <!-- <dropColumn tableName="ROLE"> -->
+    <!--   <column name="PERMISSIONS" /> -->
+    <!-- </dropColumn> -->
+  </changeSet>
+</databaseChangeLog>

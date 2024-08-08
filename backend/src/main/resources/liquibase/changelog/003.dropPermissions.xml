@@ -9,8 +9,8 @@
     <dropTable tableName="PERMISSION"
       cascadeConstraints="true" />
 
-    <addColumn tableName="ROLE">
-      <column name="PERMISSIONS" type="VARCHAR(512) ARRAY" />
-    </addColumn>
+    <!-- <addColumn tableName="ROLE"> -->
+    <!--   <column name="PERMISSIONS" type="VARCHAR(512) ARRAY" /> -->
+    <!-- </addColumn> -->
   </changeSet>
 </databaseChangeLog>

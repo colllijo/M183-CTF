@@ -17,7 +17,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -29,7 +28,6 @@ import io.restassured.module.mockmvc.RestAssuredMockMvc;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@ContextConfiguration
 @WithMockUser
 class CtfControllerTest {
   @Autowired
@@ -168,7 +166,6 @@ class CtfControllerTest {
       .when()
         .post("/ctf/ctf1")
       .then()
-        .log().all()
         .statusCode(200)
         .body("points", equalTo(42))
         .body("rank", equalTo(3));

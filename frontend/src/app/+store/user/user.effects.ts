@@ -14,7 +14,7 @@ export class UserEffects {
       exhaustMap((action) =>
         this.userService.getUsers({ body: action }).pipe(
           map((response: CollectionModelUserInfoResponse) => {
-            return UserActions.getUsersSuccess({ users: response._embedded?.UserInfoCollection ?? [] });
+            return UserActions.getUsersSuccess({ users: response._embedded?.userInfoCollection ?? [] });
           }),
           catchError(() => {
             return of(

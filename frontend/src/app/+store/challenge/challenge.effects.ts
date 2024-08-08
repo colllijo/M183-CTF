@@ -70,7 +70,7 @@ export class ChallengeEffects {
         this.ctfService.getCtfs().pipe(
           map((response: CollectionModelCtfResponse) => {
             return ChallengeActions.getAllChallengesSuccess({
-              challenges: response._embedded?.CtfCollection ?? []
+              challenges: response._embedded?.ctfCollection ?? []
             });
           }),
           catchError((response: HttpErrorResponse) => {

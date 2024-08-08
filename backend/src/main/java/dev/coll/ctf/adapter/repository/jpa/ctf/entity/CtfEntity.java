@@ -28,23 +28,23 @@ import lombok.ToString;
 public class CtfEntity {
   @Id
   @GeneratedValue(strategy = IDENTITY)
-  @Column(name = "id")
+  @Column(name = "ID")
   private Long id;
 
-  @Column(name = "name", unique = true)
+  @Column(name = "NAME", unique = true)
   private String name;
 
-  @Column(name = "description")
+  @Column(name = "DESCRIPTION")
   private String description;
 
   @ManyToOne
-  @JoinColumn(name = "author_id")
+  @JoinColumn(name = "AUTHOR_ID")
   private UserEntity author;
 
-  @Column(name = "flag")
+  @Column(name = "FLAG")
   private String flag;
 
-  @Column(name = "file_path")
+  @Column(name = "FILE_PATH")
   private String filePath;
 
   @OneToMany(mappedBy = "ctf", fetch = EAGER)

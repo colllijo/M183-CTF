@@ -30,29 +30,29 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
   @Id
   @GeneratedValue(strategy = IDENTITY)
-  @Column(name = "id")
+  @Column(name = "ID")
   private Long id;
 
-  @Column(name = "username", unique = true, nullable = false)
+  @Column(name = "USERNAME", unique = true, nullable = false)
   private String username;
 
-  @Column(name = "password", nullable = false)
+  @Column(name = "PASSWORD", nullable = false)
   private String password;
 
-  @Column(name = "email", nullable = false)
+  @Column(name = "EMAIL", nullable = false)
   private String email;
 
   @OneToMany(mappedBy = "solver", fetch = EAGER)
   private Set<SolveEntity> solves;
 
-  @Column(name = "active")
+  @Column(name = "ACTIVE")
   private boolean active;
 
   @ManyToMany(fetch = EAGER)
   @JoinTable(
     name = "USER_ACCOUNT_ROLE",
-    joinColumns = @JoinColumn(name = "user_account_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id")
+    joinColumns = @JoinColumn(name = "USER_ACCOUNT_ID"),
+    inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
   )
   private Set<RoleEntity> roles;
 }

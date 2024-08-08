@@ -4,7 +4,7 @@ import { Links } from '../models/links';
 import { Role } from '../models/role';
 export interface CollectionModelRoleResponse {
   '_embedded'?: {
-'RoleCollection'?: Array<Role>;
+'roleCollection'?: Array<Role>;
 };
   '_links'?: Links;
 }

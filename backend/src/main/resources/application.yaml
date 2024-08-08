@@ -26,13 +26,22 @@ spring:
     image:
       location: classpath:banner.txt
   datasource:
-    url: jdbc:postgresql://localhost:5432/ctf
-    driver-class-name: org.postgresql.Driver
+    # PostgreSQL
+    # url: jdbc:postgresql://localhost:4224/ctf
+    # driver-class-name: org.postgresql.Driver
+
+    # MariaDB
+    url: jdbc:mariadb://localhost:4224/ctf
+    driver-class-name: org.mariadb.jdbc.Driver
+
     username: ctf
     password: password
   jpa:
     hibernate:
-      ddl-auto: validate
+      # ddl-auto: validate
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     open-in-view: false
   liquibase:
     drop-first: false
